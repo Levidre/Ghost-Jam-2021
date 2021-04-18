@@ -57,7 +57,7 @@ OnFirstBoot
 	if reference0 == 0
 	{
 		//Levidre : This is the dialogue the ghost will have when it boots for the first time. The "\![enter,passivemode]" put the ghost in passive mode to keep the user to interrupt it by double clicking on it for example
-		"\![enter,passivemode]\1\s[10]\0\s[5]Hi!!! \w7I'm Mery and the lil bird here is Lili!\w8\1\s[16]Hi.\w8\0\n\n[half]Nice to meet you!\w7 \s[0]How should we refer to you?\n\n[half]/
+		"\![enter,passivemode]\1\s[10]\0\s[0]Hi.\w7 This is new. \w7Is this a new map? Btw,\w5 how should we refer to you?\n\n[half]/
 		\w5\_q\![*]\q[He/Him/His,choicefirsthehim]\n/
 		\![*]\q[She/Her/Hers,choicefirstsheher]\n/
 		\![*]\q[They/Them/Their,choicefirsttheythem]"
@@ -68,7 +68,7 @@ OnFirstBoot
 	else
 	{
 		//Levidre : this dialogue will only happen if the ghost has already been booted up with the same SSP. This can happen when the user is reinstalling a ghost.
-		"\1\s[10]\0\s[0]This is the alternate OnFirstBoot dialogue."
+		"\0\s[0]This is the alternate OnFirstBoot dialogue."
 	}
 	--
 	//Levidre : This line is for spying other ghosts and reacting to what they say.
@@ -122,7 +122,7 @@ NameInput
 {
 	//Zarla : Note that there's a \![leave,passivemode] tag in this dialogue! Don't forget about this! If you leave them in passivemode they won't talk at all and it'd sort of defeat the purpose, right? I actually forgot this for a while with Hunter and Smoker and didn't notice because OnFirstBoot only runs once, so it took me some testing to find out what was wrong. Always make sure to leave passivemode when you're done with it!
 	
-	"\0Thank you!\w7. \![leave,passivemode]\w7\0\s[0]What is your name?\w8\1By the way, \w5we left passive mode, \w5so now you can open our menu without breaking anything.\w8\0Yeah,\w5 but we wouldn't know you name if you do so. \![open,inputbox,OnNameTeach,-1]\e"
+	"\0Thank you.\w7\![leave,passivemode] It definitely doesn't look like a place I should be and I don't see the other crewmates.\w7 What is your name?\w8\![open,inputbox,OnNameTeach,-1]\e"
 	
 	//Zarla : At the end of this dialogue there's a tag saying "\![open,inputbox,OnNameTeach,-1]". It basically leads to the naming function defined in nameteach.dic, so don't touch it. Make sure it's there though! Otherwise your user won't have a way to put in their name. :o
 	
@@ -199,7 +199,7 @@ OnBoot
 	dayslot = GetDaySlot
 	timeslot = GetTimeSlot
 	
- 	"\1\s[10]\0\s[0]\![set,otherghosttalk,true]\![set,otherghosttalk,before]"
+ 	"\0\s[0]\![set,otherghosttalk,true]\![set,otherghosttalk,before]"
 	--
 	OnGreetingDialogue
 }
@@ -234,27 +234,27 @@ OnGreetingDialogue
 	{
 		if timeslot == "morning" || timeslot == "earlymorning"
 		{
-			"Good morning, \w5%(username).\n"
+			"Good morning.\n"
 		}
 		elseif timeslot == "lunch"
 		{
-			"Hello, \w5%(username).\n\n[half]"
+			"Hello.\n"
 		}
 		elseif timeslot == "afternoon"
 		{
-			"Hello, \w5%(username).\n"
+			"Hello.\n"
 		}
 		elseif timeslot == "evening"
 		{
-			"Good evening, \w5%(username).\n"
+			"Good evening.\n"
 		}
 		elseif timeslot == "latenight"
 		{
-			"Good evening, \w5%(username).\n"
+			"Good evening.\n"
 		}
 		else
 		{
-			"Good  night, \w5%(username).\n"
+			"Good  night.\n"
 		}
 	}
 	--
@@ -262,7 +262,7 @@ OnGreetingDialogue
 	if dayslot == userbirthday 
 	{
 		//Levidre : The \_s tag will make them say the same thing at the same time. You can make them stop by putting a second \_s.
-		"Isn'it %(bornmonthprint) %(borndayprint) your birthday? \w7\s[5]\1\s[15]\_sHappy birthday, %(username)!\e" 
+		"It's %(bornmonthprint) %(borndayprint).\w7 It's your birthday,\w5 right?\w7 Happy birthday.\e" 
 	}
 	--
 	normalboottalk
@@ -272,154 +272,16 @@ normalboottalk
 {
 	if dayslot == "10month 31day"
 	{
-		"It's Halloween!\1And a good occasion for a special dialogue."
-	}
-	elseif weekday == 6 && hour >= 19 //Zarla : This checks if the weekday equals six, meaning saturday AND (using the && operator) if the hour is past 19. You can change these numbers or values to anything you like! As such you can check any combination of date and day and time for potential boot dialogue. You can also add more elseif checks for other days if you want.
-	{
-		"It's Saturday night."
+		"It's Halloween.\w7 But we have much more scary stuff in-board."
 	}
  	else
  	{
-		//Zarla : The following if statements check the time of the day as defined above in the GetTimeSlot function. Do you remember the names that it defined? Now we're going to use them!
-		
-		if timeslot == "earlymorning"
-		{
-			
-		}
-		elseif timeslot == "morning"
-		{
-			
-		}
-		elseif timeslot == "lunch"
-		{
-			
-		}
-		elseif timeslot == "afternoon"
-		{
-			
-		}
-		elseif timeslot == "evening"
-		{
-			
-		}
-		elseif timeslot == "latenight"
-		{
-			
-		}
-		else //Levidre : the missing timeslot is the last one, midnight.
-		{
-		
-		}
+		"Nice break you offer me."
+		"At least I'll survive longer."
+		"I hope everybody won't get killed while I'm away."
+		"At least nobody can vote me out while I'm here."
 	}
 	helloday = (month,day,1)
-}
-
-//Levidre : 
-//This function is for reminding the user something they have on a todo list.
-//There are three todo lists, one for the week, one for the month and one for the year. You can add this in a dialogue with "%(RemindingStuff)" or under with a -- and RemindingStuff
-RemindingStuff
-{
-	_temparray = IARRAY
-	_listlate = ""
-	_listtodo = ""
-	foreach weektodo ; _element
-	{
-		_temparray = SPLIT(_element," : ")
-		_temparray = SPLIT(_temparray[0]," for the ")
-		if ARRAYSIZE(_temparray) <= 1
-		{
-			_temparray = SPLIT(_temparray[0],"/")
-		}
-		else
-		{
-			_temparray = SPLIT(_temparray[1],"/")
-		}
-		_temparray[0] = TOINT(_temparray[0])
-		_temparray[1] = TOINT(_temparray[1])
-		_temparray[2] = TOINT(_temparray[2])
-		
-		if (month == _temparray[0] && day > _temparray[1] + 7) || (month == _temparray[0]+1 && day > (_temparray[1] + 7)%30) || (_temparray[0] == 1 && month == 12 && day > (_temparray[1] + 7)%30) || (_temparray[0] != 12 && year > _temparray[2])
-		{
-			_listlate += "	- %(_element)\n"
-		}
-		elseif (month == _temparray[0] && day > _temparray[1] + 4) || (month == _temparray[0]+1 && day > (_temparray[1] + 4)%30) || (_temparray[0] == 1 && month == 12 && day > (_temparray[1] + 4)%30) || (_temparray[0] != 12 && year > _temparray[2])
-		{
-			_listtodo += "	- %(_element)\n"
-		}
-	}
-	foreach monthtodo ; _element
-	{
-		_temparray = SPLIT(_element," : ")
-		_temparray = SPLIT(_temparray[0]," for the ")
-		
-		if ARRAYSIZE(_temparray) <= 1
-		{
-			_temparray = SPLIT(_temparray[0],"/")
-			_temparray[0] = TOINT(_temparray[0])
-			_temparray[1] = TOINT(_temparray[1])
-			_temparray[2] = TOINT(_temparray[2])
-			if month > _temparray[0] || year > _temparray[2]
-			{
-				_listlate += "	- %(_element)\n"
-			}
-			elseif month == _temparray[0] && day > 25 && day > _temparray[1]
-			{
-				_listtodo += "	- %(_element)\n"
-			}
-		}
-		else
-		{
-			_temparray = SPLIT(_temparray[1],"/")
-			_temparray[0] = TOINT(_temparray[0])
-			_temparray[1] = TOINT(_temparray[1])
-			_temparray[2] = TOINT(_temparray[2])
-			if month > _temparray[0] || year > _temparray[2]
-			{
-				_listlate += "	- %(_element)\n"
-			}
-			elseif month == _temparray[0] && day > 25 && day > _temparray[1]
-			{
-				_listtodo += "	- %(_element)\n"
-			}
-		}
-		
-	}
-	
-	foreach normaltodo ; _element
-	{
-		_temparray = SPLIT(_element," : ")
-		_temparray = SPLIT(_temparray[0]," for the ")
-		_temparray = SPLIT(_temparray[1],"/")
-		//_test = 
-		if ARRAYSIZE(_temparray) == 3
-		{
-			
-			_temparray[0] = TOINT(_temparray[0])
-			_temparray[1] = TOINT(_temparray[1])
-			_temparray[2] = TOINT(_temparray[2])
-			
-			if (month == _temparray[0] && day > _temparray[1]) || (month > _temparray[0] && year == _temparray[2]) || year > _temparray[2]
-			{
-				_listlate += "	- %(_element) %(_test)\n"
-			}
-			elseif ((month+1)%12 >= _temparray[0] && (day + 5)%30 >= _temparray[1]) || (month == _temparray[0] && day+5 >= _temparray[1])
-			{
-				_listtodo += "	- %(_element)\n"
-			}
-		}
-		
-	}
-	if _listlate != ""
-	{
-		"\0\b2You're late for those :\n\n\n[half]\_q%(_listlate)\n\n[half]\_q"
-	}
-	--
-	if _listtodo != ""
-	{
-		"\0\b2You should do this ones :\n\n\n[half]\_q%(_listtodo)\n\n[half]\_q"
-	}
-	
-	
 }
 
 //--OnClose
@@ -430,60 +292,12 @@ OnClose
 	timeslot = GetTimeSlot
 	if passmin >= 5 || passhour >= 1	//Zarla : This checks to see if you've had them open for at least five minutes.
 	{
-		if timeslot == "earlymorning"
-		{
-			
-		}
-		elseif timeslot == "morning"
- 		{
-			if passhour >= 10
-			{
-				
-			}
-			else
-			{
-				
-			}
- 		}
- 		elseif timeslot == "lunch"
- 		{
- 			
- 		}
-		elseif timeslot == "afternoon"
-		{
-			
-		}
-		elseif timeslot == "evening"
-		{
-			if weekday == 6 //Zarla : here, a nested if statement is checking that if it's evening, is it also saturday? You can do this to check more specific times on other days as well. You can change this to some other day if you want, or just delete this little if/else section entirely and write your own evening related close dialogue.
-			{
-				
-			}
- 			else //Zarla : if it's not saturday, then it'll do this dialogue instead.
- 			{
-						
- 			}
- 		}
-		elseif timeslot == "latenight"
-	 	{
- 			if weekday == 6 //Zarla : This is the same check as above to see if it's Saturday. Note that this doesn't have an else statement! Sometimes you can get away with that, but make sure you test thoroughly.
-			//Zarla : Of course, you can also cut this check entirely if you want.
- 			{
- 				
- 			}
-		}
-		else //Zarla : like above, this is the midnight time slot since it's the last one left.
- 		{
- 			if weekday == 0 //Zarla : checking if it's the middle of the night on Sunday
- 			{
- 				
- 			}
-		}
-				
+		"I hope not everybody got killed."
+		"I hope I'm not the last crewmate alive."
  	}	
  	else //Zarla : This dialogue is for if they haven't been open for at least five minutes.
  	{
- 		
+ 		"This short absence will sure make me sus."
  	}
 	SAVEVAR
 	--
@@ -517,13 +331,13 @@ OnWindowStateRestore
 OnGhostChanging
  {
 	//Levidre : reference0 is the name of the ghost it's switching to.
-	if reference0 == "Mery"
+	if reference0 == "Crewmate"
 	{
-		"\0Well,\w5 fine."
+		"\0Fine."
 	}
  	else
 	{
-		"\0Good bye. \w7Have fun with %(reference0)!\w8\w8"
+		"It's %(reference0)'s turn to be safe here. I see.\w8\w8"
 	}
 }
 
@@ -534,7 +348,7 @@ OnGhostChanging
 
 OnGhostChanged
 {
-	"\1\s[10]\0\s[0]"
+	"\0\s[0]"
 	--
 	if reference0 == "Mery"
 	{
@@ -551,9 +365,9 @@ OnGhostChanged
 		nbconv = 0
 		dayslot = GetDaySlot
 		timeslot = GetTimeSlot	
-		"\1\s[10]\0\s[0]\![set,otherghosttalk,true]\![set,otherghosttalk,before]"
+		"\0\s[0]\![set,otherghosttalk,true]\![set,otherghosttalk,before]"
 		--
-		"\0Goodbye, %(reference0). \w7Hi %(username)!\e"
+		"Hi %(username).\e"
 	}
 }
 
@@ -583,42 +397,11 @@ OnDressupChanged
 {
 	if reference0 == 0 //Zarla : in OnDressupChanged, reference0 refers to the character, therefore this is evaluating which character in question is getting dressed up. 0 is the main character, as you know from the walkthrough by now.
 	{
-		if reference1 == "Clothing for Girl" //Zarla : This is the name of the clothing item in the descript.txt file, I'm pretty sure.
-		{
-			if reference2 == 1 //Zarla : This checks if you're putting it on.
-			{
-				"\0\s[10]You put my clothing item on me.\w8lol like zar would ever bother with clothes for a ghost.\w8\n\n[half]Shut up dude you're going to get us in trouble.\e"
-			}
-			else //Zarla : This checks if you're taking it off.
-			{
-				"\0\s[10]You took the clothing item off.\e"
-			}
-		}		
+		"..."		
 	}
 	else //Zarla : if reference0 isn't the main character, then it has to be the side character.
 	{
-		if reference1 == "some kind of clothing for triangle??" //Zarla : The name of the item of clothing in the descript.txt file in your shell folder.
-		{
-			if reference2 == 1 //If you put it on
-			{
-				"\1\s[1]I'm wearing some kind of clothing.\w8Maybe a hat?\e"
-			}
-			else //When you take it off.
-			{
-				"\1\s[1]You took off some kind of clothing.\e"
-			}
-		}
-		elseif reference1 == "i'm gonna say a propeller beanie" //Zarla : As you've seen above, you can use elseifs to expand the list if you have more than one item.
-		{
-			if reference2 == 1 //Zarla : if you're putting it on
-			{
-			"\1\s[1]You put a hat on me.\w8lol.\w8\1\n\n[half]Shaddap.\e"
-			}
-			else //Zarla : when you take it off
-			{
-			"\1\s[1]You took off the hat.\e"
-			}
-		}
+		
 	}
 }
 
