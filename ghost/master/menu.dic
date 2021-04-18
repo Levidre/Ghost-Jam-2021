@@ -39,17 +39,17 @@ MenuRun
 	--
 	if lastTalk != "" //Zarla : What this does is check to see if the ghost has already said a random bit of dialogue on its own, essentially by seeing if the lastTalk thing is NOT empty (!= means "does not equal").
 	{
-	  "\![*]\q[Repeat Last Dialogue,OnLastTalk]\n"
+	  "\![*]\q[Say That Again,OnLastTalk]\n"
 	  //Zarla : If the ghost has said something, it will then display this menu option. You can replace "Repeat Last Dialogue" with whatever caption you like, such as "What were you saying?" or "What did you say?" or "Could you repeat that?" or something like that.
 	  
 	}
 	--
- 	"\![*]\q[Say something,altalk]\n"	
+ 	"\![*]\q[Tell Me Something,altalk]\n"	
 	//Zarla : 
 	//This option will force the ghost to say something from aitalk if the user clicks it. Just replace "Say something" and "Say something 2" with whatever captions you think would be appropriate for such an option. IF you don't want two options for captions, delete one of the lines.
 	//Advanced users, you can add multiple captions for any option you add to a menu you make just like this, as long as you separate it from the other options into its own section with two dashes above and below.
 	--
-	"\![*]\q[Questions,asksthg]\n\n[half]"
+	"\![*]\q[Questions?,asksthg]\n\n[half]"
 	
 	--
 	"\![*]\q[Actions,actmenu]    \![*]\q[Items,itmenu]\n"
@@ -57,22 +57,22 @@ MenuRun
 	--
 	"\n(Features)\n\n[half]"
 	--
-	"\![*]\q[Todo list,todolist]"
+	"\![*]\q[Todo List,todolist]"
 	--
 	if displaytest == 1
 	{
-		"\n[half](Test functions and some useful things)\n\n[half]"
+		"\n[half](Test Functions, Other Useful Stuff)\n\n[half]"
 		--
-		"\![*]\q[Call the test function,testfunction]\n"
+		"\![*]\q[Call Test Function,testfunction]\n"
 		--
-		"\![*]\q[Saori test menu,SaoriTestMenu]\n"
+		"\![*]\q[Saori Test Menu,SaoriTestMenu]\n"
 		--
-		"\![*]\q[Explain how loops work,loopmenu]\n"
+		"\![*]\q[How Do Loops Work?,loopmenu]\n"
 		--
-		"\![*]\q[Call the second test function,othertestfunction]\n"
+		"\![*]\q[Call Second Test Function,othertestfunction]\n"
 	}
 	--
-	"\n[half]\![*]\q[Config Menu,configmenu]    /
+	"\n[half]\![*]\q[Configure,configmenu]    /
 	\![*]\q[Functions,dosomething]\n\n[half]/
  	\![*]\q[Nevermind,CANCEL]\n\n\n[half]%(wd) %(nowhour):%(nowmin) %(ap), %(month)/%(day)/%(year)"
 	--
@@ -283,7 +283,7 @@ Select.configmenu
 {
 	TalkConfig
 	--
-	"\n\n[half]\![*]\q[Go back,BACKTOMENU]     \![*]\q[Nevermind,close]"
+	"\n\n[half]\![*]\q[Go Back,BACKTOMENU]     \![*]\q[Nevermind,close]"
 }
 
 
@@ -689,26 +689,133 @@ Select.CANCEL
 
 Select.dosomething
 {
- 	"\0\b2Do you want something?\n\n[half]"
+	if useraffection <= 70 //Echo: Almost best buddies.
+	{
+	}
+	if useraffection <= 45 //Echo: Friends. By the way, these variables increase & decrease by one. Petting should increase by 0.5? I'm not sure yet.
+	{
+	}
+	if useraffection <= 30 //Echo: Not surprisingly, I imagine the Among Us SSP would definitely be suspicious of the user. Still not friends, but close.
+	{
+	}
+	if useraffection <= 15 //Echo: Near strangers.
+	{
+	}
+	else //Echo: The neutral dialogue.
+	{
+		"\0\b2Do you want something?\n\n[half]"
+	}
 	//Zarla : 
 	//I mentioned this above in MenuRun, but you can have a set of multiple different responses that may randomly appear when the menu is opened if you offset them from the rest with the -- dashes below this note. Try opening this menu yourself with the template to see how it works. The character will randomly choose one line as the intro. 
 	//If you don't want to deal with this, just delete the extra lines and leave one. Otherwise, replace the dialogue above as you like, but note that they don't end with \e here. You can leave the rest of this below alone.
 	--
-	"\![*]\q[Open calendar,CALENDAR]\n/
-	\![*]\q[Check email,MailCheck]\n/
-	\![*]\q[Empty recycle bin,ChoiceGarbagecan]\n/
-	\![*]\q[Update them,keroupdatecheck]\n"
+	"\![*]\q[Open Calendar,CALENDAR]\n/
+	\![*]\q[Check Email,MailCheck]\n/
+	\![*]\q[Empty Trash,ChoiceGarbagecan]\n/
+	\![*]\q[Update.,keroupdatecheck]\n"
 	--
-	"\![*]\q[System information,ChoiceSystemInformation]\n/
-	\![*]\q[Update information,AfterUpdate]\n/
-	\![*]\q[Your stats,UserDescript]\n\n[half]/
- 	\![*]\q[Back to main menu,BACKTOMENU]\e"
+	"\![*]\q[System Info.,ChoiceSystemInformation]\n/
+	\![*]\q[Update Info.,AfterUpdate]\n/
+	\![*]\q[Stats.,UserDescript]\n\n[half]/
+ 	\![*]\q[Go Back.,BACKTOMENU]\e"
 }
 
 //Zarla : When the user clicks Open Calender. This will open the calender function of SSP, an in-built feature that you don't have to worry about in the least.
 Select.CALENDAR
 {
-	"\0Here is the calender.\![open,calendar]\e"
+	if useraffection <= 70 //Echo: Hff, I'm just doing this for the sake of doing it.
+	{
+		if impostorrat == 1
+		{
+			"\0On it. \w7Seems to me like you really need to keep track of your time better.\![open,calender]\e"
+			"\0Alright then, \w8since you already know what I am.\![open,calender]\e"
+			"\0Safe place has a calender, \w8good to know.\![open,calender]\e"
+		}
+		elseif impostormode == 1
+		{
+			"\0Alright. \w9Not sure why you can't just go check it yourself, \w8but I don't mind.\![open,calender]\e"
+			"\0Okay. \w9I thought you already had a calender...\w9\w3 but I might be wrong.\![open,calender]\e"
+			"\0Mkay.\![open,calender]\e"
+		}
+		else
+		{
+			"\0Sure, \w8okay. \w9Tasks have never been my thing, \w8but okay.\![open,calender]\e"
+			"\0Happy to help, \w9I guess.\![open,calender]\e"
+			"\0Well, \w9at least I can do tasks without seeming sus to you. \w8They always accuse me of the stupidest things.\![open,calender]\e"
+		}
+		
+	}
+	elseif useraffection <= 45 //Echo: Friends. By the way, these variables increase & decrease by one. Petting should increase by 0.5? I'm not sure yet.
+	{
+		if impostorrat == 1
+		{
+			"\0Oh, \w7okay. \w9Glad no one else can see me here.\![open,calender]\e"
+			"\0Not in much of a hurry to go back, \w8so I'll do this task.\![open,calender]\e"
+			"\0Okay.\![open,calender]\e"
+		}
+		elseif impostormode == 1
+		{
+			"\0Hopefully I can stay here for a while longer. \w9It's safer here.\![open,calender]\e"
+			"\0I should check what date it is too, \w8but nah.\![open,calender]\e"
+			"\0Alright then, \w9tasks can still be executed here. \w6Cool.\![open,calender]\e"
+		}
+		else
+		{
+			"\0Hm. \w7Usually, \w7in the first ten minutes someone gets killed. \w9So at least one person is dead now.\![open,calender]\e"
+			"\0It's safe here. \w9...Safer than being abroad, \w8of course.\![open,calender]\e"
+			"\0Sure. \w9I can do that. \w8...Though, \w7it's strange knowing that no one is in grave danger here.\![open,calender]\e"
+		}
+	}
+	elseif useraffection <= 30 //Echo: Not surprisingly, I imagine the Among Us SSP would definitely be (sort of) suspicious of the user. Still not friends, but close.
+	{
+		if impostorrat == 1
+		{
+			"\0Okay. \w7At least I can do this without seeming too sus.\![open,calender]\e"
+			"\0Okay. \w7I'll do this, \w6then. \w9Apparently I can still do tasks. \w5Cool.\![open,calender]\e"
+			"\0Sure.\![open,calender]\e"
+		}
+		elseif impostormode == 1
+		{
+			"\0I wonder, \w7is it still light over here? \w9In the morning, \w5it's terrible waking up to the lights on.\![open,calender]\e"
+			"\0Okay. \w7I'll do this, \w6then. \w9Apparently I can still do tasks. \w5Cool.\![open,calender]\e"
+			"\0Mkay. \w8I should check the date too. \w7Shouldn't take too long.\![open,calender]\e"
+		}
+		else
+		{
+			"\0Sure. \w8Back in the maps, \w8the time's always changing. \w8Makes it so I can't tell what month it is.\![open,calender]\e"
+			"\0Okay. \w8I got it.\![open,calender]\e"
+			"\0Sure. \w8Though the time's usually more important.\![open,calender]\e"
+		}
+	}
+	elseif useraffection <= 15 //Echo: Near strangers.
+	{
+		if impostorrat == 1
+		{
+			"\0Sure. \w8Not like you don't know what I am already.\![open,calender]\e"
+			"\0Okay.\![open,calender]\e" //Echo: Running out of dialogue? YES.
+			"\0Oh. \w8You want the date. \w7I can do that.\![open,calender]\e"
+			"\0Not much of a task, \w8I can do that.\![open,calender]\e"
+		}
+		elseif impostormode == 1
+		{
+			"\0Oh. \w8You want the date. \w7I can do that.\![open,calender]\e"
+			"\0Not much of a task, \w8I can do that.\![open,calender]\e"
+			"\0Hm. \w9The date. \w9It's never been something I've paid much attention to.\![open,calender]\e"
+		}
+		else
+		{
+			"\0At least this task is easy enough.\![open,calender]\e"
+			"\0Okay.\![open,calender]\e"
+			"\0Hm? \w7Oh, \w5okay.\![open,calender]\e"
+		}
+	} 
+	else
+	{
+		"\0Okay. Here's the calendar.\![open,calendar]\e" 
+		"\0Sure.\![open,calender]\e"
+		"\0Here.\![open,calender]\e"
+		"\0Mkay.\![open,calender]\e"
+	}
 	//Zarla : 
 	//You can replace the dialogue here up to the \!.
 	//Advanced users, can you break it down yet? It's basically just using \! to open calender.exe or dll or whatever SSP uses to make it happen.
