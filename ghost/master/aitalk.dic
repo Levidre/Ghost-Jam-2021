@@ -1,0 +1,277 @@
+﻿//---------------------------AI Talk--------------------------
+//Zarla :
+//Alright, this is it! The bread and butter of your ghost. This is where all their random conversations are stored. Of all the .dic files, this is the one you will probably be adding stuff to and updating the most as new dialogue comes to your mind. It is relatively simple in that there aren't many functions or real coding involved with this file, but there are a few cool tricks you can do within randomtalk that can make dialogue with interesting effects, so I'll point them out as we go along.
+
+//Make sure to read the walkthrough (http://www.ashido.com/ukagaka/walkthrough.html) for more details about how to properly format ghost dialogue!
+//I will reiterate that you should be editing these in Notepad++, and in particular, you should set the Language to C (or Java I guess) to properly highlight all the text. It will make things A LOT EASIER for you, trust me! It will also help you keep track of your brackets in case you forget some. If you click on a line with a bracket in Notepad++, it should highlight where the other bracket ends, or turn purple if there's no finishing bracket (which you should definitely fix!)
+//It will also highlight my commented lines in green, so you'll know where they are. Any line beginning with // is a commented line that the code will not read. It's just for your reference!
+
+//--AiTalk
+//Zarla : Advanced users, this is mostly setting up whether or not dialogue is in a chain before it displays. Again, you can leave it alone unless you want to screw around with chains for some strange reason.
+
+AiTalk
+ {
+
+	if RAND(100) < communicateratio
+ 	{
+ 		StartCommunicate
+	}
+ 	else
+	{
+		
+ 		if mikireflag == 0
+		{
+			
+			if CHAIN.IDName == "" {
+				
+ 				lastTalk = RandomTalk
+			}
+			else {
+				lastTalk = ChainTalk
+			}
+			lastTalk
+		}
+ 		else
+		{ 
+		MikireTalk
+ 		}
+	}
+ }
+
+
+//--RandomTalk 
+//Zarla :
+ //Alright, here we go! This is where ALL your ghost's random dialogue will go! These are the conversations that they'll have with you or each other that pop up depending on the talk rate defined in menu.dic (or if you ignored that, set in bootend.dic in the first boot, which would be every five minutes).
+ 
+
+RandomTalk //: nonoverlap
+{
+	//Levidre :
+	//There is something in bootend that is filling dayslot.
+	//You can use it to change what dialogues are displayed depending on what day it is. For exemple you have here 50% of chance of getting an Halloween related dialogu.e
+	//It can be useful for special days as celebrations
+
+	if dayslot == "10month 31day"
+	{
+		if RAND(2) == 1
+		{
+			NormalTalk
+		}
+		else
+		{
+			HalloweenTalk
+		}
+	}
+	else
+	{
+		NormalTalk
+	}
+}
+
+//Levidre :
+//Here you have your normal dialogues
+NormalTalk
+{	
+	if ARRAYSIZE(ghostexlist) != 0
+	{
+		index = RAND(ARRAYSIZE(ghostexlist))
+		"\![raise,OnStartCom]"
+	}
+	
+	
+	
+}
+
+
+//Levidre :
+//Here you have Halloween related dialogues
+HalloweenTalk
+{
+	"\0This is a spooky dialogue.\e"
+	"\0It's Halloween.\e"
+}
+
+//Levidre :
+//This function is for starting a communication with an other ghost.
+OnStartCommunication
+{
+	//Levidre : To talk to an other ghost, you just need to set res_reference0 to the name of the ghost you want to talk to.
+	res_reference0 = ghostexlist[index]
+	conversation = "started"
+	//Levidre : You can check to what ghost you will talk
+	if ghostexlist[index] == "AGhost"
+	{
+		"\0Hello special unknown ghost.\e"
+	}
+	else
+	{
+		"\0Hello you there!\e"
+	}
+}
+
+
+//--Chains
+//Zarla : Here is where you will put your bits of chain dialogue. They are outside of RandomTalk, which makes them a bit more flexible as I mentioned above. As you can see, this function is called "firstchain", which was the same tag we put at the end of the chain in aitalk with \e:chain=firstchain.
+
+firstchain
+{{CHAIN
+	"\0\s[10]Here is the second part of the chain.\w8Will there be more?\e:chain=end"
+}}CHAIN
+
+//Zarla :
+//Pay careful attention to the CHAIN text and double brackets for these. Double brackets, CHAIN, dialogue, double brackets, CHAIN. If you are planning on making chains, I'd recommend just copying and pasting the chain example here and changing the dialogue and name of the function as you need. Less likely for mistakes to happen, you know?
+//Note also it ends with \e:chain=end, basically ending the chain.
+
+secondchain
+{{CHAIN
+	"\0\s[10]This is the second piece of chained dialogue.\1\w8\s[10]This will lead to a third chain.\e:chain=thirdchain"
+}}CHAIN
+
+thirdchain
+{{CHAIN
+	"\0\s[10]This is the third piece of chained dialogue.\1\w8\s[10]This is the end.\e:chain=end"
+}}CHAIN
+
+//Zarla :
+//As you can see, you can chain your chains together to make a very long-running conversation if you want! Just make sure to end the chain when you're done.
+//Alright, we're done with the random converations for now, but there are a few other things in aitalk that we'll need to fill out too.
+
+
+//-OnMinuteChange
+//Zarla : 
+//These are time-related bits of dialogue for your ghost to say. If you're uninterested, you can delete it all except for a line for MikireTalk. So it'd look something like
+//But I think these are kind of neat, so I'd leave them myself.
+
+OnMinuteChange
+{
+	timeslot = GetTimeSlot //Zarla : this tells the ghost what time it is so the time related conversations above will work.
+	dayslot = GetDaySlot
+	
+	if minute == 0 //Zarla : These check what time it is. Here, it's seeing if the minute equals zero...
+	{
+		if hour == 12//Zarla : And the hour equals 12, ie it's noon. You can change this to some other hour if you want.
+		{
+			"\0It's noon!\w7 Time to eat...\e"
+			//Zarla : Replace with appropriate dialogue as you want.
+		}
+		elseif hour == 0 //Zarla : If the hour is zero, aka midnight. Again, you can change this to whatever hour you want to check for.
+		{
+			"\0"
+			//Zarla : Then replace the dialogue with what's appropriate.
+		}
+		else
+		{
+			"\0It's %(hour12) o'clock!\e"
+		}
+	}
+	//Zarla : %(hour12) stores the time. This is a general top of the hour notification. I personally like this because it helps me keep track of time when I've been working on something, so when a ghost is all "Hey it's 3 o clock" I can be like woah really when did that happen. If you think this is annoying though, you can just delete this bit of dialogue to leave this else statement blank, or leave "" in here instead.
+	
+	--
+	//Levidre : mikiretalk is when the ghost is off of the screen, it's highly adviced to keep it since the user needs to know the keyboard controls to bring it bac.k
+	if mikireflag == 1
+	{
+		MikireTalk
+	}
+	elseif aitalkinterval == 0 
+	{
+		//Levidre : You can put animations for when your ghost is set to not talk at all, so it wouldn't stay in the same position forever.
+	}
+}
+
+//--OnSecondChange
+//Zarla : Like the above, this handles what happens every time a second goes by. Most of this you will not have to touch.
+//Levidre : You can make events happen only for a certain amount of time and use this function as a timer.
+
+OnSecondChange
+ {
+	//Levidre : This part is updating all the variables time related
+	if passsec == 60
+ 	{
+	 	passsec = 0
+ 		passmin = passmin + 1
+	}
+ 	else
+ 	{
+	 	passsec = passsec + 1
+	}
+	if passmin == 60
+	{
+		passhour = passhour + 1
+		passmin = 0
+		cumuhour = cumuhour + 1
+	}
+	
+	//Levidre : This part is for when the ghost is back on the screen after having been off of it.
+	if mikireflag == 1 && reference1 == 0
+	{
+		EndMikireTalk
+ 	}
+	mikireflag = reference1
+	--
+	if reference2 == 1
+	{
+ 		//Zarla : This dialogue is for when the two characters are overlapping each other. If you don't want your characters to care, you can just leave this blank.
+		//Levidre : Some devs prefer removing it, others take the occasion to do something special with it. Like picking up a pet if the main character is overlapping with it.
+		
+ 		//"* Me and Triangle are overlapping.\w8\1That's strange since your resolution is %screenwidthx%screenheight, %(username). Shouldn't we have enough space?\4\e"
+		
+		//Zarla :
+		//You can see here the use of two envelopes, screenwidth and screenheight, to tell the user their resolution. Oddly, they are not in parentheses. I'm not sure why this is, but they don't display right otherwise. An odd quirk with these two envelopes.
+		//Note also how Triangle moves away at the end of the dialogue. This is due to the \4 tag. That will make any one character move away from the other if they are able. I talked about this tag and its counterpart tag \5 in the SakuraScript page on the walkthrough.
+	}
+ }
+ 
+
+ //---- MikireTalk ---------------------------------------------------------------------
+ //Zarla : I'm actually a little fuzzy on MikireTalk and what exactly it does since it shows up a lot in odd places, but for the purposes of this function here, what this does is bring up some dialogue when the main character is off the screen.
+ 
+MikireTalk
+ {
+	"\0I'm off the screen.\w7You can push Ctrl-Shift-F12 to bring me back."
+ }
+
+ //----EndMikireTalk--------------------------------------------------------------------
+ //Zarla : For after you bring the character back on screen.
+ 
+EndMikireTalk
+ {
+	"\0'm no longer off the screen.\e"
+ }
+
+
+//**** OnSurfaceRestore *****************************************************************
+//Zarla :
+//OnSurfaceRestore is a handy function. What this does is that after a short period of time, the ghost will go back to its default pose, so you won't have a ghost stuck in one expression for too long. It's also helpful if you've made one of the characters disappear using \s[-1] in dialogue and didn't bring them back at the end of it. This will do that for you.
+//I'm going to comment out the if/else statements in this because the circumstances in which they'd come up seem pretty unlikely and unnecessary if you're just going to be making a simple ghost. You can just leave this function alone and move on if you want. However, if you do want to use them, just uncomment the lines by deleting the slashes and fill in the info as you need.
+
+//*********************Advanced User Info*******************************
+//You can put if statements in OnSurfaceRestore to make exceptions for certain poses, or to make sure that once they're in a certain pose, they stay in that pose. For example, if you turn my Hunter and Smoker ghost into eggplants, there's a check for the their eggplant pose numbers to make sure they STAY eggplants when OnSurfaceRestore is called.
+//You can also use OnSurfaceRestore to clean up things that might be left on the screen, primarily from using p[number]\s[] to call up other objects or characters. Just make sure to add a p[number]\s[-1] to OnSurfaceRestore, and that should get rid of it each time the ghost cleans itself up.
+//***********************************************************************
+
+//Levidre : 
+//In this function, reference0 is the number of the main character surface and reference1 the number of the second character's one
+//This function is called 30 seconds after the last dialogue displayed.
+OnSurfaceRestore
+ {
+	
+ }
+
+ //--OnKeyPress
+ //Zarla : This defines the hotkeys your ghost will use. You can change these to whatever you want, but I don't really know why you would. I'd just leave this alone. Advanced Users can add new hotkeys attached to whatever function if you want.
+
+OnKeyPress
+{
+	if reference0 == "t"
+	{
+	OnAiTalk
+	}
+	elseif reference0 == "r"
+	{
+	OnLastTalk
+	}
+	elseif reference0 == "f1"
+	{
+	"\![open,readme]"
+	}
+}

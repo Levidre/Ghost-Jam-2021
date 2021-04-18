@@ -1,0 +1,213 @@
+﻿//---------------------------The User's Name--------------------------
+//Zarla : 
+//This .dic file has to do with setting the user's name and suffix/prefix. You may recall some of the functions mentioned here from bootend.dic. As you can see, you can spread functions across multiple .dic files if you like! Just remember my note in bootend.dic about the different between OnFunction and Function.
+
+//This file is fairly short, so don't worry! It shouldn't take you too long to finish.
+
+//Make sure to read the walkthrough (http://www.ashido.com/ukagaka/walkthrough.html) for more details about how to properly format ghost dialogue!
+//I will reiterate that you should be editing these in Notepad++, and in particular, you should set the Language to C (or Java I guess) to properly highlight all the text. It will make things A LOT EASIER for you, trust me! It will also help you keep track of your brackets in case you forget some. If you click on a line with a bracket in Notepad++, it should highlight where the other bracket ends, or turn purple if there's no finishing bracket (which you should definitely fix!)
+//It will also highlight my commented lines in green, so you'll know where they are. Any line beginning with // is a commented line that the code will not read. It's just for your reference!
+
+
+//--OnTeachName
+//Zarla : This is called from the config menu in the main character's double click menu when the user says they want to change their name. If you look in menu.dic you'll see the code leading to here.
+
+OnTeachName	
+{
+	if reference0 == "TEACHNAME" //ignore this
+	{
+		"%(lsto)* Huh, \w5so you didn't tell me the right name ?%(lsta)\![open,inputbox,OnNameTeach,-1]\e"
+		//Zarla : This is the bit of dialogue you can rewrite if you want. Note that this line ends with \![open,inputbox,OnNameTeach,-1]. You may recognize this from bootend.dic. Essentially, this will lead to the next function. Make sure you don't delete that tag! The rest you can do whatever with though.
+	}
+	else
+	{
+		//Zarla : This else statement is empty, and I'm mostly pointing this out to mention that you can do this too with your if/elses if you want! An empty else will simply cause your ghost not to do anything. I wouldn't get too crazy with this though.
+	}
+}
+
+
+//--OnNameTeach
+//Zarla : This is where the user inputs their name and the ghost analyzes it. If you want your ghost to have specific responses to certain names, this is where you would add them. If not, you can erase all the way from the initial if down to the else statement, only leaving from ""\0\s[0]Do you want a title?" to "\![*]\q[-san,titlesan]\e". So it'd look something like
+
+//OnNameTeach
+// {
+	//tempname = reference0
+	
+//"\0\s[0]Do you want a title?\w4\n\n[half]\![*]\q[Nope,titlenone]\n"
+	//	--
+	//	if presuffix == "masculine"
+	//	{
+	//	"\![*]\q[Mr.,titlemr]\n/
+	//	\![*]\q[Master,titlemaster]\n"
+	//	}
+	//	elseif presuffix == "feminine" 
+	//	{
+	//	"\![*]\q[Ms.,titlems]\n/
+	//	\![*]\q[Lady,titlelady]\n"
+	//	}
+	//	-- 
+	//	"\![*]\q[-ssi,titlessi]\n/
+	//	\![*]\q[-san,titlesan]\e"
+// }
+
+//Zarla : If you did so. Otherwise, just fill things out as you like.
+
+OnNameTeach
+{
+	tempname = reference0 //Zarla : this stores the name value temporarily in reference0
+	"%(lsto)"
+	--
+	if reference0 == "Mery" || reference0 == "mery" //Zarla : this checks to see if the user input the name "Girl" OR (that's what || means) "girl". You may want to put in a check here if the user tries to name themselves the same name as your characters, since that could be confusing in dialogue. Or just a response to any kind of strange name, like Barack Obama or Cindy Crawford or Mike Nelson or Random Hajile. Or you can prevent certain offensive names if you don't want users using them. Really the power is yours here. The OR operator there with "Girl" and "girl" is to cover people using lowercase as well. More on operators in the walkthrough page on coding.
+	{
+		"\0\s[10]* That's my name.\w8I hope you didn't try to take my name just to bother me.\w7 Chose your own.\![open,inputbox,OnNameTeach,-1]"
+		//Note here that it's using the same tag as above to reopen the text box to let the user put in another name. You can replace the dialogue with whatever as long as you keep the \![open,inputbox,OnNameTeach,-1] tag.
+	}
+	elseif "gaster" _in_ TOLOWER(reference0)
+	{
+		"\0\s[10]* It may be dangerous, \w5you know ? \w7First, he wouldn't appreciate your name's choice \w5and you don't know how he would react and, \w5second, \w8you don't know how this name would affect you. \w7So,\w5 please, \w5don't use it.\![open,inputbox,OnNameTeach,-1]"
+	}
+	elseif reference0 == "" || reference0 == " " || reference0 == "   " //Zarla : This is if the user doesn't put in a name at all, since that'd also get awkward in dialogue. Admittedly if a user REALLY wanted to put a ton of spaces as their name, the OR operators can only go so far, but this situation would mostly come up by accident I'd figure from a user hitting enter too quickly.
+	{
+		username = "NULL" //Zarla : this sets the user's name to NULL.
+		
+		"\0\s[10]* You didn't put in anything.\w8I will call you NULL.\e"
+		//Zarla : You can change this snip to whatever.
+	}
+	elseif TOLOWER(reference0) == "daddy" || TOLOWER(reference0) == "dad" || TOLOWER(reference0) == "mom" || TOLOWER(reference0) == "mama"
+	{
+		"\0\s[10]* Huh ? \w7Nope.\w7 Choose something else.\![open,inputbox,OnNameTeach,-1]"
+	}
+	else //Zarla : if the user put in something not specified above, ie a proper name the ghost can use. 
+	{
+		if reference0 == "aaaaaa" || reference0 == "Aaaaaa" || reference0 == "azerty" || reference0 == "Azerty" || reference0 == "Qwerty" || reference0 == "qwerty"
+		{
+			chename = 1
+			--
+			"\0\s[10]\i[10]* You don't have much imagination.\w7\0\s[21]But I will really have fun in calling you %(reference0).\n\n[half]"
+			--
+			username = reference0
+		}
+		--
+
+		"\0\s[10]* Do you want a title?\w4\n\n[half]\![*]\q[Nope,titlenone]\n"
+		//Zarla : You can replace "\0\s[0]Do you want a title?", but don't touch the rest of it.
+		--
+		if presuffix == "masculine" //Zarla : this value was defined in bootend.dic and menu.dic when the user chose their pronouns. Thus, if someone chose he/him pronouns, they would be able to choose Mr. or Master.
+		{
+		"\![*]\q[Mr.,titlemr]\n/
+		\![*]\q[Master,titlemaster]\n"
+		}
+		elseif presuffix == "feminine" //Zarla : Likewise, if someone chose she/her pronouns, they could choose Ms. or Lady.
+		{
+		"\![*]\q[Ms.,titlems]\n/
+		\![*]\q[Lady,titlelady]\n"
+		}
+		-- //Zarla : the titles after this are gender neutral and will appear for all users. If you want to remove the masculine and feminine titles entirely, just delete from the curly bracket one line up to the double dashes above "if presuffix == "masculine". That should leave only the neutral titles. Make sure to leave a set of double dashes above the neutral titles though.
+		"\![*]\q[-ssi,titlessi]\n/
+		\![*]\q[-san,titlesan]\e"
+		//Zarla : Note that the final line here ends with \e instead of \n/, since it is the final option. If you're copying and pasting to add new options, don't use the final line. More on that in the box below.
+	}
+}
+	//*********************Advanced User Info*******************************
+	//Zarla : 
+	//Adding new titles for your users to use is simply a matter of copy and pasting creatively. You can see how the ghost puts together the title and your name in the Select. sections below. Above, you simply need to add a new option and link it to a new Select. For example, you could add "\![*]\q[Mistress,titlemistress]\n/" between Ms. and Lady up there, then write up a Select.titlemistress below that fits the pattern of the others.
+	
+	//If you are removing the pronoun system entirely, what you'd want to do is erase everything in that else statement above regarding titles and replace it with something like this.
+	//else
+	//{
+	//username = tempname
+	//"\0\s[0]The user is now called %(username).\e"
+	//}
+	//***********************************************************************
+	
+	//Zarla : The following Select.title[word] functions add the title to the user's name, then go to the final step, NameDone. You don't have to touch any of these. Advanced users, notice how these match the linked functions in the choices above.
+	
+Select.titlenone
+{
+		username = tempname
+		NameDone
+}
+
+Select.titlemr
+{
+		username = "Mr. " + tempname
+		NameDone
+}
+
+Select.titlemaster
+{
+		username = "Master " + tempname
+		NameDone
+}
+		
+Select.titlems
+{
+		username = "Ms. " + tempname
+		NameDone
+}
+
+Select.titlelady
+{
+		username = "Lady " + tempname
+		NameDone
+}
+
+Select.titlessi
+{
+		username = tempname + "-ssi"
+		NameDone
+}
+
+Select.titlesan
+{
+		username = tempname + "-san"
+		NameDone
+}
+
+//--NameDone
+//Zarla : This is the final bit of dialogue your ghosts will have when the user changes their name.
+
+NameDone
+{
+	"\0\s[10]%(lsto)* I'm glad to know your name, %(username).\n"
+}
+OnNotifyBalloonInfo
+{
+	currentballoon = reference0
+	--
+	installedballoons = FENUM("..\..\..\..\balloon")
+	
+}
+
+OnBalloondefault
+{
+	if currentballoon != "Z - Undertale"
+	{
+		if "z_undertale" _in_ installedballoons
+		{
+			"\![change,balloon,Z - Undertale]"
+		}
+		else
+		{
+			"%(lsto)* Huh ? \w7You don't have the Undertale's balloon.\w7Guess I will stay like this. \w7You should download it though."
+		}
+	}
+	--
+	"\e"
+}
+
+OnBalloonChange
+{
+	currentballoon = reference0
+	--
+	if currentballoon == "Z - Undertale"
+	{
+		"\0%(lsto)* The best balloon, \w5it's perfect."
+	}
+	else
+	{
+		"\0%(lsto)* I wouldn't keep you from changing the balloon,\w5 but I prefer the Undertale's one."
+	}
+	--
+	"\e"
+}

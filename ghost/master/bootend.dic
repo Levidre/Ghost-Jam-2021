@@ -1,0 +1,659 @@
+﻿//---------------------------Booting and Ending--------------------------
+
+//Zarla : 
+//This .dic file is set aside for booting and ending dialogue, as well as a few other functions. Make sure to read the walkthrough (http://www.ashido.com/ukagaka/walkthrough.html), in particular the page about SakuraScript, for more details about how to properly format ghost dialogue! I don't want to have to repeat myself in every .dic file we go through, we'll both get tired of that by the time we're through, haha.
+//I will however reiterate that you should be editing these in Notepad++, and in particular, you should set the Language to C to properly highlight all the text. It will make things A LOT EASIER for you, trust me! It will also help you keep track of your brackets in case you forget some. If you click on a line with a bracket in Notepad++, it should highlight where the other bracket ends, or turn purple if there's no finishing bracket (which you should definitely fix!)
+//It will also highlight my commented lines in green, so you'll know where they are. Any line beginning with // is a commented line that the code will not read. It's just for your reference!
+
+OnInitialize
+{
+
+}
+
+//--OnFirstBoot--
+
+//Zarla : OnFirstBoot is, as you can probably guess, what happens when your user first boots up your ghost. This is where you'll want to set up an introduction and ask your user for information your ghost will need, like their name and what pronouns they'll be using. This will only run the first time they are booted!
+
+//*********************Advanced User Info*******************************
+//Zarla : 
+//Because this only runs once and under an odd set of circumstances, it can be hard to test if this function is working properly. Trying to run the entire function using \![raise,OnFirstBoot] will instead bring up your alternate dialogue, so sadly you can't check it that way. Because OnFirstBoot has the / slash I talked about in the walkthrough page on scripting, you can't run it very easily through Script Input either unless you do so in pieces, and you won't be able to check your menu options. You CAN however paste it all into your Test Variable in menu.dic, so you can try that instead to test it properly. Only paste your dialogue/choices, not the values, and make sure to delete it from the test variable when you're through.
+
+//If you're going to be adding new variables and values and such, make sure you define them all in OnFirstBoot! You can make any value you want, but it has to equal SOMEthing to exist at first. Then you can do whatever with it.
+//***********************************************************************
+
+
+OnFirstBoot
+{
+	//Levidre : It's here the variables your ghost will be using are being initialised. It's initialising both the variables that needs to be once and the ones that needs to be each boot.
+	dayslot = GetDaySlot
+	timeslot = GetTimeSlot
+ 	lastTalk = "" //Zarla : This is part of how chained conversations work (see aitalk.dic).
+	//Levidre : The three first variables represent the time passed since the boot and the last one the time the ghost spent on your computer
+	passmin = 0 
+	passsec = 0
+	passhour = 0
+	cumuhour = 0
+	
+	conversation = "ready" //Levidre : the two next are used for communication
+	nbconv = 0
+	mikireflag       = 0	//Levidre : It's used for if the ghost is off-screen
+	sleepingtime = 0 //The time she has been asleep
+	username = "USER" //Zarla : This sets a temporary name for the user. It'll be replaced when they tell the ghost their name.
+	stroke = 0 //Zarla :  Sets their being-pet state to zero.
+	nbpets = 0	//Levidre : the number of pets done
+	nbpunched = 0 //Levidre : the number of punches taken
+	teachusername    = 0	//Zarla : Related to them learning your name.
+	aitalkinterval = 400 //Zarla : Their default talk rate.
+	birthdayprint = "????" //Zarla : A temporary value for the user's birthday.
+	talktime = "5 minutes" //Zarla : How the value aitalkinterval will display in the config menu.
+	deleteshitai = "OFF" //Zarla : Sets whether or not the user can uninstall the ghost to "OFF". The user can change it later in the config menu (see menu.dic). 
+	nowshell = "Default shell" //Zarla : This is for a special if check in aitalk.dic to see what shell the ghost is using. You should use the name of your default shell folder here.
+	currentscale = 100
+	useraffection = 0 //Levidre : The affective feelings between the ghost and the user
+	helloday = IARRAY
+	helloday = (month,day,0)
+	
+	//Levidre : reference0 indicates if the ghost has already been installed
+	if reference0 == 0
+	{
+		//Levidre : This is the dialogue the ghost will have when it boots for the first time. The "\![enter,passivemode]" put the ghost in passive mode to keep the user to interrupt it by double clicking on it for example
+		"\![enter,passivemode]\1\s[10]\0\s[5]Hi!!! \w7I'm Mery and the lil bird here is Lili!\w8\1\s[16]Hi.\w8\0\n\n[half]Nice to meet you!\w7 \s[0]How should we refer to you?\n\n[half]/
+		\w5\_q\![*]\q[He/Him/His,choicefirsthehim]\n/
+		\![*]\q[She/Her/Hers,choicefirstsheher]\n/
+		\![*]\q[They/Them/Their,choicefirsttheythem]"
+		
+		//Zarla : Note also the use of the \x and \c tags. Read more about them in the intermediate SakuraScript section of the walkthrough if you're curious.
+		
+	}
+	else
+	{
+		//Levidre : this dialogue will only happen if the ghost has already been booted up with the same SSP. This can happen when the user is reinstalling a ghost.
+		"\1\s[10]\0\s[0]This is the alternate OnFirstBoot dialogue."
+	}
+	--
+	//Levidre : This line is for spying other ghosts and reacting to what they say.
+	"\![set,otherghosttalk,true]\![set,otherghosttalk,before]\e"
+}
+
+//Levidre : You can use this function to reset the variables you want, for example to reset the relationship with the user
+OnResetVariables
+{
+	nbpets = 0	//Levidre : the number of pets done
+	nbpunched = 0 //Levidre : the number of punches taken
+	useraffection = 0 //Levidre : The affective feelings between the ghost and the user
+}
+
+//Levidre : those choices are the pronouns the ghost will use for you
+
+Select.choicefirsthehim
+{
+	presuffix = "masculine"
+	himher = "him"
+	heshe = "he"
+	hisher = "his"
+	--
+	NameInput
+}
+
+Select.choicefirstsheher
+{
+	presuffix = "feminine"
+	himher = "her"
+	heshe = "she"
+	hisher = "her"
+	--
+	NameInput
+}
+
+Select.choicefirsttheythem
+{
+	himher = "them"
+	heshe = "they"
+	hisher = "theirs"
+	--
+	NameInput
+}
+
+
+//--NameInput
+
+
+NameInput
+{
+	//Zarla : Note that there's a \![leave,passivemode] tag in this dialogue! Don't forget about this! If you leave them in passivemode they won't talk at all and it'd sort of defeat the purpose, right? I actually forgot this for a while with Hunter and Smoker and didn't notice because OnFirstBoot only runs once, so it took me some testing to find out what was wrong. Always make sure to leave passivemode when you're done with it!
+	
+	"\0Thank you!\w7. \![leave,passivemode]\w7\0\s[0]What is your name?\w8\1By the way, \w5we left passive mode, \w5so now you can open our menu without breaking anything.\w8\0Yeah,\w5 but we wouldn't know you name if you do so. \![open,inputbox,OnNameTeach,-1]\e"
+	
+	//Zarla : At the end of this dialogue there's a tag saying "\![open,inputbox,OnNameTeach,-1]". It basically leads to the naming function defined in nameteach.dic, so don't touch it. Make sure it's there though! Otherwise your user won't have a way to put in their name. :o
+	
+	//*********************Advanced User Info*******************************
+	//Zarla :
+	//What this tag basically means is that you're calling a function at the end of the dialogue with the \! tag, you are telling it to open, you're telling it to open an inputbox, and you're telling that inputbox to link to a function called OnNameTeach, which is in the nameteach.dic file. Remember what I said about On functions? I talked a bit about this in the SakuraScripting walkthrough page and the coding page.
+	//The -1 at the end determines how long the box will be open until it times out. -1 means it shouldn't time out at all, I think.
+	//***********************************************************************
+}
+
+//--GetTimeSlot
+
+//Zarla : This is another unique function to tell what time of day it is. This is used for specialized dialogue related to the day. If you're uninterested, just ignore it. Either way, don't touch it. If you are going to use it though, make a note of the names used for each chunk of time, like earlymorning or lunch. Those are the names you'll be using later.
+
+GetTimeSlot
+{
+	if hour >= 5 && hour <= 7
+	{
+		"earlymorning"
+	}
+	elseif hour >= 8 && hour <= 10
+	{
+		"morning"
+	}
+	elseif hour >= 11 && hour <= 13
+	{
+		"lunch"
+	}
+	elseif hour >= 14 && hour <= 17
+	{
+		"afternoon"
+	}
+	elseif hour >= 18 && hour <= 20
+	{
+		"evening"
+	}
+	elseif hour >= 21 && hour <= 24
+	{
+		"latenight"
+	}
+	else
+	{
+		"midnight"
+	}
+}
+
+//--GetDaySlot
+
+GetDaySlot
+{
+	"%(month)month %(day)day"
+}
+
+
+//-----------------------Normal Booting----------------------------
+
+//Zarla : From this point on, the dialogue will be for any normal boot of your ghost. You can specialize this for certain days or times if you like, or if you're uninterested, leave it very simple.
+
+
+//--OnBoot
+
+//Zarla : As you can probably guess, OnBoot runs when you boot your ghost. It will run every time you boot your ghost, as a matter of fact.
+
+OnBoot
+ {	
+	//Levidre : As said in OnFirstBoot, some variables could need to be initialised each boot. Here is where to do it.
+	lastTalk = ""
+	passmin = 0
+	passsec = 0	
+	passhour = 0
+	stroke = 0
+	conversation = "ready"
+	nbconv = 0
+	dayslot = GetDaySlot
+	timeslot = GetTimeSlot
+	
+ 	"\1\s[10]\0\s[0]\![set,otherghosttalk,true]\![set,otherghosttalk,before]"
+	--
+	OnGreetingDialogue
+}
+
+//Levidre : This function checks if it's the first time of the day the ghost is booted up. It's using the helloday variable that is storing the date and if the ghost has been booted up.
+OnGreetingDialogue
+{
+	if month > helloday[0]
+	{
+		helloday[2] = 0
+	}
+	elseif month == helloday[0]
+	{
+		if day > helloday[1]
+		{
+			helloday[2] = 0
+		}
+	}
+	if dayslot != "10month 31day"
+	{
+		//Levidre : This is their normal pose
+		"\1\s[10]\0\s[0]"
+	}
+	else
+	{		
+		//Levidre : You can replace this with an halloween pose
+		"\1\s[10]\0\s[0]"
+	}
+	--
+	//Levidre : If the ghost hasn't been booted up, it will greets the user.
+	if helloday[2] != 1 && dayslot != "11month 1day"
+	{
+		if timeslot == "morning" || timeslot == "earlymorning"
+		{
+			"Good morning, \w5%(username).\n"
+		}
+		elseif timeslot == "lunch"
+		{
+			"Hello, \w5%(username).\n\n[half]"
+		}
+		elseif timeslot == "afternoon"
+		{
+			"Hello, \w5%(username).\n"
+		}
+		elseif timeslot == "evening"
+		{
+			"Good evening, \w5%(username).\n"
+		}
+		elseif timeslot == "latenight"
+		{
+			"Good evening, \w5%(username).\n"
+		}
+		else
+		{
+			"Good  night, \w5%(username).\n"
+		}
+	}
+	--
+
+	if dayslot == userbirthday 
+	{
+		//Levidre : The \_s tag will make them say the same thing at the same time. You can make them stop by putting a second \_s.
+		"Isn'it %(bornmonthprint) %(borndayprint) your birthday? \w7\s[5]\1\s[15]\_sHappy birthday, %(username)!\e" 
+	}
+	--
+	normalboottalk
+}
+
+normalboottalk
+{
+	if dayslot == "10month 31day"
+	{
+		"It's Halloween!\1And a good occasion for a special dialogue."
+	}
+	elseif weekday == 6 && hour >= 19 //Zarla : This checks if the weekday equals six, meaning saturday AND (using the && operator) if the hour is past 19. You can change these numbers or values to anything you like! As such you can check any combination of date and day and time for potential boot dialogue. You can also add more elseif checks for other days if you want.
+	{
+		"It's Saturday night."
+	}
+ 	else
+ 	{
+		//Zarla : The following if statements check the time of the day as defined above in the GetTimeSlot function. Do you remember the names that it defined? Now we're going to use them!
+		
+		if timeslot == "earlymorning"
+		{
+			
+		}
+		elseif timeslot == "morning"
+		{
+			
+		}
+		elseif timeslot == "lunch"
+		{
+			
+		}
+		elseif timeslot == "afternoon"
+		{
+			
+		}
+		elseif timeslot == "evening"
+		{
+			
+		}
+		elseif timeslot == "latenight"
+		{
+			
+		}
+		else //Levidre : the missing timeslot is the last one, midnight.
+		{
+		
+		}
+	}
+	helloday = (month,day,1)
+}
+
+//Levidre : 
+//This function is for reminding the user something they have on a todo list.
+//There are three todo lists, one for the week, one for the month and one for the year. You can add this in a dialogue with "%(RemindingStuff)" or under with a -- and RemindingStuff
+RemindingStuff
+{
+	_temparray = IARRAY
+	_listlate = ""
+	_listtodo = ""
+	foreach weektodo ; _element
+	{
+		_temparray = SPLIT(_element," : ")
+		_temparray = SPLIT(_temparray[0]," for the ")
+		if ARRAYSIZE(_temparray) <= 1
+		{
+			_temparray = SPLIT(_temparray[0],"/")
+		}
+		else
+		{
+			_temparray = SPLIT(_temparray[1],"/")
+		}
+		_temparray[0] = TOINT(_temparray[0])
+		_temparray[1] = TOINT(_temparray[1])
+		_temparray[2] = TOINT(_temparray[2])
+		
+		if (month == _temparray[0] && day > _temparray[1] + 7) || (month == _temparray[0]+1 && day > (_temparray[1] + 7)%30) || (_temparray[0] == 1 && month == 12 && day > (_temparray[1] + 7)%30) || (_temparray[0] != 12 && year > _temparray[2])
+		{
+			_listlate += "	- %(_element)\n"
+		}
+		elseif (month == _temparray[0] && day > _temparray[1] + 4) || (month == _temparray[0]+1 && day > (_temparray[1] + 4)%30) || (_temparray[0] == 1 && month == 12 && day > (_temparray[1] + 4)%30) || (_temparray[0] != 12 && year > _temparray[2])
+		{
+			_listtodo += "	- %(_element)\n"
+		}
+	}
+	foreach monthtodo ; _element
+	{
+		_temparray = SPLIT(_element," : ")
+		_temparray = SPLIT(_temparray[0]," for the ")
+		
+		if ARRAYSIZE(_temparray) <= 1
+		{
+			_temparray = SPLIT(_temparray[0],"/")
+			_temparray[0] = TOINT(_temparray[0])
+			_temparray[1] = TOINT(_temparray[1])
+			_temparray[2] = TOINT(_temparray[2])
+			if month > _temparray[0] || year > _temparray[2]
+			{
+				_listlate += "	- %(_element)\n"
+			}
+			elseif month == _temparray[0] && day > 25 && day > _temparray[1]
+			{
+				_listtodo += "	- %(_element)\n"
+			}
+		}
+		else
+		{
+			_temparray = SPLIT(_temparray[1],"/")
+			_temparray[0] = TOINT(_temparray[0])
+			_temparray[1] = TOINT(_temparray[1])
+			_temparray[2] = TOINT(_temparray[2])
+			if month > _temparray[0] || year > _temparray[2]
+			{
+				_listlate += "	- %(_element)\n"
+			}
+			elseif month == _temparray[0] && day > 25 && day > _temparray[1]
+			{
+				_listtodo += "	- %(_element)\n"
+			}
+		}
+		
+	}
+	
+	foreach normaltodo ; _element
+	{
+		_temparray = SPLIT(_element," : ")
+		_temparray = SPLIT(_temparray[0]," for the ")
+		_temparray = SPLIT(_temparray[1],"/")
+		//_test = 
+		if ARRAYSIZE(_temparray) == 3
+		{
+			
+			_temparray[0] = TOINT(_temparray[0])
+			_temparray[1] = TOINT(_temparray[1])
+			_temparray[2] = TOINT(_temparray[2])
+			
+			if (month == _temparray[0] && day > _temparray[1]) || (month > _temparray[0] && year == _temparray[2]) || year > _temparray[2]
+			{
+				_listlate += "	- %(_element) %(_test)\n"
+			}
+			elseif ((month+1)%12 >= _temparray[0] && (day + 5)%30 >= _temparray[1]) || (month == _temparray[0] && day+5 >= _temparray[1])
+			{
+				_listtodo += "	- %(_element)\n"
+			}
+		}
+		
+	}
+	if _listlate != ""
+	{
+		"\0\b2You're late for those :\n\n\n[half]\_q%(_listlate)\n\n[half]\_q"
+	}
+	--
+	if _listtodo != ""
+	{
+		"\0\b2You should do this ones :\n\n\n[half]\_q%(_listtodo)\n\n[half]\_q"
+	}
+	
+	
+}
+
+//--OnClose
+//Zarla : OnClose runs when you close your ghost. Like OnBoot, this can be customized for times and days if you like, as you saw above. It can also be easily simplified down to
+
+OnClose
+ {
+	timeslot = GetTimeSlot
+	if passmin >= 5 || passhour >= 1	//Zarla : This checks to see if you've had them open for at least five minutes.
+	{
+		if timeslot == "earlymorning"
+		{
+			
+		}
+		elseif timeslot == "morning"
+ 		{
+			if passhour >= 10
+			{
+				
+			}
+			else
+			{
+				
+			}
+ 		}
+ 		elseif timeslot == "lunch"
+ 		{
+ 			
+ 		}
+		elseif timeslot == "afternoon"
+		{
+			
+		}
+		elseif timeslot == "evening"
+		{
+			if weekday == 6 //Zarla : here, a nested if statement is checking that if it's evening, is it also saturday? You can do this to check more specific times on other days as well. You can change this to some other day if you want, or just delete this little if/else section entirely and write your own evening related close dialogue.
+			{
+				
+			}
+ 			else //Zarla : if it's not saturday, then it'll do this dialogue instead.
+ 			{
+						
+ 			}
+ 		}
+		elseif timeslot == "latenight"
+	 	{
+ 			if weekday == 6 //Zarla : This is the same check as above to see if it's Saturday. Note that this doesn't have an else statement! Sometimes you can get away with that, but make sure you test thoroughly.
+			//Zarla : Of course, you can also cut this check entirely if you want.
+ 			{
+ 				
+ 			}
+		}
+		else //Zarla : like above, this is the midnight time slot since it's the last one left.
+ 		{
+ 			if weekday == 0 //Zarla : checking if it's the middle of the night on Sunday
+ 			{
+ 				
+ 			}
+		}
+				
+ 	}	
+ 	else //Zarla : This dialogue is for if they haven't been open for at least five minutes.
+ 	{
+ 		
+ 	}
+	SAVEVAR
+	--
+	"\-\e" //this bit of code actually closes and ends the ghost. Because \e is here, you don't have to end each line above with it. Again, this will come up very rarely, so OnClose is an unusual case.
+ }
+
+
+ //-------------------------State Changing--------------------
+ //Zarla : From here on, most of the dialogue will have to do with changing shells, ghosts, or states in some way.
+ 
+ 
+ OnWindowStateMinimize
+{
+   
+}
+
+//--OnWindowStateRestore
+
+//This will run when you minimize them and then bring them back up. Replace with what you like.
+
+OnWindowStateRestore
+{
+	
+}
+
+
+//--OnGhostChanging
+
+//Zarla : If you reload your ghost using the developer console instead of Utilities->Reload Ghost, it won't do this dialogue, so don't freak out if it doesn't show up.
+ 
+OnGhostChanging
+ {
+	//Levidre : reference0 is the name of the ghost it's switching to.
+	if reference0 == "Mery"
+	{
+		"\0Well,\w5 fine."
+	}
+ 	else
+	{
+		"\0Good bye. \w7Have fun with %(reference0)!\w8\w8"
+	}
+}
+
+
+//--OnGhostChanged
+
+//Zarla : A sister to the above, this runs after the ghost has either reloaded itself, or when you switch from another ghost to this ghost.
+
+OnGhostChanged
+{
+	"\1\s[10]\0\s[0]"
+	--
+	if reference0 == "Mery"
+	{
+		"\0Hi again!\e"
+	}
+	else
+	{
+		lastTalk = ""
+		passmin = 0
+		passsec = 0	
+		passhour = 0
+		stroke = 0
+		conversation = "ready"
+		nbconv = 0
+		dayslot = GetDaySlot
+		timeslot = GetTimeSlot	
+		"\1\s[10]\0\s[0]\![set,otherghosttalk,true]\![set,otherghosttalk,before]"
+		--
+		"\0Goodbye, %(reference0). \w7Hi %(username)!\e"
+	}
+}
+
+
+//--OnShellChanging
+
+//Levidre : The two next functions are the same as the previous ones but for the shell.
+
+OnShellChanging
+ {
+	nowshell = reference0
+ }
+ 
+ //--OnShellChanged
+ 
+OnShellChanged
+{
+	nowshell = "%(reference0)"
+}
+
+
+ //--OnDressupChanged
+ 
+ //Levidre : Again, two similar functions but for the dressup.
+ 
+OnDressupChanged
+{
+	if reference0 == 0 //Zarla : in OnDressupChanged, reference0 refers to the character, therefore this is evaluating which character in question is getting dressed up. 0 is the main character, as you know from the walkthrough by now.
+	{
+		if reference1 == "Clothing for Girl" //Zarla : This is the name of the clothing item in the descript.txt file, I'm pretty sure.
+		{
+			if reference2 == 1 //Zarla : This checks if you're putting it on.
+			{
+				"\0\s[10]You put my clothing item on me.\w8lol like zar would ever bother with clothes for a ghost.\w8\n\n[half]Shut up dude you're going to get us in trouble.\e"
+			}
+			else //Zarla : This checks if you're taking it off.
+			{
+				"\0\s[10]You took the clothing item off.\e"
+			}
+		}		
+	}
+	else //Zarla : if reference0 isn't the main character, then it has to be the side character.
+	{
+		if reference1 == "some kind of clothing for triangle??" //Zarla : The name of the item of clothing in the descript.txt file in your shell folder.
+		{
+			if reference2 == 1 //If you put it on
+			{
+				"\1\s[1]I'm wearing some kind of clothing.\w8Maybe a hat?\e"
+			}
+			else //When you take it off.
+			{
+				"\1\s[1]You took off some kind of clothing.\e"
+			}
+		}
+		elseif reference1 == "i'm gonna say a propeller beanie" //Zarla : As you've seen above, you can use elseifs to expand the list if you have more than one item.
+		{
+			if reference2 == 1 //Zarla : if you're putting it on
+			{
+			"\1\s[1]You put a hat on me.\w8lol.\w8\1\n\n[half]Shaddap.\e"
+			}
+			else //Zarla : when you take it off
+			{
+			"\1\s[1]You took off the hat.\e"
+			}
+		}
+	}
+}
+
+//Zarla : If you are super dedicated to doing clothes, I'd recommend checking out some more in-depth FLELE tutorials for stuff about clothing until I muster up the energy to write a walkthrough page for it.
+
+
+//--OnSysSuspend
+
+//Levidre : Those two functions are called when the computer is put in sleep mode and waken up. You can use them to comment on it.
+
+OnSysSuspend
+{
+	sleepslot = (month,day,timeslot,hour,minute)
+}
+
+//--OnSysResume
+
+OnSysResume
+{
+	
+	timeslot = GetTimeSlot
+	dayslot = GetDaySlot
+	passhour = 0
+	passmin = 0
+	passsecond = 0
+	if sleepslot[0] == month && sleepslot[1] == day
+	{
+		
+	}
+	else
+	{
+		
+	}
+}
+
+
+
+

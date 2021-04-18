@@ -1,0 +1,365 @@
+//---------------------------Communication--------------------------
+//Levidre : This file is for communication between different ghosts and general reactions to other ghosts' actions.
+
+
+//Levidre : This function checks if the ghost can communicate or can just say something without forcely closing a previous dialogue.
+OnCanCommunicate
+{
+	_communicate = 0
+	
+	if ASEARCH("Status",var.req.key) != -1
+	{
+		//Levidre : It checks if a balloon is open with a special variable generated when SSP and the ghost are communicating.
+		_currentstatus = var.req.value[ASEARCH("Status",var.req.key)]
+		if "balloon" _in_ _currentstatus
+		{
+			_communicate = 0
+		}
+		else
+		{
+			_communicate = 1
+		}
+	}
+	else
+	{
+		_communicate = 1
+	}
+	_communicate
+}
+
+//Levidre : This is called when a ghost tries to communicate with this one
+OnCommunicate
+ {
+	if reference0 == "user" || reference0 == "User"
+ 	{
+ 		ReplyToUser
+	}
+ 	else
+	{
+		//Levidre : Checks if the ghost can respond
+
+		if conversation[1] != reference0
+		{
+			nbconv = 0
+		}
+		conversation[1] = "%(reference0)"
+		
+		//Levidre : If yes, they would respond immediately
+ 		if OnCanCommunicate
+		{
+			if nbconv < 1
+			{
+				res_reference0 = reference0
+				if reference1[0] == conversation[2]
+				{
+					nbconv++
+				}
+				else
+				{
+					truc = reference1[0]
+					retruc =conversation[2]
+				}
+				conversation[1] = "%(reference0)"
+				conversation[2] = "%(reference1)"
+				speech = TOLOWER(SPLIT("%(reference1)","\e")[0])
+				speechtag = SPLIT("%(reference1)","\e")[1]
+				
+				if STRLEN(speechtag) > 4
+				{
+					ReplyWithPing
+				}
+				else
+				{
+					ReplyToGhost
+				}				
+			}
+			else
+			{
+				conversation = IARRAY
+				conversation[0] = "ready"
+			}			
+		}
+		//Levidre : If they were already speaking, it stocks the name of the ghost who communicated to respond to him later, when the balloon would be closed.
+		else
+		{
+			if ARRAYSIZE(ghostcommunicated) == 0
+			{
+				ghostcommunicated[0] = "%(reference0)"
+				ghostcommunicated[1] = "%(reference1)"
+			}
+			else
+			{
+				ghostcommunicated ,= "%(reference0)"
+				ghostcommunicated ,= "%(reference1)"
+			}
+			
+			//Levidre : This variable will be checked in RespondToCommunication, so if a ghost tried to communicate, the ghost would respond to them back once they finish to talk with the user.
+		}
+ 	}
+	SAVEVAR
+}
+
+ReplyToUser
+{
+	TalkToUser
+}
+
+
+//Levidre : This is the normal communications responses
+ReplyToGhost
+{
+
+	if conversation[1] == "OtherGhost"
+	{
+		if conversation[0] != "started"
+		{
+			conversation[0] = "misunderstood"
+			if "hi" _in_ speech || "hello" _in_ speech || "howdy" _in_ speech || "good morning" _in_ speech || "good afternoon" _in_ speech || "good evening" _in_ speech || "good night" _in_ speech
+			{
+				"* Hello.\w7\n"
+				conversation[0] = "ready"
+			}
+		}
+	}
+	else
+	{
+		if conversation[0] != "started"
+		{
+			conversation[0] = "misunderstood"
+			if "hi" _in_ speech || "hello" _in_ speech || "howdy" _in_ speech || "good morning" _in_ speech || "good afternoon" _in_ speech || "good evening" _in_ speech || "good night" _in_ speech
+			{
+				"* Hello.\w7\n"
+				conversation[0] = "ready"
+			}
+			--
+			if "who are you" _in_ speech || "what's your name" _in_ speech || "what is your name" _in_ speech
+			{
+				"* I'm Azura,\w5 I come from an Undertale AU.\n\w7"
+				conversation[0] = "ready"
+			}
+			--
+			if "how are you" _in_ speech || "howzit goin" _in_ speech
+			{
+				"* I'm fine. \w7And how are you too ?\w7\n"
+				conversation[0] = "ready"
+			}
+			--
+			if "i'm good" _in_ speech || "i'm fine" _in_ speech || "i'm ok" _in_ speech || "i'm happy" _in_ speech || "i feel good" _in_ speech || "i feel ok" _in_ speech || "i feel happy" _in_ speech 
+			{
+				"* I'm glad you do.\w7\n"
+				conversation[0] = "ready"
+			}
+			--
+			if "what are you doing" _in_ speech
+			{
+				if isplayed == 1
+				{
+					if songplayed[1]==""
+					{
+						_i = SAORI("saori\KI.dll","ExtractMP3","%(songplayed[0])","GetTrack")
+						if (ASEARCH(_i,'id3 tag(v1) is not found','Target Not Found','204 No Content','arg0 is error','arg1 is error','arg2 is error')) != -1 {_i= "Unknown"}
+						"* I'm currently playing %((SPLITPATH(songplayed[0]))[2]).\w7\n\e%(_i)"
+					}
+					else
+					{
+						_i = SAORI("saori\KI.dll","ExtractMP3","%(songplayed[0])","GetTrack")
+						if (ASEARCH(_i,'id3 tag(v1) is not found','Target Not Found','204 No Content','arg0 is error','arg1 is error','arg2 is error')) != -1 {_i= "Unknown"}
+						"%(lsto)* I'm currently playing %(songplayed[1]).\w7\n\e%(_i)"
+					}
+					
+				}
+				else
+				{
+					"%(lsto)* Nothing in particular.\w7\n"
+				}
+				conversation[0] = "ready"
+			}
+			if conversation[0] != "ready"
+			{
+				"%(lsto)* Hum,\w5 I didn't understand a lot.\w7\n"
+				"%(lsto)* Alright."
+				"%(lsto)* Ok."
+				"%(lsta)%(conversation[1]) lost her attention."
+				"%(lsta)She looks satisfied."
+				nbconv++
+			}
+			conversation[0] =  "ready"
+		}
+		else
+		{
+			conversation[0] = "misunderstood"
+			if "hi" _in_ speech || "hello" _in_ speech || "howdy" _in_ speech || "good morning" _in_ speech || "good afternoon" _in_ speech || "good evening" _in_ speech || "good night" _in_ speech
+			{
+				"* How are you ?\w7\n"
+				conversation[0] = "started"
+			}
+			--
+			if "i'm good" _in_ speech || "i'm fine" _in_ speech || "i'm ok" _in_ speech || "i'm happy" _in_ speech || "i feel good" _in_ speech || "i feel ok" _in_ speech || "i feel happy" _in_ speech 
+			{
+				"* I'm glad you do.\w7\n"
+				conversation[0] = "started"
+			}
+			--
+			if "who are you" _in_ speech || "what's your name" _in_ speech || "what is your name" _in_ speech
+			{
+				"* I'm Azura,\w5 I come from an Undertale AU.\n\w7"
+				conversation[0] = "started"
+			}
+			--
+			if "how are you" _in_ speech || "howzit goin" _in_ speech
+			{
+				"* I'm fine.\w7\n"
+				conversation[0] = "started"
+			}
+			--
+			if "what are you doing" _in_ speech
+			{
+				if isplayed == 1
+				{
+					if songplayed[1]==""
+					{
+						_i = SAORI("saori\KI.dll","ExtractMP3","%(songplayed[0])","GetTrack")
+						if (ASEARCH(_i,'id3 tag(v1) is not found','Target Not Found','204 No Content','arg0 is error','arg1 is error','arg2 is error')) != -1 {_i= "Unknown"}
+						"* I'm currently playing %((SPLITPATH(songplayed[0]))[2]).\w7\n\e%(_i)"
+					}
+					else
+					{
+						_i = SAORI("saori\KI.dll","ExtractMP3","%(songplayed[0])","GetTrack")
+						if (ASEARCH(_i,'id3 tag(v1) is not found','Target Not Found','204 No Content','arg0 is error','arg1 is error','arg2 is error')) != -1 {_i= "Unknown"}
+						"* I'm currently playing %(songplayed[1]).\w7\n\e%(_i)"
+					}
+					
+				}
+				else
+				{
+					"* Nothing in particular.\w7\n"
+				}
+				conversation[0] = "ready"
+			}
+			
+			if conversation[0] != "started"
+			{
+				"* Hum,\w5 I didn't understand a lot.\w7\n"
+				"* Alright."
+				"* Ok."
+				"%(lsta)%(conversation[1]) lost her attention.%(lsto)"
+				"%(lsta)She looks satisfied.%(lsto)"
+				nbconv++
+			}
+			conversation[0] =  "started"
+		}
+		
+	}
+	--
+	"\e"
+}
+
+//Levidre : This function is for responding to special communications, the ones that are using information after the \e tag.
+ReplyWithPing
+{
+	
+}
+
+
+//Levidre : Thos three functions are triggered when the balloon is closing. Here they will call a function to respond to any communication queued.
+OnBalloonBreak
+{
+	RespondToCommunication
+}
+
+OnBalloonClose
+{
+	RespondToCommunication
+}
+
+OnBalloonTimeout
+{
+	RespondToCommunication
+}
+
+
+//Levidre : This function will make the ghost respond to any communication queued if it can.
+RespondToCommunication
+{
+	if ARRAYSIZE(ghostcommunicated) > 0 && OnCanCommunicate
+	{
+		if nbconv < 1
+		{
+			res_reference0 = ghostcommunicated[0]
+			if ghostcommunicated[1] == conversation[2]
+			{
+				nbconv++
+			}
+			else
+			{
+				truc = ghostcommunicated[1]
+				retruc =conversation[2]
+			}
+			conversation[1] = "%(ghostcommunicated[0])"
+			conversation[2] = "%(ghostcommunicated[1])"
+			speech = TOLOWER(SPLIT("%(ghostcommunicated[1])","\e")[0])
+			speechtag = SPLIT("%(ghostcommunicated[1])","\e")[1]
+			
+			if STRLEN(speechtag) > 4
+			{
+				ReplyWithPing
+			}
+			else
+			{
+				ReplyToGhost
+			}				
+		}
+		else
+		{
+			conversation = IARRAY
+			conversation[0] = "ready"
+		}
+		_temp = IARRAY
+		for _i = 2; _i < ARRAYSIZE(ghostcommunicated);_i++
+		{
+			_temp ,= ghostcommunicated[_i]
+		}
+		ghostcommunicated = _temp
+		
+	}
+	elseif conversation[0] == "interrupting"
+	{
+		
+		res_reference0 = "%(conversation[1])"
+		"%(conversation[2])"
+		conversation = IARRAY
+		conversation = "started"
+		
+	}
+}
+	
+//Levidre : The next three functions are for reactions to an other ghost 
+
+OnOtherGhostTalk
+{
+	if reference0 == "OtherGhost"
+	{
+		if OnCanCommunicate
+		{
+			
+		}
+	}
+	
+}
+
+
+OnOtherGhostChanged
+{
+	if reference0 == "OtherGhost"
+	{
+	}	
+	
+}
+
+OnOtherGhostClosed
+{
+	if reference0 == "OtherGhost"
+	{
+			
+	}
+}

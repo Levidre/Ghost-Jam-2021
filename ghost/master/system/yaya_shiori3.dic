@@ -1,0 +1,1757 @@
+//******************************************************************************
+/*
+SHIORI / 3.0 control script for YAYA
+
+使用可能な変数
+
+SHIORI3FW.Status
+　Initialized with the initial startup status Run
+
+SHIORI3FW.Eventid
+　Event ID
+
+SHIORI3FW.LastTalk
+ Last Talk (All)
+
+SHIORI3FW.LastAITalk
+　直前のランダムトーク
+
+SHIORI3FW.LastSurface
+　The surface SHIORI3FW.LastSurface [0] displayed immediately before is on the Sakura side
+
+SHIORI3FW.IsVisible
+　Whether the surface is currently displayed (1/0) SHIORI3FW.IsVisible [0] is on the sakura side
+
+SHIORI3FW.HWnd
+SHIORI3FW.BalloonHWnd
+　HWND of character window balloon. SHIORI3FW.HWnd [0] is on the sakura side
+
+SHIORI3FW.UniqueID
+　ID used for Auth.SSTP
+
+SHIORI3FW.GhostName
+　Ghost name★
+
+SHIORI3FW.ShellName
+SHIORI3FW.ShellPath
+　Shell name and path★
+
+SHIORI3FW.BalloonName
+SHIORI3FW.BalloonPath
+　Balloon name and path★
+
+Available pseudo events
+
+OnSHIORI3FW.SurfaceRestore
+　Independent version of OnSurfaceRestore
+
+OnSHIORI3FW.ChangeSelfInfo
+　Called when the variable marked with ★ is updated
+
+*/
+//******************************************************************************
+
+
+//------------------------------------------------------------------------------
+//Please do not touch the following define basically
+//------------------------------------------------------------------------------
+
+// チェイン
+#globaldefine	CHAIN{{		{{CHAIN	/* Because it seems to be miswritten */
+#globaldefine	CHAIN}}		}}CHAIN	/* Same as above */
+#globaldefine	{{CHAIN		{ switch CHAIN.Index {
+#globaldefine	}}CHAIN		} CHAIN.Index++ }
+
+#define			CHAIN_DELIM		':chain='
+#define			EVAL_DELIM		':eval='
+
+//******************************************************************************
+// load
+//******************************************************************************
+
+//------------------------------------------------------------------------------
+//Function name：load
+//function　：Processing when loading
+//------------------------------------------------------------------------------
+load
+{
+	// Character / string constant
+	C_CRLF2 = CHR(0xd,0xa,0xd,0xa)
+	C_CRLF = CHR(0xd,0xa)
+	C_BYTE1 = CHR(0x1)
+
+	REQ.COMMAND   = "LOAD"
+	REQ.PROTOCOL  = "AYA/5.0"
+	var.req.key   = (IARRAY, "Path")
+	var.req.value = (IARRAY, _argv[0])
+	var.req.rawvalue = (IARRAY,_argv[0])
+	
+	SHIORI3FW.Path = _argv[0]
+	
+	var.lib.key = IARRAY
+	var.lib.value = IARRAY
+	var.lib.result = ''
+	
+	if (FSIZE(GETSETTING('coreinfo.savefile')) <= 0) && (FSIZE(GETSETTING('coreinfo.savefile') + '.ays') <= 0) {
+		if FSIZE('aya5_variable.cfg') > 0 {
+			RESTOREVAR('aya5_variable.cfg')
+			FDEL('aya5_variable.cfg')
+		}
+		elseif FSIZE('aya_variable.cfg') > 0 {
+			RESTOREVAR('aya_variable.cfg')
+			FDEL('aya_variable.cfg')
+		}
+		SAVEVAR()
+	}
+
+	if FSIZE('yaya_variable.cfg') <= 0 {
+		RESTOREVAR('aya5_variable.cfg')
+		SAVEVAR('yaya_variable.cfg')
+		FDEL('aya5_variable.cfg')
+	} 
+	// Initialization at first startup
+	if ISVAR('aitalkinterval') == 0 {
+		aitalkinterval   = TALK_INTERVAL
+	}
+	if ISVAR('ghostupmin_last') == 0 {
+		ghostupmin_last = 0
+	}
+
+	// Initialization at every startup
+	SHIORI3FW.ResetAITalkInterval()
+	
+	_sec = GETSECCOUNT()
+	
+	SHIORI3FW.SaveVarCount = 0
+	SHIORI3FW.LastTalk     = ''
+	SHIORI3FW.LastTalkTime = _sec
+	SHIORI3FW.LastAITalk   = ''
+	SHIORI3FW.LastAITalkTime = _sec
+	SHIORI3FW.TalkEndTime  = _sec
+	SHIORI3FW.IsTalking    = 0
+	
+	if GETTYPE(SHIORI3FW.LastSurface) != 4 {
+		SHIORI3FW.LastSurface  = (0,10)
+		SHIORI3FW.IsVisible    = (1,1)
+	}
+	
+	SHIORI3FW.HWnd         = (0,0)
+	SHIORI3FW.HWndOld      = (0,0)
+	SHIORI3FW.BalloonHWnd  = (0,0)
+	SHIORI3FW.UniqueID     = ''
+	SHIORI3FW.DebugMode    = 1
+	SHIORI3FW.CanTalkFlag  = 1
+	
+	SHIORI3FW.Eventid = ''
+	SHIORI3FW.EventidOld = ''
+	SHIORI3FW.EventidTranslate = ''
+	SHIORI3FW.EventidTranslateOld = ''
+	
+	SAORI.DllList          = IARRAY
+	basewarename           = ''
+	basewarenameex         = ''
+	sender                 = ''
+	ghostbootmin           = GETSECCOUNT() / 60
+
+	S_CHARSET = GETSETTING('charset.output')
+	
+	status = ''
+	tempvarname = IARRAY
+	
+	array_eventtranslate = ASORT('string,ascending',GETFUNCLIST('OnGhostEventTranslate'))
+	array_translateinternal = ASORT('string,ascending',GETFUNCLIST('OnTranslateInternal'))
+
+	SHIORI3FW.InitChain
+	
+	SHIORI3FW.SetDelayEvent('',0)
+
+	//For backward compatibility (ascii variable)
+	if ISFUNC('restore_old_variables') {
+		restore_old_variables
+	}
+	
+	AyaLoad.FuncEnumExec('OnSystemLoad','ascending')
+	AyaLoad.FuncEnumExec('OnGhostLoad','ascending')
+	
+	_ft = <<'
+	On_version
+	On_craftman
+	On_craftmanw
+	'>>
+	_fa = SPLIT(_ft,C_CRLF)
+	
+	foreach _fa;_f {
+		if ISFUNC(_f) {
+			LOGGING("警告：関数/イベント %(_f) はシステム辞書で上書きされます")
+		}
+	}
+}
+
+//******************************************************************************
+//unload
+//******************************************************************************
+
+//------------------------------------------------------------------------------
+//Function name：unload
+//function　：End processing
+//------------------------------------------------------------------------------
+unload
+{
+	REQ.COMMAND   = "UNLOAD"
+	REQ.PROTOCOL  = "AYA/5.0"
+	var.req.key   = IARRAY
+	var.req.value = IARRAY
+	var.req.rawvalue = IARRAY
+	
+	ghostupmin_last = ghostupmin_total()
+
+	AyaLoad.FuncEnumExec('OnGhostUnload','descending')
+	AyaLoad.FuncEnumExec('OnSystemUnload','descending')
+	
+	// Delete variables that do not need to be saved
+	_var = <<'
+array_eventtranslate
+array_translateinternal
+REQ.COMMAND
+REQ.PROTOCOL
+var.req.key
+var.req.value
+var.req.rawvalue
+LIB.PROTOCOL
+LIB.STATUSCODE
+var.lib.key
+var.lib.value
+var.lib.result
+SAORI.DllList
+ghostexlist
+ghostexcount
+selfname
+selfname2
+sakuraname
+keroname
+basewarename
+basewarenameex
+sender
+S_CHARSET
+installedghostlist
+installedsakuralist
+installedkerolist
+ascii
+displaybpp
+displaywidth
+displayheight
+uniqueid
+ghostbootmin
+status
+res_securitylevel
+res_reference
+res_marker
+refold
+refold0
+SHIORI3FW.Path
+SHIORI3FW.LastAITalk
+SHIORI3FW.LastAITalkTime
+SHIORI3FW.LastTalk
+SHIORI3FW.LastTalkTime
+SHIORI3FW.TalkEndTime
+SHIORI3FW.CanTalkFlag
+SHIORI3FW.IsSurfaceRestoreComplete
+SHIORI3FW.IsAITalkComplete
+SHIORI3FW.SaveVarCount
+SHIORI3FW.HWnd
+SHIORI3FW.HWndOld
+SHIORI3FW.BalloonHWnd
+SHIORI3FW.UniqueID
+SHIORI3FW.Eventid
+SHIORI3FW.EventidOld
+SHIORI3FW.EventidTranslate
+SHIORI3FW.EventidTranslateOld
+SHIORI3FW.DelayEventTime
+SHIORI3FW.DelayEvent
+SHIORI3FW.DelayEventReference
+SHIORI3FW.GhostName
+C_CRLF2
+C_CRLF
+C_BYTE1
+'>>
+	//Save the following
+	//SHIORI3FW.ShellName
+	//SHIORI3FW.ShellNameOld
+	//SHIORI3FW.ShellPath
+	//SHIORI3FW.BalloonName
+	//SHIORI3FW.BalloonPath
+	//SHIORI3FW.LastSurface
+	//SHIORI3FW.IsVisible
+
+	ERASEVAR(SPLIT(_var,C_CRLF))
+	
+	_n = ARRAYSIZE(tempvarname)
+	for _i = 0 ; _i < _n ; _i++ {
+		ERASEVAR("%(tempvarname[_i])")
+	}
+	ERASEVAR('tempvarname')
+	
+	SHIORI3FW.ClearChainVariable
+	SHIORI3FW.ClearReferenceVariable
+	SHIORI3FW.ClearValueexVariable
+}
+
+//------------------------------------------------------------------------------
+//Function name：AyaTest.Eval
+//function　：EVAL and return the received string
+//------------------------------------------------------------------------------
+AyaTest.Eval
+{
+	_array = SPLIT(_argv[0],C_CRLF)
+	_result = ''
+	_n = ARRAYSIZE(_array)
+	
+	for _i = 0 ; _i < _n ; _i++ {
+		if _array[_i] {
+			_result += EVAL(_array[_i])
+		}
+	}
+	_result
+}
+
+//------------------------------------------------------------------------------
+//Function name：AyaLoad.FuncEnumExec
+//function　：Create function list, sort and execute
+//argument　：0=Event 1 = sort order(ascending,descending)
+//------------------------------------------------------------------------------
+AyaLoad.FuncEnumExec : void
+{
+	_a = GETFUNCLIST(_argv[0])
+	_a = ASORT('string,' + _argv[1],_a)
+	
+	_n = ARRAYSIZE(_a)
+	for _i = 0 ; _i < _n ; _i++ {
+		EVAL(_a[_i])
+	}
+}
+
+
+//******************************************************************************
+//request
+//******************************************************************************
+//------------------------------------------------------------------------------
+//Function name：request
+//function　：After parsing the received string as a SHIORI request header,
+//        Activate OnRequest
+//------------------------------------------------------------------------------
+request
+{
+	//For TEST
+	//test(_argv[0])
+	//return
+	
+	if SUBSTR(_argv[0],0,3) == '?? ' { //For testing with balls
+		'!! ' + JOIN(AyaTest.Eval(ERASE(_argv[0],0,3)),',')
+		return
+	}
+	
+	_reqdata = _argv[0]
+	_linestart = 0
+	_lineend = STRSTR(_reqdata, C_CRLF, _linestart)
+	
+	if _lineend <= 0 {
+		//Don't squeeze the first line！
+		"SHIORI/3.0 400 Bad Request%(C_CRLF)Charset: %(S_CHARSET)%(C_CRLF2)"
+		return
+	}
+	_lin = SUBSTR(_reqdata,_linestart,(_lineend - _linestart))
+
+	// Acquisition of request type and protocol name 400 if error
+	REQ.COMMAND  = _lin[0," SHIORI"]
+	REQ.PROTOCOL = "SHIORI" + _lin[1," SHIORI"]
+
+	// Get request header
+	var.req.key   = IARRAY
+	var.req.value = IARRAY
+	var.req.rawvalue = IARRAY
+	
+	_linenum = 0
+	_idparsed = 0
+	
+	status = ''
+	
+	while _lineend > _linestart {
+		//Line split
+		_linestart = _lineend + 2
+		_lineend = STRSTR(_reqdata, C_CRLF, _linestart)
+		
+		//Blank line or not found
+		if _lineend <= _linestart {
+			break
+		}
+		
+		_linenum += 1
+		if SHIORI3FW.REQUEST_LINES_LIMIT {
+			if _linenum > SHIORI3FW.REQUEST_LINES_LIMIT {
+				if _idparsed {
+					break
+				}
+			}
+		}
+		
+		_lin = SUBSTR(_reqdata,_linestart,(_lineend - _linestart))
+				
+		// Get key and value
+		_len = STRLEN(_lin)
+		_pos = STRSTR(_lin,": ",0)
+		var.req.key ,= (_key = SUBSTR(_lin,0,_pos))
+		_value       = SUBSTR(_lin,(_pos + 2),(_len - _pos - 2))
+		
+		if var.req.key == '' {
+			break
+		}
+
+		// Get event ID name
+		if _key == "Charset" {
+			if S_CHARSET != _value {
+				void SETSETTING('charset.output',_value)
+				S_CHARSET = _value
+			}
+		}
+		elseif _key == "ID" {
+			// Acquisition Add if the name is not "On"
+			SHIORI3FW.Eventid = _value
+			if SUBSTR(SHIORI3FW.Eventid, 0, 2) != "On" {
+				SHIORI3FW.Eventid = "On_" + SHIORI3FW.Eventid
+			}
+			
+			if SHIORI3FW.Eventid == 'OnAiTalk' || SHIORI3FW.Eventid == 'OnAITalk' {
+				SHIORI3FW.Eventid = 'OnAITalkNewEvent'
+			}
+
+			SHIORI3FW.EventidTranslate = SHIORI3FW.TranslateEvent(SHIORI3FW.Eventid)
+
+			// Returns immediately if there is no handler
+			if !ISFUNC(SHIORI3FW.EventidTranslate) && !SHIORI3FW.IsImportantEvent {
+				SHIORI3FW.MakeEmptyResponse(SHIORI3FW.Eventid)
+				return
+			}
+			_idparsed = 1
+		}
+		// Return immediately if security level = "External"
+		elseif _key == 'SecurityLevel' {
+			if _value == 'External' {
+				"SHIORI/3.0 204 No Content%(C_CRLF)Charset: %(S_CHARSET)%(C_CRLF2)"
+				return
+			}
+		}
+		// Get baseware name
+		elseif _key == 'Sender' {
+			if basewarenameex == '' {
+				basewarenameex = _value
+			}
+			basewarename = _value
+			sender = _value
+		}
+		//Status
+		elseif _key == 'Status' {
+			status = _value
+		}
+
+		// Remember keys and values
+		var.req.rawvalue ,= _value
+		
+		if SHIORI3FW.AUTO_DATA_CONVERT {
+			if ISINTSTR(_value) {
+				var.req.value ,= TOINT(_value)
+			}
+			elseif ISREALSTR(_value) {
+				var.req.value ,= TOREAL(_value)
+			}
+			else {
+				var.req.value ,= REPLACE(_value, C_BYTE1, ",")	// Byte value 1 becomes comma
+			}
+		}
+		else {
+			var.req.value ,= TOAUTOEX(_value)
+		}
+	}
+
+	OnRequest
+}
+
+TOAUTOEX
+{
+	_v = _argv[0]
+	if TOSTR(TOAUTO(_v)) == _v {
+		TOAUTO(_v)
+		return
+	}
+	_v
+}
+
+SHIORI3FW.TranslateEvent
+{
+	_result = _argv[0]
+	_as = ARRAYSIZE(array_eventtranslate)
+	if _as > 0 {
+		_ev = ''
+		for _i = 0 ; _i < _as ; _i++ {
+			void EVAL("_ev = %(array_eventtranslate[_i])(_result)")
+			if STRLEN(_ev) > 0 {
+				_result = _ev
+			}
+		}
+	}
+	_result
+}
+
+//------------------------------------------------------------------------------
+//Function name：OnRequest
+//function　：Perform processing according to the received request
+//------------------------------------------------------------------------------
+OnRequest
+{
+	// Processing branch by command
+	case REQ.COMMAND {
+	when "NOTIFY" {
+		// NOTIFY request
+		_result = SHIORI3FW.RaiseIDEvent
+		"SHIORI/3.0 200 OK%(C_CRLF)Charset: %(S_CHARSET)%(C_CRLF2)"
+	}
+
+	when "GET" {
+		// GET request
+		if (_result = SHIORI3FW.RaiseIDEvent) == "" {
+			SHIORI3FW.MakeEmptyResponse(SHIORI3FW.Eventid)
+		}
+		else {
+			"SHIORI/3.0 200 OK%(C_CRLF)Sender: AYA%(C_CRLF)Charset: %(S_CHARSET)%(C_CRLF)/
+				Value: %(_result)%(C_CRLF)"
+			--
+			SHIORI3FW.AssembleReferenceHeader
+			--
+			C_CRLF
+			
+			if SHIORI3FW.Eventid != 'OnTranslate' {
+				SHIORI3FW.EventidOld = SHIORI3FW.Eventid
+				SHIORI3FW.EventidTranslateOld = SHIORI3FW.EventidTranslate
+			}
+		}
+	}
+
+	others
+		// Unknown request
+		"SHIORI/3.0 400 Bad Request%(C_CRLF2)"
+	}
+}
+
+//------------------------------------------------------------------------------
+//Function name：SHIORI3FW.AssembleReferenceHeader
+//function　：Inspect res_reference * variables sequentially to create a reference string for return
+//------------------------------------------------------------------------------
+SHIORI3FW.AssembleReferenceHeader
+{
+	_result = ""
+	_before = ""
+	
+	_r = GETTYPEEX('res_reference')
+	
+	if _r != 0 {
+		if _r == 4 {
+			_n = ARRAYSIZE(res_reference)
+			for _i = 0 ; _i < _n ; _i++ {
+				_result += "Reference%(_i): %(res_reference[_i])%(C_CRLF)"
+			}
+		}
+		else {
+			_result += "Reference0: %(res_reference)%(C_CRLF)"
+		}
+		ERASEVAR('res_reference')
+	}
+	else {
+		for _i = 0; _i < SHIORI3FW.RES_REF_MAX; _i++ {
+			_before = _value
+			
+			_varname = "res_reference" + _i
+			_value = EVAL(_varname)
+			if _value != "" {
+				_result += "Reference%(_i): %(_value)%(C_CRLF)"
+				ERASEVAR(_varname);
+			}
+			else {
+				if _before == ""; break
+			}
+		}
+	}
+	
+	if marker != "" {
+		_result += "Marker: %(marker)%(C_CRLF)"
+		ERASEVAR('marker')
+	}
+	
+	_result
+}
+
+//------------------------------------------------------------------------------
+//Function name：SHIORI3FW.IsImportantEvent
+//function　：Identify events that must be notified
+//argument　：_argv[0] (Real) event name
+//------------------------------------------------------------------------------
+SHIORI3FW.IsImportantEvent
+{
+	if SHIORI3FW.Eventid == "OnSecondChange" {
+		1
+		return
+	}
+	elseif ISFUNC('SHIORI3EV.' + SHIORI3FW.Eventid) {
+		1
+		return
+	}
+	0
+}
+
+//------------------------------------------------------------------------------
+//Function name：SHIORI3FW.RaiseIDEvent
+//function　：Execute the function with the specified name and get the result
+//------------------------------------------------------------------------------
+SHIORI3FW.RaiseIDEvent
+{
+	// reference Create variable
+	SHIORI3FW.MakeReferenceVariable
+	
+	_event = SHIORI3FW.EventidTranslate
+	
+	_result_internal = ''
+	if SHIORI3FW.Eventid == "OnSecondChange" {
+		// If OnSecondChange, random talk related processing
+		_event = SHIORI3FW.ControlAITalk(_event)
+		if eventtranslate_exist {
+			_event = EVAL('OnGhostEventTranslate(_event)')
+		}
+	}
+	
+	if _event != 'OnSecondChange' {
+		if ISFUNC('SHIORI3EV.' + _event) {
+			_result_internal = TOSTR(EVAL('SHIORI3EV.' + _event))
+		}
+	}
+	
+	_can_talk = SHIORI3FW.CanTalk()
+	if _can_talk != SHIORI3FW.CanTalkFlag {
+		if _can_talk {
+			SHIORI3FW.TalkEndTime = GETSECCOUNT()
+		}
+		SHIORI3FW.CanTalkFlag = _can_talk
+	}
+
+	// Event activation
+	_result = ''
+	if ISFUNC(_event) {
+		_result = TOSTR(EVAL(_event))
+	}
+	if _result == '' {
+		_result = _result_internal
+	}
+	
+	if _result != '' {
+		// Delay EVAL
+		_talk = RE_SPLIT(_result,'(' + EVAL_DELIM + '|' + CHAIN_DELIM + ')')
+		_delim = RE_GETSTR
+		_n = ARRAYSIZE(_delim)
+		
+		//Internal translation first
+		if SHIORI3FW.Eventid != 'OnTranslate' {
+			_as = ARRAYSIZE(array_translateinternal)
+			if _as >= 1 {
+				_tk = ''
+				for _i = 0 ; _i < _as ; _i++ {
+					void EVAL("_tk = %(array_translateinternal[_i])(_talk[0])")
+					if STRLEN(_tk) > 0 {
+						_talk[0] = _tk
+					}
+				}
+			}
+		}
+		
+		//Delay setting later
+		for _i = 0 ; _i < _n ; _i += 1 {
+			if _delim[_i] == EVAL_DELIM {
+				// Delay EVAL
+				_trash = EVAL(_talk[_i + 1])
+			}
+			elseif _delim[_i] == CHAIN_DELIM {
+				// Chain processing
+				SHIORI3FW.StartChainTalk(_talk[_i + 1])
+			}
+		}
+		
+		if _talk[0] != '' {
+			if SHIORI3FW.Status != 'Run' {
+				SHIORI3FW.Status = 'Run'
+			}
+			SHIORI3FW.LastTalk = _talk[0]
+			if _event == 'OnAITalkNewEvent' {
+				SHIORI3FW.LastAITalk = _talk[0]
+				SHIORI3FW.ResetAITalkInterval()
+			}
+			if 'Surface' !_in_ _event {
+				if SHIORI3FW.RemoveAllTags(_talk[0]) != '' {
+					SHIORI3FW.LastTalkTime = GETSECCOUNT()
+				}
+			}
+			_talk[0]
+		}
+	}
+
+	// reference Clear variables
+	SHIORI3FW.ClearReferenceVariable
+}
+
+//------------------------------------------------------------------------------
+//Function name：SHIORI3FW.MakeEmptyResponse
+//function　：Judge "Request not to return 204"
+//        Create a proper response string
+//argument　：_argv[0] event name
+//------------------------------------------------------------------------------
+SHIORI3FW.MakeEmptyResponse
+{
+	case _argv[0] {
+	when "OnFirstBoot", "OnBoot", "OnWindowStateRestore", "OnGhostChanged"
+		// Events that require a basic surface of scope 0/1
+		"SHIORI/3.0 200 OK%(C_CRLF)Sender: AYA%(C_CRLF)Charset: %(S_CHARSET)%(C_CRLF)/
+			Value: \0\s[0]\1\s[10]\e%(C_CRLF2)"
+	when "OnClose"
+		// Events for which a termination instruction needs to be issued
+		"SHIORI/3.0 200 OK%(C_CRLF)Sender: AYA%(C_CRLF)Charset: %(S_CHARSET)%(C_CRLF)/
+			Value: \0\-\e%(C_CRLF2)"
+	others
+		// Other than the above, 204 can be returned
+		"SHIORI/3.0 204 No Content%(C_CRLF)Charset: %(S_CHARSET)%(C_CRLF2)"
+	}
+}
+
+//------------------------------------------------------------------------------
+//Function name：SHIORI3FW.ResetAITalkInterval
+//function　：Reset AI talk activation processing counter
+//------------------------------------------------------------------------------
+SHIORI3FW.ResetAITalkInterval
+{
+	SHIORI3FW.LastAITalkTime = GETSECCOUNT()
+	SHIORI3FW.IsSurfaceRestoreComplete = 0
+	SHIORI3FW.IsAITalkComplete = 0
+}
+
+//------------------------------------------------------------------------------
+//Function name：SHIORI3FW.ControlAITalk
+//function　：AI talk activation processing, automatic storage of variable data
+//argument　：_argv[0] event name
+//------------------------------------------------------------------------------
+SHIORI3FW.ControlAITalk
+{
+	_return_value = _argv[0]
+	
+	if TOINT(reference[3]) { //Can speak
+		if SHIORI3FW.DelayEventTime {
+			SHIORI3FW.DelayEventTime--
+
+			if SHIORI3FW.DelayEventTime <= 0 {
+				_return_value = SHIORI3FW.DelayEvent
+				if ARRAYSIZE(SHIORI3FW.DelayEventReference) {
+					reference = SHIORI3FW.DelayEventReference
+				}
+			}
+		}
+		if aitalkinterval > 0 {		// Talk interval is non-zero
+			_sec = GETSECCOUNT()
+			_diff = _sec - SHIORI3FW.LastAITalkTime
+			if _diff >= aitalkinterval {	// Talk interval setting time exceeded
+				if SHIORI3FW.CanTalk() {
+					if (_sec - SHIORI3FW.LastTalkTime) >= 6 {
+						if (_sec - SHIORI3FW.TalkEndTime) >= 6 {
+							if SHIORI3FW.IsAITalkComplete == 0 {
+								_return_value = "OnAITalkNewEvent"
+								SHIORI3FW.IsAITalkComplete = 1
+							}
+						}
+					}
+				}
+			}
+			elseif _diff == (aitalkinterval*2/3) { //SurfaceRestore on 2/3
+				if SHIORI3FW.CanTalk() {
+					if (_sec - SHIORI3FW.LastTalkTime) >= 4 {
+						if (_sec - SHIORI3FW.TalkEndTime) >= 2 {
+							if SHIORI3FW.IsSurfaceRestoreComplete == 0 {
+								_return_value = "OnSHIORI3FW.SurfaceRestore"
+								SHIORI3FW.IsSurfaceRestoreComplete = 1
+							}
+						}
+					}
+				}
+			}
+		}
+	}
+
+	SHIORI3FW.SaveVarCount++
+	if SHIORI3FW.SaveVarCount > 1800 {
+		SHIORI3FW.SaveVarCount = 0
+		SAVEVAR
+	}
+
+	_return_value
+}
+
+//------------------------------------------------------------------------------
+//Function name：SHIORI3FW.SetDelayEvent/GetDelayEvent
+//function　：Registration / acquisition of "speak late" event
+//argument　：_argv [0] event _argv [1] delay sec.
+//------------------------------------------------------------------------------
+
+SHIORI3FW.SetDelayEvent : void
+{
+	if STRLEN(_argv[0]) != 0 && _argv[1] {
+		SHIORI3FW.DelayEventTime = TOINT(_argv[1])
+		SHIORI3FW.DelayEvent = _argv[0]
+		SHIORI3FW.DelayEventReference = _argv[2,100] //This is OK because the outside of the range is cut
+	}
+	else {
+		SHIORI3FW.DelayEventTime = 0
+		SHIORI3FW.DelayEvent = ''
+		SHIORI3FW.DelayEventReference = IARRAY
+	}
+}
+
+SHIORI3FW.GetDelayEvent
+{
+	(SHIORI3FW.DelayEvent,SHIORI3FW.DelayEventTime,SHIORI3FW.DelayEventReference)
+}
+
+//------------------------------------------------------------------------------
+//Function name：SHIORI3FW.MakeReferenceVariable
+//function　：Create a reference * variable from the Reference * header
+//------------------------------------------------------------------------------
+SHIORI3FW.MakeReferenceVariable : void
+{
+	SHIORI3FW.ReferenceList = IARRAY
+	reference               = IARRAY
+	reference.raw           = IARRAY
+	_sz                     = ARRAYSIZE(var.req.key)
+	for _i = 0; _i < _sz; _i++ {
+		if SUBSTR(_keyname = var.req.key[_i], 0, 9) == "Reference" {
+			_refnum = TOINT(SUBSTR(_keyname, 9, 3))
+			_value = var.req.value[_i]
+			reference[_refnum] = _value
+			reference.raw[_refnum] = var.req.rawvalue[_i]
+			
+			if SHIORI3FW.REF_ACCEL==0 { //Set to 1 for faster
+				_varname = "reference%(_refnum)"
+				void EVAL("%(_varname) = _value")
+				SHIORI3FW.ReferenceList ,= _varname
+			}
+		}
+	}
+}
+
+//------------------------------------------------------------------------------
+//Function name：SHIORI3FW.ClearReferenceVariable
+//function　：delete reference * variables
+//------------------------------------------------------------------------------
+SHIORI3FW.ClearReferenceVariable
+{
+	foreach SHIORI3FW.ReferenceList; _refname { ERASEVAR(_refname) }
+	ERASEVAR('SHIORI3FW.ReferenceList')
+	ERASEVAR('reference','reference.raw')
+}
+
+//******************************************************************************
+//Chain control
+//******************************************************************************
+//------------------------------------------------------------------------------
+//Function name：SHIORI3FW.InitChain
+//function　：Initialize
+//------------------------------------------------------------------------------
+SHIORI3FW.InitChain
+{
+	CHAIN.IDName = ''
+	CHAIN.Script = ''
+	CHAIN.Index  = 0
+}
+
+//------------------------------------------------------------------------------
+//Function name：SHIORI3FW.StartChainTalk
+//function　：Analyze chain information and start chain processing
+//argument　：_argv [0] event ID
+//------------------------------------------------------------------------------
+SHIORI3FW.StartChainTalk
+{
+	// Do nothing if there is no chain name
+	if _argv[0] == ''; return
+
+	// Do nothing if there is no chain name
+	if _argv[0] == 'end' {
+		SHIORI3FW.EndChainTalk
+	}
+	// Start a new chain
+	else {
+		CHAIN.IDName = _argv[0]
+		CHAIN.Script = ''
+		CHAIN.Index  = 0
+		CHAIN.StartTime = GETSECCOUNT()
+	}
+}
+
+//------------------------------------------------------------------------------
+//Function name：SHIORI3FW.StartChainTalkScriptDirect
+//function　：Specify the script of the next chain directly
+//argument　：_argv[0] script
+//------------------------------------------------------------------------------
+SHIORI3FW.StartChainTalkScriptDirect
+{
+	// Chain forced termination processing
+	if _argv[0] == '' {
+		SHIORI3FW.EndChainTalk
+	}
+	// Start a new chain
+	else {
+		CHAIN.IDName = ''
+		CHAIN.Script = _argv[0]
+		CHAIN.Index  = 0
+		CHAIN.StartTime = GETSECCOUNT()
+	}
+}
+
+//------------------------------------------------------------------------------
+//Function name：SHIORI3FW.IsChain
+//function　：Returns whether it is in a chain
+//------------------------------------------------------------------------------
+SHIORI3FW.IsChain
+{
+	if CHAIN.Script != '' {
+		1
+		return
+	}
+	if CHAIN.IDName != '' {
+		1
+		return
+	}
+	0
+	return
+}
+
+//------------------------------------------------------------------------------
+//Function name：ChainTalk
+//function　：Chain processing executed from SHIORI3EV.OnAITalkNewEvent
+//------------------------------------------------------------------------------
+ChainTalk
+{
+	if CHAIN.IDName != '' {
+		_res = EVAL(CHAIN.IDName)
+		if _res != '' {
+			_res
+			return
+		}
+	}
+	
+	if CHAIN.Script != '' {
+		_res = CHAIN.Script
+		CHAIN.Script = ''
+		_res
+		return
+	}
+	
+	SHIORI3FW.EndChainTalk
+	RandomTalk
+}
+
+//------------------------------------------------------------------------------
+//Function name：SHIORI3FW.EndChainTalk
+//function　：End the chain
+//------------------------------------------------------------------------------
+SHIORI3FW.EndChainTalk
+{
+	CHAIN.IDName = ''
+	CHAIN.Script = ''
+	CHAIN.StartTime = 0
+}
+
+//------------------------------------------------------------------------------
+//Function name：SHIORI3FW.ChainTime
+//function　：Get the time in the chain
+//------------------------------------------------------------------------------
+SHIORI3FW.ChainTime
+{
+	if CHAIN.StartTime {
+		GETSECCOUNT() - TOINT(CHAIN.StartTime)
+	}
+	else {
+		0
+	}
+}
+
+//------------------------------------------------------------------------------
+//Function name：SHIORI3FW.ClearChainVariable
+//function　：Clear the variables for chain control
+//------------------------------------------------------------------------------
+SHIORI3FW.ClearChainVariable
+{
+	ERASEVAR('CHAIN.IDName')
+	ERASEVAR('CHAIN.Index' )
+	ERASEVAR('CHAIN.Script' )
+	ERASEVAR('CHAIN.StartTime' )
+}
+
+//******************************************************************************
+//Action on dl2 file created after network update
+//******************************************************************************
+//------------------------------------------------------------------------------
+//Function name：SHIORI3FW.Dl2ToDll
+//function　：Start processing
+//------------------------------------------------------------------------------
+SHIORI3FW.Dl2ToDll
+{
+	SHIORI3FW.ExecuteDl2ToDll('')
+}
+
+//------------------------------------------------------------------------------
+//Function name：SHIORI3FW.ExecuteDl2ToDll
+//function　：Process dl2 existing in the specified directory
+//argument　：_argv[0] Process target path (specify relative path from AYA dll)
+//------------------------------------------------------------------------------
+SHIORI3FW.ExecuteDl2ToDll
+{
+	// Enumerate files in specified directory
+	_files   = TOLOWER(FENUM(_argv[0]))
+	// Store files with extension dl2 in the list. Recursively process in child directories.
+	_targets = IARRAY
+	foreach _files; _file {
+		if SUBSTR(_file, 0, 1) == '\'
+			SHIORI3FW.ExecuteDl2ToDll(_argv[0] + _file)
+		else {
+			_s_path = SPLITPATH(_file)
+			if _s_path[3] == '.dl2'
+				_targets ,= _s_path[2]
+		}
+	}
+
+	// Rename extension dl2 to dlldll Delete old dll
+	foreach _targets; _target {
+		_path = _argv[0] + '\' + _target
+		_dmy = FDEL(_path + '.dll')
+		_dmy = FRENAME(_path + '.dl2', _path + '.dll')
+	}
+}
+
+//******************************************************************************
+//Building an installed ghost list
+//******************************************************************************
+//------------------------------------------------------------------------------
+//Function name：On_installedghostname
+//function　：Installed ghost name notification event
+//------------------------------------------------------------------------------
+
+On_installedghostname
+{
+	installedghostlist  = IARRAY
+	installedsakuralist = IARRAY
+	installedkerolist   = IARRAY
+
+	// If acquisition from materia or event is not instructed, execute processing to acquire by file scanning
+	if basewarename == 'embryo' || !SHIORI3FW.IGLIST_ACCEL {
+		SHIORI3FW.StructInstalledGhostList
+		return
+	}
+
+	// Get from Reference
+	installedghostlist = reference.raw
+}
+
+//------------------------------------------------------------------------------
+//Function name：SHIORI3FW.StructInstalledGhostList
+//function　：Construction
+//------------------------------------------------------------------------------
+SHIORI3FW.StructInstalledGhostList
+{
+	if !SHIORI3FW.IGLIST_MAX; return
+
+	// Extract directory under ghost directory
+	_filelist = FENUM('..\..\..')
+	_dirlist  = IARRAY
+	foreach _filelist; _file {
+		if '\' _in_ _file; _dirlist ,= _file
+	}
+	_dirnum = ARRAYSIZE(_dirlist)
+
+	// Obtain the acquisition start position and acquisition number
+	_num = 0
+	if SHIORI3FW.IGLIST_MAX == -1 {
+		StructGhostList.Index = 0
+		_num                  = _dirnum
+	}
+	else {
+		if GETTYPE(StructGhostList.Index) != 1 || StructGhostList.Index >= _dirnum
+			StructGhostList.Index = 0
+		_num = SHIORI3FW.IGLIST_MAX
+		if _num > _dirnum; _num = _dirnum
+	}
+
+	// List creation main processing
+	for _i = 0; _i < _num; _i++ {
+		// Update acquisition position
+		StructGhostList.Index++
+		
+		if StructGhostList.Index >= _dirnum; StructGhostList.Index = 0
+
+		// descript.txtから情報取得
+		_ghostname = SHIORI3FW.GetGhostNameFromDescriptTxt(/
+						'..\..\..' + _dirlist[StructGhostList.Index])
+		// リストへ追加
+		if ARRAYSIZE(_ghostname) {
+			installedghostlist  ,= _ghostname[0]
+			installedsakuralist ,= _ghostname[1]
+			installedkerolist   ,= _ghostname[2]
+		}
+	}
+}
+
+//------------------------------------------------------------------------------
+//Function name：SHIORI3FW.GetGhostNameFromDescriptTxt
+//function　：Get name / sakura.name / kero.name from descript.txt
+//argument　：_argv[0] Ghost directory to get
+//------------------------------------------------------------------------------
+SHIORI3FW.GetGhostNameFromDescriptTxt
+{
+	if !FOPEN(_filename = "%_argv[0]\ghost\master\descript.txt", "r")
+		return
+
+	_ghostname = IARRAY
+	_flag      = 0
+	while _flag != 7 {
+		if (_line = FREAD(_filename)) == -1; break
+		
+		case CUTSPACE(_line[0]) {
+			when 'name' {
+				_ghostname[0] = CUTSPACE(_line[1])
+				_flag++
+			}
+			when 'sakura.name' {
+				_ghostname[1] = CUTSPACE(_line[1])
+				_flag += 2
+			}
+			when 'kero.name' {
+				_ghostname[2] = CUTSPACE(_line[1])
+				_flag += 4
+			}
+		}
+	}
+
+	FCLOSE(_filename)
+	_ghostname
+}
+
+//******************************************************************************
+// Sentence version 3 System function / Completion of system variable
+//FUNCTIONEX / SAORI
+//******************************************************************************
+//------------------------------------------------------------------------------
+//Function name：FUNCTIONLOAD
+//function　：Load SAORI
+//argument　：_argv[0]　 Target DLL name
+//------------------------------------------------------------------------------
+FUNCTIONLOAD
+{
+	// load Exit if error Send GET Version for the first load
+	_r_load = LOADLIB(_argv[0])
+	if !_r_load {
+		0
+		return
+	}
+	if _r_load == 1 {
+		if SUBSTR(SHIORI3FW.SendGETVersion(_argv[0]), 0, 1) != '2' {
+			UNLOADLIB(_argv[0])
+			0
+			return
+		}
+		SAORI.DllList ,= _argv[0]
+	}
+	1
+}
+
+//------------------------------------------------------------------------------
+//Function name：FUNCTIONEX
+//function　：Run SAORI
+//argument　：_argv[0]　 Target DLL name
+//　　　　_argv[1]～ Argument0～
+//------------------------------------------------------------------------------
+FUNCTIONEX
+{
+	if FUNCTIONLOAD(_argv[0]) == 0 {
+		0
+		return
+	}
+
+	// Create request string
+	_reqheader = /
+		"EXECUTE SAORI/1.0%(C_CRLF)Charset: %(CHARSETLIBEX(_argv[0]))%(C_CRLF)Sender: AYA%(C_CRLF)SecurityLevel: Local%(C_CRLF)"
+	for _i = 1; _i < _argc; _i++ {
+		_reqheader += "Argument%(_i - 1): %(_argv[_i])%(C_CRLF)"
+	}
+	_reqheader += C_CRLF
+
+	// Run
+	SHIORI3FW.RequestLib(_argv[0], _reqheader)
+
+	if var.lib.result != ''
+		var.lib.result
+	SHIORI3FW.MakeValueexVariable
+}
+
+//------------------------------------------------------------------------------
+//Function name：SAORI
+//function　：Run SAORI
+//        Synonym of FUNCTIONEX. It will be slower than FUNCTIONEX because of one step clogs,
+//        Not enough to bother。
+//------------------------------------------------------------------------------
+SAORI { FUNCTIONEX(_argv) }
+
+//------------------------------------------------------------------------------
+//Function name：SHIORI3FW.SendGETVersion
+//function　：Send GET Version to SAORI
+//argument　：_argv[0] SAORI file name
+//------------------------------------------------------------------------------
+SHIORI3FW.SendGETVersion
+{
+	SHIORI3FW.RequestLib(_argv[0], "GET Version SAORI/1.0%(C_CRLF)Charset: %(CHARSETLIBEX(_argv[0]))%(C_CRLF)Sender: AYA%(C_CRLF2)")
+
+	LIB.STATUSCODE
+}
+
+//------------------------------------------------------------------------------
+//Function name：SHIORI3FW.RequestLib
+//function　：Send request to SAORI and get result
+//argument　：_argv[0] SAORI file name
+//　　　　_argv[1] Request string
+//------------------------------------------------------------------------------
+SHIORI3FW.RequestLib
+{
+	LIB.PROTOCOL   = ''
+	LIB.STATUSCODE = ''
+
+	// Request transmission
+	_result = REQUESTLIB(_argv[0], _argv[1])
+
+	// Analyzing the results
+
+	// Split at line break
+	_lines = RE_SPLIT(_result, C_CRLF)
+
+	// Get protocol name and result
+	_seppos = STRSTR(_lines[0], ' ', 0)
+	if _seppos == -1; return
+	LIB.PROTOCOL   = SUBSTR(_lines[0], 0, _seppos)
+	LIB.STATUSCODE = SUBSTR(_lines[0], _seppos + 1, STRLEN(_lines[0]) - _seppos - 1)
+
+	// Get response header
+	var.lib.key   = IARRAY
+	var.lib.value = IARRAY
+	var.lib.result = ''
+	
+	_skip = 1
+	foreach _lines; _lin {
+		// Skip the first line
+		if _skip {
+			_skip = 0
+			continue
+		}
+
+		// Get key and value
+		_len         = STRLEN(_lin)
+		_pos         = STRSTR(_lin, ': ', 0)
+		var.lib.key ,= (_key = SUBSTR(_lin, 0, _pos))
+		_value       = SUBSTR(_lin, _pos + 2, _len - _pos - 2)
+		_valuecv     = ''
+		
+		if var.lib.key == '' {
+			break
+		}
+
+		if SHIORI3FW.AUTO_DATA_CONVERT {
+			if ISINTSTR(_value)
+				_valuecv = TOINT(_value)
+			elseif ISREALSTR(_value)
+				_valuecv = TOREAL(_value)
+			else
+				_valuecv = REPLACE(_value, C_BYTE1, ',')
+		}
+		else {
+			_valuecv = TOAUTOEX(_value)
+		}
+		
+		var.lib.value ,= _valuecv
+		if _key == 'Result' {
+			var.lib.result = _valuecv
+		}
+	}
+}
+
+//------------------------------------------------------------------------------
+//Function name：SHIORI3FW.MakeValueexVariable
+//function　：Create a valueex * variable from the request header
+//argument　：_argv[0] SAORI file name
+//　　　　_argv[1] Request string
+//------------------------------------------------------------------------------
+SHIORI3FW.MakeValueexVariable
+{
+	SHIORI3FW.ValueexList = IARRAY
+	_sz                   = ARRAYSIZE(var.lib.key)
+	for _i = 0; _i < _sz; _i++ {
+		if SUBSTR(_keyname = var.lib.key[_i], 0, 5) == "Value" {
+			_varname = "valueex%(SUBSTR(_keyname, 5, 3))"
+			void EVAL("%(_varname) = var.lib.value[_i]")
+			SHIORI3FW.ValueexList ,= _varname
+			valueex[TOINT(SUBSTR(_keyname, 5, 3))] = var.lib.value[_i]
+		}
+	}
+}
+
+//------------------------------------------------------------------------------
+//Function name：SHIORI3FW.ClearValueexVariable
+//function　：valueex*Delete a variable
+//------------------------------------------------------------------------------
+SHIORI3FW.ClearValueexVariable
+{
+	foreach SHIORI3FW.ValueexList; _exname { ERASEVAR(_exname) }
+	ERASEVAR('SHIORI3FW.ValueexList')
+	ERASEVAR('valueex')
+}
+
+//------------------------------------------------------------------------------
+//Function name：SHIORI3FW.SaoriUnloadAll
+//function　：Unload all loaded SAORI
+//------------------------------------------------------------------------------
+SHIORI3FW.SaoriUnloadAll
+{
+	foreach SAORI.DllList; _saori { UNLOADLIB(_saori) }
+
+	SAORI.DllList = IARRAY
+}
+
+//------------------------------------------------------------------------------
+//Function name：SHIORI3FW.RegisterTempVar
+//function　：Register the global variable to be deleted at the end。
+//------------------------------------------------------------------------------
+SHIORI3FW.RegisterTempVar
+{
+	for _i = 0 ; _i < _argc ; _i++ {
+		if ASEARCH(_argv[_i],tempvarname) < 0 {
+			tempvarname ,= _argv[_i]
+		}
+	}
+}
+
+//------------------------------------------------------------------------------
+//　Function name：SHIORI3FW.RemoveAllTags
+//　function　：Clear all Sakura script tags。
+//　argument　：argv0＝text
+//------------------------------------------------------------------------------
+SHIORI3FW.RemoveAllTags
+{
+	_text = RE_REPLACE(_argv[0],'\\_{0,2}[a-zA-Z0-9*!&](\d|\[("([^"]|\\")+?"|([^\]]|\\\])+?)+?\])?','')
+	_text = REPLACE(_text,'\\','\')
+	_text;
+}
+
+//------------------------------------------------------------------------------
+//　Function name：SHIORI3FW.CanTalk
+//　function　：Determine whether you can talk from the Status header
+//------------------------------------------------------------------------------
+SHIORI3FW.CanTalk
+{
+	if 'talking' _in_ status {
+		0
+		return
+	}
+	if 'choosing' _in_ status {
+		0
+		return
+	}
+	if 'minimizing' _in_ status {
+		0
+		return
+	}
+	if 'timecritical' _in_ status {
+		0
+		return
+	}
+	
+	1
+	return
+}
+
+//******************************************************************************
+//Array operations
+//******************************************************************************
+JOIN
+{
+	if _argc <= 2 {
+		_argv[0]
+		return
+	}
+	
+	_delim = _argv[_argc - 1]
+	_argc--
+	
+	_text = _argv[0]
+	for _i = 1 ; _i < _argc ; _i++ {
+		_text += _delim
+		_text += _argv[_i]
+	}
+	_text
+}
+
+REVERSE
+{
+	_a = IARRAY
+	for _i = 0 ; _i < _argc ; _i++ {
+		_a ,= _argv[_argc-_i-1]
+	}
+	_a
+}
+
+UNIQUE
+{
+	_v = _argv
+	_n = ARRAYSIZE(_v)
+	
+	for _i = 0 ; _i < _n ; _i++ {
+		for _j = _i+1 ; _j < _n ; _j++ {
+			if _argv[_i] == _argv[_j] {
+				_v[_j] = IARRAY
+				_n -= 1
+				_j -= 1
+			}
+		}
+	}
+	_v
+}
+
+SPLITEX
+{
+	_a = SPLIT(_argv)
+	_n = ARRAYSIZE(_a)
+	for _i = _n-1 ; _i >= 0 ; _i-- {
+		if _a[_i] == '' {
+			_a[_i] = IARRAY
+		}
+	}
+	_a
+}
+
+MAX
+{
+	_v = _argv[0]
+	for _i = 1 ; _i < _argc ; _i++ {
+		if _v < _argv[_i] {
+			_v = _argv[_i]
+		}
+	}
+	_v
+}
+
+MIN
+{
+	_v = _argv[0]
+	for _i = 1 ; _i < _argc ; _i++ {
+		if _v > _argv[_i] {
+			_v = _argv[_i]
+		}
+	}
+	_v
+}
+
+AVERAGE
+{
+	_v = 0
+	for _i = 0 ; _i < _argc ; _i++ {
+		_v += _argv[_i]
+	}
+	_v / _argc
+}
+
+//******************************************************************************
+// Event group processed by the system
+//******************************************************************************
+SHIORI3EV.OnUpdateReady : void
+{
+	// OnUpdateReadyならロード中のSAORIをすべてunloadする
+	SHIORI3FW.SaoriUnloadAll
+}
+
+SHIORI3EV.OnUpdateComplete : void
+{
+	// OnUpdateComplete looks for dl2. If it exists, delete the dll with the same name and rename dl2 to dll
+	// But what if AYA itself is the target?
+	SHIORI3FW.Dl2ToDll
+}
+
+SHIORI3EV.OnSurfaceChange : void
+{
+	if reference[2] != '' {
+		_r2 = SPLIT(reference[2],',')
+		_s = TOINT(_r2[1])
+		_c = TOINT(_r2[0])
+		
+		if _s >= 0 {
+			SHIORI3FW.LastSurface[_c] = _s
+			SHIORI3FW.IsVisible[_c] = 1
+		}
+		else {
+			SHIORI3FW.IsVisible[_c] = 0
+		}
+	}
+	else {
+		_s0 = TOINT(reference[0])
+		_s1 = TOINT(reference[1])
+		
+		if _s0 >= 0 {
+			SHIORI3FW.LastSurface[0] = _s0
+			SHIORI3FW.IsVisible[0] = 1
+		}
+		else {
+			SHIORI3FW.IsVisible[0] = 0
+		}
+		
+		if _s1 >= 0 {
+			SHIORI3FW.LastSurface[1] = _s1
+			SHIORI3FW.IsVisible[1] = 1
+		}
+		else {
+			SHIORI3FW.IsVisible[1] = 0
+		}
+	}
+}
+
+SHIORI3EV.On_hwnd : void
+{
+	SHIORI3FW.HWnd = RE_SPLIT(reference[0],'[\x1,]')
+	SHIORI3FW.BalloonHWnd = RE_SPLIT(reference[1],'[\x1,]')
+	
+	_m = ARRAYSIZE(SHIORI3FW.HWndOld)
+	_n = ARRAYSIZE(SHIORI3FW.HWnd)
+	
+	if _n < _m {
+		_n = _m
+	}
+	
+	for _i = 0 ; _i < _n ; _i++ {
+		SHIORI3FW.HWnd[_i] = TOINT(SHIORI3FW.HWnd[_i])
+		SHIORI3FW.HWndOld[_i] = TOINT(SHIORI3FW.HWndOld[_i])
+	}
+	
+	_refold  = reference
+	_refold0 = reference0
+	
+	for _i = 0 ; _i < _n ; _i++ {
+		if SHIORI3FW.HWndOld[_i] != SHIORI3FW.HWnd[_i] {
+			reference[0] = _i
+			reference0 = _i
+			
+			if SHIORI3FW.HWndOld[_i] == 0 {
+				void EVAL('OnSHIORI3FW.WindowCreate')
+			}
+			elseif SHIORI3FW.HWnd[_i] == 0 {
+				void EVAL('OnSHIORI3FW.WindowDestroy')
+			}
+
+			SHIORI3FW.HWndOld[_i] = SHIORI3FW.HWnd[_i]
+		}
+	}
+	
+	reference = _refold
+	reference0 = _refold0
+}
+
+SHIORI3EV.On_uniqueid : void
+{
+	SHIORI3FW.UniqueID = reference[0]
+}
+
+SHIORI3EV.OnNotifySelfInfo : void
+{
+	SHIORI3FW.GhostName = reference[0]
+	SHIORI3FW.ShellNameOld = SHIORI3FW.ShellName
+	SHIORI3FW.ShellName = reference[3]
+	SHIORI3FW.ShellPath = reference[4]
+	SHIORI3FW.BalloonNameOld = SHIORI3FW.BalloonName
+	SHIORI3FW.BalloonName = reference[5]
+	SHIORI3FW.BalloonPath = reference[6]
+	
+	selfname = reference[1]
+	sakuraname = reference[1]
+	keroname = reference[2]
+	
+	EVAL('OnSHIORI3FW.ChangeSelfInfo')
+}
+
+SHIORI3EV.OnNotifyUserInfo : void
+{
+	SHIORI3FW.UserName = reference[0]
+	SHIORI3FW.UserNameFull = reference[1]
+	SHIORI3FW.UserBirthday = SPLIT(reference[2],',',3)
+	for _i = 0 ; _i < 3 ; _i++ {
+		SHIORI3FW.UserBirthday[_i] = TOINT(SHIORI3FW.UserBirthday[_i])
+	}
+	SHIORI3FW.UserSex = reference[3]
+}
+
+SHIORI3EV.OnShellChanged : void
+{
+	SHIORI3FW.ShellName = reference[0]
+	SHIORI3FW.ShellPath = reference[2]
+	
+	EVAL('OnSHIORI3FW.ChangeSelfInfo')
+}
+
+SHIORI3EV.OnBalloonChange : void
+{
+	SHIORI3FW.BalloonName = reference[0]
+	SHIORI3FW.BalloonPath = reference[1]
+	
+	EVAL('OnSHIORI3FW.ChangeSelfInfo')
+}
+
+//------------------------------------------------------------------------------
+//OnAITalkNewEvent
+//------------------------------------------------------------------------------
+SHIORI3EV.OnAITalkNewEvent
+{
+	//Compatibility process
+	_old_name = SHIORI3FW.TranslateEvent('OnAiTalk')
+	if ISFUNC(_old_name) {
+		EVAL(_old_name)
+		return
+	}
+	_old_name = SHIORI3FW.TranslateEvent('OnAITalk')
+	if ISFUNC(_old_name) {
+		EVAL(_old_name)
+		return
+	}
+	
+	//---- Normal random talk, but chain talk during chain
+	if SHIORI3FW.IsChain {
+		ChainTalk
+	}
+	else {
+		RandomTalk
+	}
+}
+
+//---- SHIORI Related information ------------------------------------------------------------------
+SHIORI3EV.On_version
+{
+	GETSETTING('coreinfo.version')
+}
+
+SHIORI3EV.On_craftman
+{
+	GETSETTING('coreinfo.author')
+}
+
+SHIORI3EV.On_craftmanw
+{
+	GETSETTING('coreinfo.author')
+}
+
+SHIORI3EV.On_name
+{
+	GETSETTING('coreinfo.name')
+}
+
+//******************************************************************************
+// debug
+//******************************************************************************
+SHIORI3EV.On_enable_log : void
+{
+	if TOINT(reference[0]) {
+		SETSETTING('log','yaya_ssp_debug.log')
+	}
+	else {
+		SETSETTING('log','')
+	}
+}
+
+SHIORI3EV.On_log_path : void
+{
+	SHIORI3FW.Path + 'yaya_ssp_debug.log'
+}
+
+SHIORI3EV.On_enable_debug : void
+{
+	SHIORI3FW.DebugMode = TOINT(reference[0])
+}
+
+SHIORI3EV.On_ShioriEcho
+{
+	if SHIORI3FW.DebugMode {
+		'\0Eval Result = ' + JOIN(EVAL(reference[0]),',')
+	}
+}
+
+DUMP : void
+{
+	void FOPEN('dump.txt','ab')
+	void FWRITE('dump.txt',JOIN(_argv,',') + C_CRLF)
+	void FCLOSE('dump.txt')
+}
+
+//******************************************************************************
+// Time variable
+//******************************************************************************
+year    { GETTIME[0] }
+month   { GETTIME[1] }
+day     { GETTIME[2] }
+weekday { GETTIME[3] }
+hour    { GETTIME[4] }
+ampm    { if hour >= 12; 1;   else; 0    }
+hour12  { if ampm; hour - 12; else; hour }
+minute  { GETTIME[5] }
+second  { GETTIME[6] }
+
+systemuptickcount { GETTICKCOUNT }
+systemuptime
+{
+	_highcount = GETTICKCOUNT(1)
+	if _highcount > 1
+		GETTICKCOUNT/1000
+	else
+		(_highcount*0x40000000 + (GETTICKCOUNT/2))/500
+}
+
+systemupsecond    { SHIORI3FW.GetTickInfo[3] }
+systemupminute    { SHIORI3FW.GetTickInfo[1] }
+systemuphour      { SHIORI3FW.GetTickInfo[2] }
+
+SHIORI3FW.GetTickInfo
+{
+	_result     = (IARRAY, systemuptime)
+	_result    ,= _result[0]/60
+	_result    ,= _result[1]/60
+	_result    ,= _result[0] - _result[1]*60
+	_result[1] -= _result[2]*60
+
+	_result
+}
+
+ghostupmin
+{
+	(GETSECCOUNT() / 60) - ghostbootmin
+}
+
+ghostupmin_total
+{
+	ghostupmin_last + ghostupmin()
+}
+
+//******************************************************************************
+// Memory variables
+//******************************************************************************
+memoryload         { GETMEMINFO[0] }
+memorytotalphys    { GETMEMINFO[1] }
+memoryavailphys    { GETMEMINFO[2] }
+memorytotalvirtual { GETMEMINFO[3] }
+memoryavailvirtual { GETMEMINFO[4] }
+
