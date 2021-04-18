@@ -723,12 +723,12 @@ Select.dosomething
 //Zarla : When the user clicks Open Calender. This will open the calender function of SSP, an in-built feature that you don't have to worry about in the least.
 Select.CALENDAR
 {
-	if useraffection <= 70 //Echo: Hff, I'm just doing this for the sake of doing it.
+	if useraffection <= 130 //Echo: Hff, I'm just doing this for the sake of doing it.
 	{
 		if impostorrat == 1
 		{
 			"\0On it. \w7Seems to me like you really need to keep track of your time better.\![open,calender]\e"
-			"\0Alright then, \w8since you already know what I am.\![open,calender]\e"
+			"\0Alright then, \w8since you already know.\![open,calender]\e"
 			"\0Safe place has a calender, \w8good to know.\![open,calender]\e"
 		}
 		elseif impostormode == 1
@@ -745,7 +745,7 @@ Select.CALENDAR
 		}
 		
 	}
-	elseif useraffection <= 45 //Echo: Friends. By the way, these variables increase & decrease by one. Petting should increase by 0.5? I'm not sure yet.
+	elseif useraffection <= 70 //Echo: Friends. By the way, these variables increase & decrease by one. Petting should increase by 0.5? I'm not sure yet.
 	{
 		if impostorrat == 1
 		{
@@ -787,28 +787,6 @@ Select.CALENDAR
 			"\0Sure. \w8Though the time's usually more important.\![open,calender]\e"
 		}
 	}
-	elseif useraffection <= 15 //Echo: Near strangers.
-	{
-		if impostorrat == 1
-		{
-			"\0Sure. \w8Not like you don't know what I am already.\![open,calender]\e"
-			"\0Okay.\![open,calender]\e" //Echo: Running out of dialogue? YES.
-			"\0Oh. \w8You want the date. \w7I can do that.\![open,calender]\e"
-			"\0Not much of a task, \w8I can do that.\![open,calender]\e"
-		}
-		elseif impostormode == 1
-		{
-			"\0Oh. \w8You want the date. \w7I can do that.\![open,calender]\e"
-			"\0Not much of a task, \w8I can do that.\![open,calender]\e"
-			"\0Hm. \w9The date. \w9It's never been something I've paid much attention to.\![open,calender]\e"
-		}
-		else
-		{
-			"\0At least this task is easy enough.\![open,calender]\e"
-			"\0Okay.\![open,calender]\e"
-			"\0Hm? \w7Oh, \w5okay.\![open,calender]\e"
-		}
-	} 
 	else
 	{
 		"\0Okay. Here's the calendar.\![open,calendar]\e" 
