@@ -52,6 +52,8 @@ OnFirstBoot
 	useraffection = 0 //Levidre : The affective feelings between the ghost and the user
 	helloday = IARRAY
 	helloday = (month,day,0)
+	impostormode = 0
+	imposterrat = 0
 	
 	//Levidre : reference0 indicates if the ghost has already been installed
 	if reference0 == 0
@@ -198,6 +200,7 @@ OnBoot
 	nbconv = 0
 	dayslot = GetDaySlot
 	timeslot = GetTimeSlot
+	impostormode = 0
 	
  	"\0\s[0]\![set,otherghosttalk,true]\![set,otherghosttalk,before]"
 	--
