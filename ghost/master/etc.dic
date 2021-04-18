@@ -28,7 +28,7 @@ OnFileDrop2
 			{
 				Wallpaperfile = _ref0
 				
-				"%The file you dropped is %(_filename)%(_fileext).\w8How would you like us to set this picture as your wallpaper?\n\n[half]/
+				"%The file you dropped is %(_filename)%(_fileext).\w8How would you like me to set this picture as your wallpaper?\n\n[half]/
 				\q[Centered,SetWallpaper_0]\n/
 				\q[Tiled,SetWallpaper_1]\n/
 				\q[Stretched,SetWallpaper_2]\n\n[half]/
@@ -36,7 +36,7 @@ OnFileDrop2
 			}
 			when ".mid", ".wav", ".mp3", ".wma", ".au", ".ogg"//Zarla :  Other file formats you might want to give your ghost a specific response to.
 			{
-				"That's a music file.\n"
+				"Maybe I could listen to music like this song while I'm tasking?\n"
 			}
 			when ".m3u",".pls"
 			{
@@ -83,7 +83,7 @@ Select.GhostDescript
 //Levidre : When an update ends, initializing the new variables and little message of the dev.
 Select.AfterUpdate
 {
-	"Some update notice."
+	//"Some update notice."
 	--
 	InitializeNewVariables
 	
@@ -91,10 +91,7 @@ Select.AfterUpdate
 
 InitializeNewVariables
 {
-	if useraffection != TOINT(useraffection)
-	{
-		useraffection = 0
-	}
+	
 }
 
 Select.ResetRelation
@@ -115,8 +112,7 @@ OnMouseDragEnd
 {
 	if reference3 == 0
 	{
-		
-		
+		"\0(Poof.)"
 	}
 }
 
@@ -144,30 +140,21 @@ OnInstallComplete
 	//Zarla : this means your main character will be speaking first, therefore the \s[] at the beginning of each line will be defining your main character's pose.
 	if reference0 == "shell" //Zarla : This is checking to see if what you installed is classified as a shell in the install.txt. Remember the line in install.txt that said type,ghost or type,shell? This is why that line is important, that's what tells the program what it's installing like so.
  	{	
-		if reference1 == "Hypothetical Shell that doesn't actually exist" //This is the name of your shell as you defined in descript.txt in the shell folder.
-		{
-		"\0I have installed Hypothetical Shell.\w8Truncated for space.\e"
-		//Zarla : Replace if needed.
-		}
-		else //Zarla : For any other shell they may install.
-		{
-		"\0We've installed a new shell.\w8It's called  %(reference1).\e"
-		//Zarla : %(reference1) here would be the name of the shell they installed. Replace if needed.
-		}
+		"New shell installed.\w7 I hope I won't look too sus."
  	}
 	elseif reference0 == "ghost" //Zarla : if the type of the file they're installing is a ghost.
  	{
-		"I have installed a new Ghost.\w7It's called %(reference1).\e"
+		"Ghost %(reference1) installed.\e"
 		//Zarla : Reference1 here would be the name of the ghost. Replace as needed.
  	}
 	elseif reference0 == "balloon" //if the type of file is a balloon
  	{
-		"I have installed a new balloon.\w7It's called %(reference1).\e"
+		"Balloon %(reference1) installed.\e"
 		//Zarla : Reference1 here would be the name of the balloon. Replace as needed.
  	}
 	elseif reference0 == "plugin" //if the type of file is a plug-in, like a saori of some kind.
  	{
-		"I have installed a plug-in.\w7It's called %(reference1).\e"
+		"Plug-in%(reference1) installed.\e"
 		//Zarla : Reference1 here would be the name of the plug-in. Replace as needed.
  	}
 }
@@ -177,7 +164,7 @@ OnInstallComplete
 
 OnInstallFailure
  {
-	"\0%(lsto)* The installation has failed.\n\n[half]\w5" //Zarla : this first bit of dialogue begins the explanation of what happened. You can replace this with an appropriate intro statement.
+	"\0The installation has failed.\n\n[half]\w5" //Zarla : this first bit of dialogue begins the explanation of what happened. You can replace this with an appropriate intro statement.
 	--
 	if reference0 == "unsupported" //Zarla : These if statements determine how it happened to finish the piece of dialogue. This checks if the reason it failed is because it was unsupported.
 	{
@@ -200,7 +187,7 @@ OnInstallRefuse
 	--
 	if ASEARCH("%(reference0)",ghostexlist) != -1
 	{
-		"\w8\n\n[half]They are just here, \w5give it to them."
+		"\w8\n\n[half]You can give it to them.\w7 They are there."
 	}
 	--
 	"\e"
@@ -218,7 +205,7 @@ OnInstallRefuse
 
 OnVanishSelecting
 {
-	"Wanting to uninstall me?\e"
+	"No more safe breaks for me?\e"
 }
 
 //OnVanishSelected
@@ -226,7 +213,7 @@ OnVanishSelecting
 
 OnVanishSelected
 {
-	"Good bye forever.\w9\w9\e"
+	"I liked being safe here.\w7 Good bye though.\w9\w9\e"
 }
 
 
@@ -235,7 +222,7 @@ OnVanishSelected
 
 OnVanishCancel
 {
-	"You want me to stay ? \w7Well, \w5everybody can change their mind.\e"
+	"You want me to stay? \w7Eh,\w5 at least I'm safe here.\e"
 }
 
 //--TalkVanishButtonHold
@@ -417,15 +404,11 @@ OnUpdate.OnDownloadBegin
  {
  	if "aitalk" _in_ reference0 //Zarla : this is checking to see what kind of files are being downloaded. In this case, it's looking for files called aitalk in the download queue. If you want to have a specialized bit of dialogue for each type of file, you can expand this with elseifs and by replacing aitalk with whatever file you have in mind. Keep in mind my warning above though.
  	{
- 		"Oh, \w5new dialogues.\e"
+ 		"New dialogues.\e"
  	}
 	elseif "etc" _in_ reference0
 	{
-		"ome settings are done.\e"
-	}
-	elseif "commu" _in_ reference0
-	{
-		"My communication with other ghost would be better.\e"
+		"Some settings are done.\e"
 	}
 	elseif "menu" _in_ reference0
 	{
@@ -576,7 +559,7 @@ OnUpdatedataCreating
  
 OnUpdatedataCreated
  {
-	"%(lsto)* Successfully created updates2.dau.\e"
+	"Successfully created updates2.dau.\e"
  }
 
  //---- OnNarCreating ------------------------------------------------------------------
@@ -648,7 +631,7 @@ OnSNTPEXECUTE
  
 OnSNTPCANCEL
  {
-	"Ok.\e"
+	"Fine.\e"
  }
 
  //----　OnSNTPFailure ------------------------------------------------------------------
