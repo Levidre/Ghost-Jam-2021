@@ -17,7 +17,8 @@
 
 OpenSakuraMenu
 {
-	
+	"Yes?"
+	"What is it?"
 	--
 	MenuRun
 }
@@ -35,7 +36,7 @@ MenuRun
 	--
 	"\n\n\_q\b2" //Zarla : The \n\n means two new lines as detailed in the walkthrough, and \_q means quick session, meaning all the text from this point on will display instantly instead of a few letters at a time like normal ghost dialogue.
 	--
-	"\f(Interactions)\n\n[half]"
+	"(Talking)\n\n[half]"
 	--
 	if lastTalk != "" //Zarla : What this does is check to see if the ghost has already said a random bit of dialogue on its own, essentially by seeing if the lastTalk thing is NOT empty (!= means "does not equal").
 	{
@@ -45,34 +46,25 @@ MenuRun
 	}
 	--
  	"\![*]\q[Tell Me Something,altalk]\n"	
-	//Zarla : 
-	//This option will force the ghost to say something from aitalk if the user clicks it. Just replace "Say something" and "Say something 2" with whatever captions you think would be appropriate for such an option. IF you don't want two options for captions, delete one of the lines.
-	//Advanced users, you can add multiple captions for any option you add to a menu you make just like this, as long as you separate it from the other options into its own section with two dashes above and below.
 	--
-	"\![*]\q[Questions?,asksthg]\n\n[half]"
-	
+	"\![*]\q[Questions,asksthg]\n\n[half]"
+	--
+	"(Interactions)\n\n[half]"
 	--
 	"\![*]\q[Actions,actmenu]    \![*]\q[Items,itmenu]\n"
-		
-	--
-	"\n(Features)\n\n[half]"
-	--
-	"\![*]\q[Todo List,todolist]"
 	--
 	if displaytest == 1
 	{
-		"\n[half](Test Functions, Other Useful Stuff)\n\n[half]"
+		"\n[half](Test Functions)\n\n[half]"
 		--
 		"\![*]\q[Call Test Function,testfunction]\n"
 		--
-		"\![*]\q[Saori Test Menu,SaoriTestMenu]\n"
-		--
-		"\![*]\q[How Do Loops Work?,loopmenu]\n"
+		"\![*]\q[How Do Loops Work,loopmenu]\n"
 		--
 		"\![*]\q[Call Second Test Function,othertestfunction]\n"
 	}
 	--
-	"\n[half]\![*]\q[Configure,configmenu]    /
+	"\n[half]\![*]\q[Settings,configmenu]    /
 	\![*]\q[Functions,dosomething]\n\n[half]/
  	\![*]\q[Nevermind,CANCEL]\n\n\n[half]%(wd) %(nowhour):%(nowmin) %(ap), %(month)/%(day)/%(year)"
 	--
@@ -249,13 +241,13 @@ GetAP
 Getnowmin
 {
 	if minute >= 0 && minute <=9
-		{
-			"0%(minute)"
-		}
+	{
+		"0%(minute)"
+	}
 	else
-		{
-			"%(minute)"
-		}
+	{
+		"%(minute)"
+	}
 }
 
 //Zarla : This is figuring out the hour. Leave it alone.
@@ -631,7 +623,7 @@ Select.TALKMAX
 	talktime = "30 seconds" //Zarla : this sets up the envelope properly
 	aitalkinterval = 45 //Zarla : this changes the actual rate
 		
-		"30 seconds...\w5I will speak a lot!\e"
+	"30 seconds...\w5I will speak a lot!\e"
 }
 
 //Zarla : If the user chooses every minute.
@@ -689,7 +681,7 @@ Select.CANCEL
 
 Select.dosomething
 {
-	if useraffection <= 70 //Echo: Almost best buddies.
+	/*if useraffection <= 70 //Echo: Almost best buddies.
 	{
 	}
 	if useraffection <= 45 //Echo: Friends. By the way, these variables increase & decrease by one. Petting should increase by 0.5? I'm not sure yet.
@@ -702,9 +694,9 @@ Select.dosomething
 	{
 	}
 	else //Echo: The neutral dialogue.
-	{
+	{*/
 		"\0\b2Do you want something?\n\n[half]"
-	}
+	//}
 	//Zarla : 
 	//I mentioned this above in MenuRun, but you can have a set of multiple different responses that may randomly appear when the menu is opened if you offset them from the rest with the -- dashes below this note. Try opening this menu yourself with the template to see how it works. The character will randomly choose one line as the intro. 
 	//If you don't want to deal with this, just delete the extra lines and leave one. Otherwise, replace the dialogue above as you like, but note that they don't end with \e here. You can leave the rest of this below alone.
@@ -712,12 +704,12 @@ Select.dosomething
 	"\![*]\q[Open Calendar,CALENDAR]\n/
 	\![*]\q[Check Email,MailCheck]\n/
 	\![*]\q[Empty Trash,ChoiceGarbagecan]\n/
-	\![*]\q[Update.,keroupdatecheck]\n"
+	\![*]\q[Update,keroupdatecheck]\n"
 	--
 	"\![*]\q[System Info.,ChoiceSystemInformation]\n/
 	\![*]\q[Update Info.,AfterUpdate]\n/
 	\![*]\q[Stats.,UserDescript]\n\n[half]/
- 	\![*]\q[Go Back.,BACKTOMENU]\e"
+ 	\![*]\q[Go Back,BACKTOMENU]\e"
 }
 
 //Zarla : When the user clicks Open Calender. This will open the calender function of SSP, an in-built feature that you don't have to worry about in the least.
@@ -957,85 +949,40 @@ Select.actmenu
 {
 	"\0(What do you want to do?)\n\n[half]\_q\f[italic,false]"
 	--
-	if useraffection >= 150
-	{
-		"\n\![*]\q[Flirt,flirt]"
-	}
+	"\![*]\q[Flatter them,flatter]\n\![*]\q[Insult them,insult]\n"
 	--
-	if useraffection >= 275
-	{
-		"     \![*]\q[Kiss,kiss]"
-	}
-	--
-	if useraffection >= 100
-	{
-		"\n\![Sing,sing]\n"
-	}
-	else
-	{
-		"\n"
-	}
-	--
-	"\![*]\q[Insult,insult]\n\n[half]"
+	"\![*]\q[Accuse them,accuse]\n\n[half]"
 	--
 	"\![*]\q[Nothing,BACKTOMENU]"
 }
 
 Select.itmenu
 {
-	"\0\f[italic,true]\i[2001]What do you want to give her ?\f[italic,false]\_q\n\n[half]"
+	"\0(You want to give them...)\_q\n\n[half]"
 	--
-	"\![*]\q[A little present,lipresent]\n"
+	"\![*]\q[Some food,givefood]\n"
 	--
-	"\![*]\q[A bigger present,bipresent]\n"
+	"\![*]\q[Some drink,givedrink]\n"
 	--
-	"\![*]\q[Some food,gifood]\n\n[half]"
+	"\![*]\q[Something useful,giveuseful]\n\n[half]"
 	--
 	"\![*]\q[Nothing,BACKTOMENU]"
 }
 
 Select.asksthg
 {
-	"\0%(lsta)You want to ask her about...\f[italic,false]\w5\n\n[half]\_q"
+	"\0(Ask about...)\w5\n\n[half]\_q"
 	--
-	"\![*]\q[About herself,askherself]\n"
+	"\![*]\q[Themselves,askthemself]\n"
 	--
-	"\![*]\q[Anime,askanime]    \![*]\q[Games,askgame]\n"
+	"\![*]\q[Crewmates,askcrewmates]    \![*]\q[Impostors,askimpostors]\n"
 	--
-	"\![*]\q[Books,askbooks]"
+	"\![*]\q[Maps,askmaps]"
 	--
-	if useraffection >= 100
-	{
-		"    \![*]\q[Music,askmusic]\n"
-	}
-	else
-	{
-		"\n"
-	}
-	--
-	if nowshell == "Halloween shell"
-	{
-		"\![*]\q[About the pumpkin,askpumpkin]\n"
-	}
-	
-	--
-	"\![*]\q[Her journey in Undertale,askundertale]\n\n[half]"
+	"\n\n[half]"
 	--
 	"\![*]\q[Nothing,BACKTOMENU]\e"
 
-}
-
-
-	
-//---Fonctions secondaires--------------------------
-
-Select.todolist
-{
-	suppr = 0
-	adddeadline = 0
-	"\0%(lsta)Which list ?\f[italic,false]\n\n[half]"
-	--
-	" \![*]\q[The weekly list,weeklist]\n \![*]\q[The monthly list,monthlist]\n \![*]\q[The whenever list,wheneverlist]\n\n[half]\![*]\q[Go back,BACKTOMENU]    \![*]\q[Nevermind,close]\e"
 }
 
 

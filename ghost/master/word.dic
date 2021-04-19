@@ -77,15 +77,46 @@ color
 	"blue"
 	"red"
 	"green"
-	"magenta"
+	"lime"
+	"pink"
 	"cyan"
 	"black"
 	"yellow"
 	"purple"
-	"grey"
 	"orange"
 	"white"
+	"brown"
 }
+
+place
+{
+	"Medbay"
+	"O2"
+	"Electrical"
+	"Admin"
+	"Lab"
+	"Specimen"
+	"Reactor"
+	"Security"
+	"Weapons"
+}
+
+task
+{
+	"wires"
+	"fuel"
+	"weapons"
+	"scan"
+	"download"
+}
+
+sabotage
+{
+	"lights"
+	"reactor"
+	"O2"
+}
+
 //Zarla : This envelope in particular I think is fun. You can use this in dialogue to pretend like your ghost is looking through your user's files!
 
 usersfolder

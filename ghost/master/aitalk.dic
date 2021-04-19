@@ -11,31 +11,23 @@
 
 AiTalk
  {
-
-	if RAND(100) < communicateratio
- 	{
- 		StartCommunicate
-	}
- 	else
+	
+ 	if mikireflag == 0
 	{
 		
- 		if mikireflag == 0
-		{
+		if CHAIN.IDName == "" {
 			
-			if CHAIN.IDName == "" {
-				
- 				lastTalk = RandomTalk
-			}
-			else {
-				lastTalk = ChainTalk
-			}
-			lastTalk
+ 			lastTalk = RandomTalk
 		}
- 		else
-		{ 
-		MikireTalk
- 		}
+		else {
+			lastTalk = ChainTalk
+		}
+		lastTalk
 	}
+ 	else
+	{ 
+		MikireTalk
+ 	}
  }
 
 
@@ -72,24 +64,75 @@ RandomTalk //: nonoverlap
 //Here you have your normal dialogues
 NormalTalk
 {	
-	if ARRAYSIZE(ghostexlist) != 0
+	/*if ARRAYSIZE(ghostexlist) != 0
 	{
 		index = RAND(ARRAYSIZE(ghostexlist))
-		"\![raise,OnStartCom]"
-	}
-	
-	
-	
+		"\![raise,OnStartCommunication]"
+	}*/
+	"I had to boot up the reactor."
+	"Did you already have to classify specimen?"
+	"Why is the base near lava anyway?"
+	"Maybe %(color) is the impostor?"
+	"I find %(color) sus."
+	"Mmh,\w5 %(color)'s pretty sus to me."
+	"I saw %(color) near a vent."
+	"Impostors sabotaged reactor two times in a row."
+	"I had wires last time."
+	"I hope I'll get impostor next round."
+	"Last time I went in electrical alone,\w5 I got killed."
+	"Apparently %(color) saw the last kill on cams."
+	"Someone saw %(color) kill under the cams."
+	"I think %(color)'s safe."
+	"Why did they vote %(color)?"
+	"I need to finish my tasks."
+	"As soon as I get back, \w5I have to finish my tasks."
+	"I didn't see %(color) at all."
+	"I still have so much tasks to do."
+	"The ghosts aren't doing their tasks."
+	"I have %(task)."
+	"I still have %(task) left."
+	--
+	"\e"
 }
 
-
-//Levidre :
-//Here you have Halloween related dialogues
-HalloweenTalk
+ImpostorTalk
 {
-	"\0This is a spooky dialogue.\e"
-	"\0It's Halloween.\e"
+	"(They're staring at you.)"
+	"I need to find %(color)..."
+	"I saw %(color) staying alone."
+	"I think %(color) trusts me."
+	"I'll have to find %(color)."
+	"I'll check %(place)."
+	"There is a body in %(place)."
+	"I wonder how the ghosts are doing."
+	"Eh,\w5 %(color) got a bad timing."
 }
+
+DiscoveredImpostorTalk
+{
+	"Kill them all.... Kill themmm alllll.... Hum,\w5 sorry."
+	"Mmh,\w5 what weapon would be the better?"
+	"Do you know... vents?"
+	"Electrical is just the perfect place to kill someone."
+	"Vents are pretty dusty you know?\w7 Someone have to clean them time to time..."
+	"Hehe,\w5 %(color) will vouch for me."
+	"How should I kill..."
+	"I'll kill %(color)..."
+	"Hehehe,\w5 they didn't even see me kill."
+	"Vent-kills are the best..."
+	"I can't believe %(color) suspects me!"
+	"Why is %(color) suspecting me?"
+	"I hope nobody finds the body in %(place)."
+	"Vents are wonderful places to hide."
+	"My mate is inefficient."
+	"If this continues,\w5 I'll have to continue alone..."
+	"I'll get them all."
+	"They still have plenty of tasks to do."
+	"Last time they won with tasks,\w5 they won't this time."
+	--
+	"\e"
+}
+
 
 //Levidre :
 //This function is for starting a communication with an other ghost.

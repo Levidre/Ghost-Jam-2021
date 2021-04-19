@@ -1,3 +1,5 @@
 
 *.dat
 *.cfg
+*.bak
+ghost/master/profile/var.txt
