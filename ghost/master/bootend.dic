@@ -54,6 +54,7 @@ OnFirstBoot
 	helloday = (month,day,0)
 	impostormode = 0
 	imposterrat = 0
+	whymustyoudothis = 0 //Echo: Negative counter. I'm not sure if you can use negative numbers so this variable exists now.
 	
 	//Levidre : reference0 indicates if the ghost has already been installed
 	if reference0 == 0
