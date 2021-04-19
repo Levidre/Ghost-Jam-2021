@@ -1,5 +1,5 @@
 
-This is the Red Shell for the Among Us Ghost.
+This is the Cyan Shell for the Among Us Ghost.
 
 - GhostJam 2021 -
 

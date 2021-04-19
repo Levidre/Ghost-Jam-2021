@@ -12,7 +12,7 @@ seriko.alignmenttodesktop,free
 
 charset,UTF-8
 type,shell
-name,Red
+name,Yellow
 craftman,ScardyFluff
 craftmanurl,https://azura-levidre.tumblr.com
 //menu,hidden

@@ -1,0 +1,15 @@
+charset,UTF-8
+version,1
+option,DisableNoDefineSurfaces
+
+group,PurpleBean
+	{
+	scope,0
+		0,Default
+		1,Emotion Test
+	}
+
+	{
+	scope,1
+		10,Empty
+	}
