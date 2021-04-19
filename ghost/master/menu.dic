@@ -973,7 +973,7 @@ Select.asksthg
 {
 	"\0(Ask about...)\w5\n\n[half]\_q"
 	--
-	"\![*]\q[Themselves,askthemself]\n"
+	"\![*]\q[Themselves,askthemself]     \![*]\q[The game,askgame]\n"
 	--
 	"\![*]\q[Crewmates,askcrewmates]    \![*]\q[Impostors,askimpostors]\n"
 	--
@@ -985,6 +985,126 @@ Select.asksthg
 
 }
 
+//-- Act functions
+
+Select.flatter
+{
+	--
+	"\n\n[half]\![*]\q[Do something else,actmenu]     \![*]\q[Nevermind,CANCEL]"
+}
+
+Select.insult
+{
+	--
+	"\n\n[half]\![*]\q[Do something else,actmenu]     \![*]\q[Nevermind,CANCEL]"
+}
+
+Select.accuse
+{
+	--
+	"\n\n[half]\![*]\q[Do something else,actmenu]     \![*]\q[Nevermind,CANCEL]"
+}
+
+//-- Give functions
+
+Select.givefood
+{
+	"(You give them some %(food).)"
+	"(You hold %(food) out to them.)"
+	"(You treat them with %(treat).)"
+	"(You give them %(food) to eat.)"
+	--
+	"\n\n[half]Thanks."
+	"\n\n[half]Thank you."
+	"\n\n[half]What a tasty food."
+	"\n\n[half]What a pleasant meal."
+	"\n\n[half]Thanks for the good snack."
+	"\n(They ate it all.)"
+	"\n(They appreciated.)"
+	"\n(They enjoyed it.)"
+	"\n(They seem to have enjoyed it.)"
+	"\n(They seem to have like it.)"
+	"\n(They seem stuffed.)"
+	--
+	"\n\n[half]\![*]\q[Give something else,itmenu]     \![*]\q[Nevermind,CANCEL]"
+}
+
+Select.givedrink
+{
+	"(You give them some %(drink).)"
+	"(You hold some %(drink) out to them.)"
+	"(You think of their hydratation with %(drink).)"
+	--
+	"\n\n[half]Thanks."
+	"\n\n[half]Thank you."
+	"\n\n[half]What a tasty drink."
+	"\n\n[half]What a pleasant drink."
+	"\n(They drank it all.)"
+	"\n(They appreciated.)"
+	"\n(They enjoyed it.)"
+	"\n(They seem to have enjoyed it.)"
+	"\n(They seem to have like it.)"
+	"\n(They seem better hydrated.)"
+	--
+	"\n\n[half]\![*]\q[Give something else,itmenu]     \![*]\q[Nevermind,CANCEL]"
+}
+
+Select.giveuseful
+{
+	"(You give them %(present).)"
+	"(You offer them %(present).)"
+	"(You gift them %(present).)"
+	"(You hold %(present) out to them.)"
+	"(You please them with %(present).)"
+	--
+	"\n\n[half]Thanks."
+	"\n\n[half]Thank you."
+	"\n\n[half]This will be useful."
+	"\n\n[half]It's pretty useful,\w5 thanks."
+	"\n\n[half]It's pretty useful,\w5 thank you."
+	"\n\n[half]I'll test it as soon as I leave."
+	"\n\n[half]This is %(nice), \w5thanks."
+	"\n\n[half]This is %(nice), \w5thank you."
+	"\n\n[half]This is %(nice)."
+	"\n(It pleased them.)"
+	"\n(They seem pleased.)"
+	"\n(They appreciate the gift.)"
+	--
+	"\n\n[half]\![*]\q[Give something else,itmenu]     \![*]\q[Nevermind,CANCEL]"
+}
+
+
+//-- Ask functions
+
+Select.askthemself
+{
+	--
+	"\n\n[half]\![*]\q[Ask something else,asksthg]     \![*]\q[Nevermind,CANCEL]"
+}
+
+Select.askgame
+{
+	--
+	"\n\n[half]\![*]\q[Ask something else,asksthg]     \![*]\q[Nevermind,CANCEL]"
+}
+
+Select.askcrewmates
+{
+	--
+	"\n\n[half]\![*]\q[Ask something else,asksthg]     \![*]\q[Nevermind,CANCEL]"
+}
+
+Select.askimpostors
+{
+	--
+	"\n\n[half]\![*]\q[Ask something else,asksthg]     \![*]\q[Nevermind,CANCEL]"
+}
+
+Select.askmaps
+{
+	--
+	"\n\n[half]\![*]\q[Ask something else,asksthg]     \![*]\q[Nevermind,CANCEL]"
+}
 
  
 //--Test Variable --------------------------------------------------------

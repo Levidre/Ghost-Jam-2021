@@ -117,6 +117,62 @@ sabotage
 	"O2"
 }
 
+drink
+{
+	"energy drink"
+	"%(fruit) juice"
+	"water"
+	"carbonated water"
+	"coffee"
+	"tea"
+	"almond milk"
+	"milk"
+}
+
+food
+{
+	"chicken"
+	"chocolate"
+	"%(fruit)"
+	"marzipan"
+	"almonds"
+	"energy bar"
+	"cookies"
+	"crepes"
+	"snack"
+	"cake"
+	"a %(treat)"
+}
+
+fruit
+{
+	"apple"
+	"watermelon"
+	"orange"
+	"tomato"
+	"strawberry"
+	"blackberry"
+}
+
+present
+{
+	"some screws"
+	"a screwdriver"
+	"a %(nice) hat"
+	"a voltmeter"
+}
+
+nice
+{
+	"nice"
+	"cute"
+	"pretty"
+	"beautiful"
+	"amazing"
+	"wonderful"
+	"comfy"
+}
+
 //Zarla : This envelope in particular I think is fun. You can use this in dialogue to pretend like your ghost is looking through your user's files!
 
 usersfolder

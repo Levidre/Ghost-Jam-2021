@@ -5,13 +5,13 @@ balloon,C:\Users\lisou\Documents\Ukagakas\ssp_2_4_19f\balloon\z_undertale\
 inputbox.left,413
 GroupFlagOverride,noupdateauto,
 scriptbox.left,629
-shiori.lognotify,1
+shiori.lognotify,0
 shiori.debugnotify,1
 Char.VirtualDesktop,ad415cc6-9033-4515-bfa6-15e00f003d69
 shell.ischanged,1
 Char2.center,299
 Update.TestMode,1
-Char0.center,1070
+Char0.center,1099
 scriptbox.top,228
 FirstBoot,booted
 shell,shell\master\
