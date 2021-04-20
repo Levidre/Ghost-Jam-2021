@@ -4,8 +4,8 @@
 
 charset,UTF-8
 type,ghost
-name,Azura
-directory,Azura
+name,Among Us
+directory,among_us
 
 
 //This tells the program what balloon your ghost will be using. Replace "z_simple" and point it at your balloon directory if you've made one, or use a default balloon directory.
