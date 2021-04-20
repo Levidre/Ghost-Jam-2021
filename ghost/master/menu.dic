@@ -577,12 +577,8 @@ OnUserBornDay
 
 birthchecked
 {
-	if userbirthday == dayslot //130, 70, 30
+	if userbirthday == dayslot //70, 30
 	{
-		if useraffection <= 130
-		{
-			"\0Huh. \w8It's your birthday today. \w9Happy birthday then, %(username).\e"
-		}
 		if useraffection <= 70
 		{
 			"\0Great. \w9Never really celebrated birthdays much, \w7but I suppose you still do.\e"
@@ -640,21 +636,7 @@ Select.talkinter
 //Zarla : If the user doesn't want to change the rate. You can change all of the dialogue in any of these options if you want to reflect the choice the user made. You TECHNICALLY could also change the value in talktime to reflect some other way of measuring time but I would NOT recommend it, it'd just be confusing I'm sure.
 Select.TalksTill
 {
-	if useraffection <= 130
-	{
-		if impostorrat == 1 //Echo: Originally wrote some dialogue talking about crewmates and THEIR ways of talking, but deleted it.
-		{
-		}
-		elseif impostormode == 1
-		{
-		}
-		else
-		{
-			"\0I suppose you didn't find anything that made you satisfied? \w9I don't mind talking.\e"
-			"\0Alright then, \w8I'll just be the same over here.\e"
-		}
-	}
-	elseif useraffection <= 70 //echo: edit dialogue if you'd like. i really just put stuff here as placeholders.
+	if useraffection <= 70 //echo: edit dialogue if you'd like. i really just put stuff here as placeholders.
 	{
 		if impostorrat == 1
 		{
@@ -701,19 +683,7 @@ Select.TALKMAX
 	talktime = "30 seconds" //Zarla : this sets up the envelope properly
 	aitalkinterval = 45 //Zarla : this changes the actual rate
 	
-	if useraffection <= 130
-	{
-		if impostorrat == 1
-		{
-		}
-		elseif impostormode == 1
-		{
-		}
-		else
-		{
-		}
-	}
-	elseif useraffection <= 70
+	if useraffection <= 70
 	{
 		if impostorrat == 1
 		{
@@ -757,19 +727,7 @@ Select.TALKHIGH
 	talktime = "minute"
 	aitalkinterval = 90
 	
-	if useraffection <= 130
-	{
-		if impostorrat == 1
-		{
-		}
-		elseif impostormode == 1
-		{
-		}
-		else
-		{
-		}
-	}
-	elseif useraffection <= 70
+	if useraffection <= 70
 	{
 		if impostorrat == 1
 		{
@@ -813,20 +771,8 @@ Select.TALKNORMAL
 {
 	talktime = "3 minutes"
 	aitalkinterval = 270
-	
-	if useraffection <= 130
-	{
-		if impostorrat == 1
-		{
-		}
-		elseif impostormode == 1
-		{
-		}
-		else
-		{
-		}
-	}
-	elseif useraffection <= 70
+
+	if useraffection <= 70
 	{
 		if impostorrat == 1
 		{
@@ -870,19 +816,7 @@ Select.TALKPOOR
 	talktime = "5 minutes"
 	aitalkinterval = 400
 	
-	if useraffection <= 130
-	{
-		if impostorrat == 1
-		{
-		}
-		elseif impostormode == 1
-		{
-		}
-		else
-		{
-		}
-	}
-	elseif useraffection <= 70
+	if useraffection <= 70
 	{
 		if impostorrat == 1
 		{
@@ -926,19 +860,7 @@ Select.TALKNONE
 	talktime = "...actually they don't talk at all"
 	aitalkinterval = 0
 	
-if useraffection <= 130
-	{
-		if impostorrat == 1
-		{
-		}
-		elseif impostormode == 1
-		{
-		}
-		else
-		{
-		}
-	}
-	elseif useraffection <= 70
+	if useraffection <= 70
 	{
 		if impostorrat == 1
 		{
@@ -1022,29 +944,7 @@ Select.dosomething
 //Zarla : When the user clicks Open Calender. This will open the calender function of SSP, an in-built feature that you don't have to worry about in the least.
 Select.CALENDAR
 {
-	if useraffection <= 130 //Echo: Hff, I'm just doing this for the sake of doing it.
-	{
-		if impostorrat == 1
-		{
-			"\0On it. \w7Seems to me like you really need to keep track of your time better.\![open,calender]\e"
-			"\0Alright then, \w8since you already know.\![open,calender]\e"
-			"\0Safe place has a calender, \w8good to know.\![open,calender]\e"
-		}
-		elseif impostormode == 1
-		{
-			"\0Alright. \w9Not sure why you can't just go check it yourself, \w8but I don't mind.\![open,calender]\e"
-			"\0Okay. \w9I thought you already had a calender...\w9\w3 but I might be wrong.\![open,calender]\e"
-			"\0Mkay.\![open,calender]\e"
-		}
-		else
-		{
-			"\0Sure, \w8okay. \w9Tasks have never been my thing, \w8but okay.\![open,calender]\e"
-			"\0Happy to help, \w9I guess.\![open,calender]\e"
-			"\0Well, \w9at least I can do tasks without seeming sus to you. \w8They always accuse me of the stupidest things.\![open,calender]\e"
-		}
-		
-	}
-	elseif useraffection <= 70 //Echo: Friends. By the way, these variables increase & decrease by one. Petting should increase by 0.5? I'm not sure yet.
+	if useraffection <= 70 //Echo: Friends. By the way, these variables increase & decrease by one. Petting should increase by 0.5? I'm not sure yet.
 	{
 		if impostorrat == 1
 		{
@@ -1103,19 +1003,7 @@ Select.CALENDAR
 //Zarla : When the user chooses SSP preferences. This will open the same window that shows up if you right click your ghost and go to Utilities - Preferences.
 Select.sspconfig //Echo: Sorry if this gets taxing. 
 {
-	if useraffection <= 130
-	{
-		if impostorrat == 1
-		{
-		}
-		elseif impostormode == 1
-		{
-		}
-		else
-		{
-		}
-	}
-	elseif useraffection <= 70
+	if useraffection <= 70
 	{
 		if impostorrat == 1
 		{
@@ -1155,10 +1043,7 @@ Select.ChoiceGarbagecan
 	
 	if _gomicheck == 0 //Zarla : If the recycle bin is empty.
 	{
-		if useraffection <= 130
-		{
-		}
-		elseif useraffection <= 70
+		if useraffection <= 70
 		{
 		}
 		elseif whymustyoudothis <= 30
@@ -1320,6 +1205,16 @@ Select.actmenu
 	--
 	"\![*]\q[Flatter them,flatter]\n\![*]\q[Insult them,insult]\n"
 	--
+	if useraffection <= 70
+	{
+	"\![*]\q[Hug them,hug]\n\n[half]"
+	}
+	--
+	if whymustyoudothis <= 20
+	{
+	"\![*]\q[Taunt them,taunt]\n\n[half]"
+	}
+	--
 	"\![*]\q[Accuse them,accuse]\n\n[half]"
 	--
 	"\![*]\q[Nothing,BACKTOMENU]"
@@ -1333,7 +1228,10 @@ Select.itmenu
 	--
 	"\![*]\q[Some drink,givedrink]\n"
 	--
+	if useraffection <= 0 && whymustyoudothis >= 2
+	{
 	"\![*]\q[Something useful,giveuseful]\n\n[half]"
+	}
 	--
 	"\![*]\q[Nothing,BACKTOMENU]"
 }
@@ -1344,7 +1242,10 @@ Select.asksthg
 	--
 	"\![*]\q[Themselves,askthemself]     \![*]\q[The game,askgame]\n"
 	--
-	"\![*]\q[Crewmates,askcrewmates]    \![*]\q[Impostors,askimpostors]\n"
+	if useraffection <= 15
+	{
+	"\![*]\q[Crewmates,askcrewmates]	\![*]\q[Impostors,askimpostors]\n"
+	}
 	--
 	"\![*]\q[Maps,askmaps]"
 	--
@@ -1358,18 +1259,160 @@ Select.asksthg
 
 Select.flatter
 {
+	if useraffection <= 70
+	{
+		if impostorrat == 1
+		{
+		}
+		elseif impostormode == 1
+		{
+		}
+		else
+		{
+		}
+	}
+	
+	elseif whymustyoudothis <= 30
+	{
+		if impostorrat == 1
+		{
+		}
+		elseif impostormode == 1
+		{
+		}
+		else
+		{
+		}
+	}
+	
 	--
 	"\n\n[half]\![*]\q[Do something else,actmenu]     \![*]\q[Nevermind,CANCEL]"
 }
 
 Select.insult
 {
+	if useraffection <= 70
+	{
+		if impostorrat == 1
+		{
+		}
+		elseif impostormode == 1
+		{
+		}
+		else
+		{
+		}
+	}
+	
+	elseif whymustyoudothis <= 30
+	{
+		if impostorrat == 1
+		{
+		}
+		elseif impostormode == 1
+		{
+		}
+		else
+		{
+		}
+	}
+	
 	--
 	"\n\n[half]\![*]\q[Do something else,actmenu]     \![*]\q[Nevermind,CANCEL]"
 }
 
 Select.accuse
 {
+	if useraffection <= 70
+	{
+		if impostorrat == 1
+		{
+		}
+		elseif impostormode == 1
+		{
+		}
+		else
+		{
+		}
+	}
+	
+	elseif whymustyoudothis <= 30
+	{
+		if impostorrat == 1
+		{
+		}
+		elseif impostormode == 1
+		{
+		}
+		else
+		{
+		}
+	}
+	
+	--
+	"\n\n[half]\![*]\q[Do something else,actmenu]     \![*]\q[Nevermind,CANCEL]"
+}
+
+Select.hug
+{
+	if useraffection <= 70
+	{
+		if impostorrat == 1
+		{
+		}
+		elseif impostormode == 1
+		{
+		}
+		else
+		{
+		}
+	}
+	
+	elseif whymustyoudothis <= 30
+	{
+		if impostorrat == 1
+		{
+		}
+		elseif impostormode == 1
+		{
+		}
+		else
+		{
+		}
+	}
+	
+	--
+	"\n\n[half]\![*]\q[Do something else,actmenu]     \![*]\q[Nevermind,CANCEL]"
+}
+
+Select.taunt
+{	
+	if useraffection <= 70
+	{
+		if impostorrat == 1
+		{
+		}
+		elseif impostormode == 1
+		{
+		}
+		else
+		{
+		}
+	}
+	
+	elseif whymustyoudothis <= 30
+	{
+		if impostorrat == 1
+		{
+		}
+		elseif impostormode == 1
+		{
+		}
+		else
+		{
+		}
+	}
+	
 	--
 	"\n\n[half]\![*]\q[Do something else,actmenu]     \![*]\q[Nevermind,CANCEL]"
 }
@@ -1378,22 +1421,25 @@ Select.accuse
 
 Select.givefood
 {
-	"(You give them some %(food).)"
-	"(You hold %(food) out to them.)"
-	"(You treat them with %(treat).)"
-	"(You give them %(food) to eat.)"
+	if useraffection <= 70
+	{
+		"(You give them some %(food).)"
+		"(You hold %(food) out to them.)"
+		"(You treat them with %(treat).)"
+		"(You give them %(food) to eat.)"
 	--
-	"\n\n[half]Thanks."
-	"\n\n[half]Thank you."
-	"\n\n[half]What a tasty food."
-	"\n\n[half]What a pleasant meal."
-	"\n\n[half]Thanks for the good snack."
-	"\n(They ate it all.)"
-	"\n(They appreciated.)"
-	"\n(They enjoyed it.)"
-	"\n(They seem to have enjoyed it.)"
-	"\n(They seem to have like it.)"
-	"\n(They seem stuffed.)"
+		"\n\n[half]Thanks."
+		"\n\n[half]Thank you."
+		"\n\n[half]What a tasty food."
+		"\n\n[half]What a pleasant meal."
+		"\n\n[half]Thanks for the good snack."
+		"\n(They ate it all.)"
+		"\n(They appreciated it.)"
+		"\n(They enjoyed it.)"
+		"\n(They seem to have enjoyed it.)"
+		"\n(They seem to have like it.)"
+		"\n(They seem stuffed.)"
+	}
 	--
 	"\n\n[half]\![*]\q[Give something else,itmenu]     \![*]\q[Nevermind,CANCEL]"
 }
