@@ -4,6 +4,7 @@
 //Default
 surface0
 {
+
 element0,overlay,surface0.png,0,0
 
 //--Blinking---------------------------------------------------------------------------
@@ -42,6 +43,30 @@ element0,overlay,surface0.png,0,0
 //20interval0,runonce
 //20pattern0,1020,0,overlay,0,0
 //20pattern1,1020,1,overlay,0,0
+
+//Hats
+100interval,bind
+100pattern0,100,0,add,0,0
+101interval,bind
+101pattern0,101,0,add,0,0
+102interval,bind
+102pattern0,102,0,add,0,0
+
+//Skins
+200interval,bind
+200pattern0,200,0,add,0,0
+201interval,bind
+201pattern0,201,0,add,0,0
+202interval,bind
+202pattern0,202,0,add,0,0
+
+//Pets
+300interval,bind
+300pattern0,300,0,add,0,0
+301interval,bind
+301pattern0,301,0,add,0,0
+302interval,bind
+302pattern0,302,0,add,0,0
 }
 
 //Emotion Test

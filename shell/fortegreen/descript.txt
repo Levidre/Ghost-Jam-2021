@@ -41,32 +41,32 @@ shiori.logo.y,256
 //Like it says, this is the font color for the right-click SSP menu. r g b stand for red blue green, adjust the values to get the color you want. This'll probably take some trial and error.
 
 menu.background.font.color.r,255
-menu.background.font.color.g,214
-menu.background.font.color.b,41
+menu.background.font.color.g,255
+menu.background.font.color.b,255
 
 
 //Menu Highlighted Text Color
 //See above
 
-menu.foreground.font.color.r,255
-menu.foreground.font.color.g,0
-menu.foreground.font.color.b,0
+menu.foreground.font.color.r,160
+menu.foreground.font.color.g,160
+menu.foreground.font.color.b,160
 
 
 //Menu Greyed Out Font Color
 //For options that aren't selectable for some reason.
 
-menu.disable.font.color.r,214
-menu.disable.font.color.g,153
-menu.disable.font.color.b,0
+menu.disable.font.color.r,100
+menu.disable.font.color.g,100
+menu.disable.font.color.b,100
 
 
 //Menu Separate Color
 //The color of the tiny line that separates the sections on the menu.
 
-menu.separator.color.r,240
-menu.separator.color.g,240
-menu.separator.color.b,240
+menu.separator.color.r,29
+menu.separator.color.g,152
+menu.separator.color.b,83
 
 
 //Menu Background Image Alignment
@@ -89,20 +89,42 @@ menu.sidebar.bitmap.filename,menu_sidebar.png
 //Clothing can be a little complicated, so I'd recommend reading the clothing page on the walkthrough before coming back here. I'll leave a bit of cindysuke's clothing code in here just as an example. If you're going to use these lines, make sure to uncomment them by removing the slashes.
 //As a brief overview, sakura (the main character), has a clothing item called "glasses" that's in a section called "face". The second character, kero, has two items, one called "glasses" in the "face" section and one called "hairpins" that's in the "hair" section. What you call these sections and items of clothing is up to you if you're actually doing this. Note the numbers after bindgroup though! We're going to be using them in just a second.
 
-//sakura.bindgroup51.name,face,glasses
+sakura.bindgroup100.name,Hat,Paper Hat
+sakura.bindgroup100.default,0
+sakura.bindgroup101.name,Hat,Medical Mask
+sakura.bindgroup101.default,0
+sakura.bindgroup102.name,Hat,Plant Hat
+sakura.bindgroup102.default,0
 
-//kero.bindgroup55.name,face,glasses
-//kero.bindgroup57.name,hair,hairpins
+sakura.bindgroup200.name,Skin,Black Suit
+sakura.bindgroup200.default,0
+sakura.bindgroup201.name,Skin,Doctor Skin
+sakura.bindgroup201.default,0
+sakura.bindgroup202.name,Skin,Prisoner Skin
+sakura.bindgroup202.default,0
+
+sakura.bindgroup300.name,Pet,UFO
+sakura.bindgroup300.default,0
+sakura.bindgroup301.name,Pet,Mini Crewmate
+sakura.bindgroup301.default,0
+sakura.bindgroup302.name,Pet,Robot
+sakura.bindgroup302.default,0
 
 
 //Dress-Up Menu Organization
 //This sets up how the clothing appears in the dress-up menu. You can see the main character only has one item, while the second has two split by a dash. Note that it uses the same numbers defined above for each item.
 
-//sakura.menuitem0,51
-
-//kero.menuitem0,55
-//kero.menuitem1,-
-//kero.menuitem2,57
+sakura.menuitem0,100
+sakura.menuitem1,101
+sakura.menuitem2,102
+sakura.menuitem3,-
+sakura.menuitem4,200
+sakura.menuitem5,201
+sakura.menuitem6,202
+sakura.menuitem7,-
+sakura.menuitem8,300
+sakura.menuitem9,301
+sakura.menuitem10,302
 
 seriko.use_self_alpha,1 
 //To make ssp use the alpha of the files instead of pna
