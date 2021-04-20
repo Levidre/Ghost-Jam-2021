@@ -1242,10 +1242,7 @@ Select.asksthg
 	--
 	"\![*]\q[Themselves,askthemself]     \![*]\q[The game,askgame]\n"
 	--
-	if useraffection <= 15
-	{
 	"\![*]\q[Crewmates,askcrewmates]	\![*]\q[Impostors,askimpostors]\n"
-	}
 	--
 	"\![*]\q[Maps,askmaps]"
 	--
@@ -1440,50 +1437,83 @@ Select.givefood
 		"\n(They seem to have like it.)"
 		"\n(They seem stuffed.)"
 	}
+	
+	elseif whymustyoudothis <= 30
+	{
+	--
+	}
+	
+	else
+	{
+	--
+	}
+	
 	--
 	"\n\n[half]\![*]\q[Give something else,itmenu]     \![*]\q[Nevermind,CANCEL]"
 }
 
 Select.givedrink
 {
-	"(You give them some %(drink).)"
-	"(You hold some %(drink) out to them.)"
-	"(You think of their hydratation with %(drink).)"
+	if useraffection <= 70
+	{
+		"(You give them some %(drink).)"
+		"(You hold some %(drink) out to them.)"
+		"(You think of their hydration with %(drink).)"
 	--
-	"\n\n[half]Thanks."
-	"\n\n[half]Thank you."
-	"\n\n[half]What a tasty drink."
-	"\n\n[half]What a pleasant drink."
-	"\n(They drank it all.)"
-	"\n(They appreciated.)"
-	"\n(They enjoyed it.)"
-	"\n(They seem to have enjoyed it.)"
-	"\n(They seem to have like it.)"
-	"\n(They seem better hydrated.)"
+		"\n\n[half]Thanks."
+		"\n\n[half]Thank you."
+		"\n\n[half]What a tasty drink."
+		"\n\n[half]What a pleasant drink."
+		"\n(They drank it all.)"
+		"\n(They appreciated.)"
+		"\n(They enjoyed it.)"
+		"\n(They seem to have enjoyed it.)"
+		"\n(They seem to have like it.)"
+		"\n(They seem better hydrated.)"
+	}
+	
+	elseif whymustyoudothis <= 30
+	{
+	--
+	}
+	
+	else
+	{
+	--
+	}
+	
 	--
 	"\n\n[half]\![*]\q[Give something else,itmenu]     \![*]\q[Nevermind,CANCEL]"
 }
 
-Select.giveuseful
+Select.giveuseful //Echo: Not much need for negative value here, seeing as this is only accessible by people with a max of 2 negatives and at least 0 positives.
 {
-	"(You give them %(present).)"
-	"(You offer them %(present).)"
-	"(You gift them %(present).)"
-	"(You hold %(present) out to them.)"
-	"(You please them with %(present).)"
-	--
-	"\n\n[half]Thanks."
-	"\n\n[half]Thank you."
-	"\n\n[half]This will be useful."
-	"\n\n[half]It's pretty useful,\w5 thanks."
-	"\n\n[half]It's pretty useful,\w5 thank you."
-	"\n\n[half]I'll test it as soon as I leave."
-	"\n\n[half]This is %(nice), \w5thanks."
-	"\n\n[half]This is %(nice), \w5thank you."
-	"\n\n[half]This is %(nice)."
-	"\n(It pleased them.)"
-	"\n(They seem pleased.)"
-	"\n(They appreciate the gift.)"
+	if useraffection <= 70
+	{
+		"(You give them %(present).)"
+		"(You offer them %(present).)"
+		"(You gift them %(present).)"
+		"(You hold %(present) out to them.)"
+		"(You please them with %(present).)"
+		--
+		"\n\n[half]Thanks."
+		"\n\n[half]Thank you."
+		"\n\n[half]This will be useful."
+		"\n\n[half]It's pretty useful,\w5 thanks."
+		"\n\n[half]It's pretty useful,\w5 thank you."
+		"\n\n[half]I'll test it as soon as I leave."
+		"\n\n[half]This is %(nice), \w5thanks."
+		"\n\n[half]This is %(nice), \w5thank you."
+		"\n\n[half]This is %(nice)."
+		"\n(It pleased them.)"
+		"\n(They seem pleased.)"
+		"\n(They appreciate the gift.)"
+	}
+	else
+	{
+		--
+	}
+	
 	--
 	"\n\n[half]\![*]\q[Give something else,itmenu]     \![*]\q[Nevermind,CANCEL]"
 }
@@ -1493,30 +1523,160 @@ Select.giveuseful
 
 Select.askthemself
 {
+	if useraffection <= 70
+	{
+		if impostorrat == 1
+		{
+		}
+		elseif impostormode == 1
+		{
+		}
+		else
+		{
+		}
+	}
+	
+	elseif whymustyoudothis <= 30
+	{
+		if impostorrat == 1
+		{
+		}
+		elseif impostormode == 1
+		{
+		}
+		else
+		{
+		}
+	}
+	
 	--
 	"\n\n[half]\![*]\q[Ask something else,asksthg]     \![*]\q[Nevermind,CANCEL]"
 }
 
 Select.askgame
 {
+	if useraffection <= 70
+	{
+		if impostorrat == 1
+		{
+		}
+		elseif impostormode == 1
+		{
+		}
+		else
+		{
+		}
+	}
+	
+	elseif whymustyoudothis <= 30
+	{
+		if impostorrat == 1
+		{
+		}
+		elseif impostormode == 1
+		{
+		}
+		else
+		{
+		}
+	}
+	
 	--
 	"\n\n[half]\![*]\q[Ask something else,asksthg]     \![*]\q[Nevermind,CANCEL]"
 }
 
 Select.askcrewmates
-{
+{	
+	if useraffection <= 70
+	{
+		if impostorrat == 1
+		{
+		}
+		elseif impostormode == 1
+		{
+		}
+		else
+		{
+		}
+	}
+	
+	elseif whymustyoudothis <= 30
+	{
+		if impostorrat == 1
+		{
+		}
+		elseif impostormode == 1
+		{
+		}
+		else
+		{
+		}
+	}
+	
 	--
 	"\n\n[half]\![*]\q[Ask something else,asksthg]     \![*]\q[Nevermind,CANCEL]"
 }
 
 Select.askimpostors
 {
+	if useraffection <= 70
+	{
+		if impostorrat == 1
+		{
+		}
+		elseif impostormode == 1
+		{
+		}
+		else
+		{
+		}
+	}
+	
+	elseif whymustyoudothis <= 30
+	{
+		if impostorrat == 1
+		{
+		}
+		elseif impostormode == 1
+		{
+		}
+		else
+		{
+		}
+	}
+	
 	--
 	"\n\n[half]\![*]\q[Ask something else,asksthg]     \![*]\q[Nevermind,CANCEL]"
 }
 
 Select.askmaps
 {
+	if useraffection <= 70
+	{
+		if impostorrat == 1
+		{
+		}
+		elseif impostormode == 1
+		{
+		}
+		else
+		{
+		}
+	}
+	
+	elseif whymustyoudothis <= 30
+	{
+		if impostorrat == 1
+		{
+		}
+		elseif impostormode == 1
+		{
+		}
+		else
+		{
+		}
+	}
+	
 	--
 	"\n\n[half]\![*]\q[Ask something else,asksthg]     \![*]\q[Nevermind,CANCEL]"
 }
