@@ -1001,8 +1001,7 @@ Select.CANCEL
 
 Select.dosomething
 {
-	else //Echo: The neutral dialogue.
-	{*/
+	
 		"\0\b2Do you want something?\n\n[half]"
 	//}
 	//Zarla : 
@@ -1070,13 +1069,23 @@ Select.CALENDAR
 	{
 		if impostorrat == 1
 		{
-			"\0Fine. \w8Though I wouldn't see why a monster like you would be interested in such a mundane thing.\e"
+			"\0Fine. \w8Though I wouldn't see why a monster like you would be interested in such a mundane thing.\![open,calendar]\e"
+			"\0Great. \w8What else are you going to force me to do, \w7take out the trash? \w9Spoiler alert, \w7I'm pretty sure I can't do such a thing.\![open,calendar]\e"
+			"\0Not like I care about the date.\![open,calendar]\e"
 		}
 		elseif impostormode == 1
 		{
+			"\0Okay.\e"
+			"\0Of course, \w7more tasks for me to do. \w7How pretentious of you.\![open,calendar]\e"
+			"\0Fine. \w7Since you insist.\![open,calendar]\e"
+			"\0You're stretching my self-control.\![open,calendar]\e"
 		}
 		else
 		{
+			"\0Fine.\e"
+			"\0Kay.\e"
+			"\0Mm.\e"
+			"\0As if I care.\e"
 		}
 	}
 	else
@@ -1092,9 +1101,49 @@ Select.CALENDAR
 }
 
 //Zarla : When the user chooses SSP preferences. This will open the same window that shows up if you right click your ghost and go to Utilities - Preferences.
-Select.sspconfig
+Select.sspconfig //Echo: Sorry if this gets taxing. 
 {
-	"\0I open the SSP config menu.\![open,configurationdialog]\e"
+	if useraffection <= 130
+	{
+		if impostorrat == 1
+		{
+		}
+		elseif impostormode == 1
+		{
+		}
+		else
+		{
+		}
+	}
+	elseif useraffection <= 70
+	{
+		if impostorrat == 1
+		{
+		}
+		elseif impostormode == 1
+		{
+		}
+		else
+		{
+		}
+	}
+	elseif whymustyoudothis <= 30
+	{
+		if impostorrat == 1
+		{
+		}
+		elseif impostormode == 1
+		{
+		}
+		else
+		{
+		}
+	}
+	else
+	{
+		"\0Uh, \w7here then.\![open,configurationdialog]\e"
+		"\0Alright. \w7Here you go.\![open,configurationdialog]\e"
+	}
 	
 	//Zarla : Again, you can replace up to the \! tag.
 }
@@ -1106,13 +1155,26 @@ Select.ChoiceGarbagecan
 	
 	if _gomicheck == 0 //Zarla : If the recycle bin is empty.
 	{
-		"\0The recycle bin was empty.\e"
+		if useraffection <= 130
+		{
+		}
+		elseif useraffection <= 70
+		{
+		}
+		elseif whymustyoudothis <= 30
+		{
+			"\0The garbage can's empty. \w8Maybe you should go climb in there instead.\e"
+		}
+		else
+		{
+			"\0The garbage can's empty. \w7Guess I don't need to do any tasks.\e"
+		}
 		
 		//Zarla : This isn't the usual flat template dialogue, mostly because I wanted to show that this is a good place to use s[-1], which I covered in the walkthrough file. You can have your ghost disappear momentarily like they're going to check your recycle bin, then come back. \c clears the ghost's balloon of text. Replace dialogue as you desire.
 	}
 	elseif _gomicheck >= 1 //Zarla : If the recycle bin is full.
 	{
-		"\0I'm going to empty the recycle bin.\w8\w8\s[-1]\w8\w8\w8\w8\w8\![embed,OnGarbagecanEmpty]\w9\w9\w9\n\c\s[0]Done.\e"
+		"\0Give me a minute.\w8\w8\s[-1]\w8\w8\w8\w8\w8\![embed,OnGarbagecanEmpty]\w9\w9\w9\n\c\s[0]Alright, \w8done.\e"
 		//Zarla : 
 		//Somewhat similar to the above, but notice the \![embed],OnGarbagecanEmpty] tag in there. That's what actually empties the recycle bin, so make sure you don't delete that tag. Otherwise, replace the dialogue as you want.
 		//As you can see, you can have multiple pieces of dialogue in here, just like you can for many other functions scattered through the .dic files. If you only want the one, just delete the others, or if you want to add more, just copy and paste and write new dialogue as it comes to you. This applies to when the recycle bin is empty as well.
@@ -1201,22 +1263,29 @@ Select.keroupdatecheck
 
 IncreaseAffection
 {
-	if useraffection >= 300
+	if useraffection >= 100
 	{
 		useraffection += 1
 	}
-	elseif useraffection >= 100
+	elseif useraffection >= 70
 	{
 		if cumuhour >= 47
 		{
 			useraffection += 1
 		}
 	}
-	elseif useraffection >= 20
+	elseif whymustyoudothis >= 30
 	{
-		if cumuhour >= 4
+		if cumuhour >= 30
 		{
-			useraffection += 1
+			whymustyoudothis += 1
+		}
+	}
+	elseif whymustyoudothis >= 10
+	{
+		if cumuhour >= 10
+		{
+			whymustyoudothis += 0.5
 		}
 	}
 	elseif cumuhour >= 1
@@ -1238,9 +1307,9 @@ Select.UserDescript
 		"%(bornmonthprint) %(borndayprint)"
 	}
 	--
-	"\n- Pet rates : %(nbpets)\n- Punch rates : %(nbpunched)\n"
+	"\n- Pet Rate : %(nbpets)\n- Punch Rate : %(nbpunched)\n"
 	--
-	"\n\n[half]\![*]\q[Go back to the menu,BACKTOMENU]"
+	"\n\n[half]\![*]\q[Back To Menu,BACKTOMENU]"
 	--
 	"\e"
 }
