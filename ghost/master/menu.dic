@@ -407,7 +407,7 @@ Select.TEACHBDAY
 {
 	dayslot = GetDaySlot //Zarla : This is setting up in case today is the user's birthday.
 	
-	"\0%(lsto)* What month were you born? \w8Write the number.\![open,inputbox,OnUserBornMonth,-1]\e"
+	"\0%(lsto)* Which month were you born? \w8Use the numerical.\![open,inputbox,OnUserBornMonth,-1]\e"
 	//Zarla : You can replace the dialogue up to the \![open,inputbox,OnUserBornMonth,-1] tag, leave that alone. You'll need the input box to get the information. Note that the month HAS to be put in in number format as well, so you might want to have your ghost mention that.
 }
 
@@ -428,7 +428,7 @@ OnUserBornMonth
 	}
 	else //Zarla : if the month isn't a valid month, like 32 or something.
 	{
-		"That's not a valid month. Try again.\![open,inputbox,OnUserBornMonth,-1]\e"
+		"\0I may not keep track of time well, \w9but I'm pretty sure that's not a month. \w9Try again.\![open,inputbox,OnUserBornMonth,-1]\e"
 		
 		//Zarla : You can replace this dialogue as well up to the \! tag, as mentioned. You need to leave the tag for the input box so they can put in a correct month.
 	}
@@ -530,7 +530,7 @@ OnUserBornDay
 		}
 		else //Zarla : if the day isn't valid, like the 10046th or something.
 		{
-			"\0That's not a valid day. Try again.\![open,inputbox,OnUserBornDay,-1]\e"
+			"\0Seriously? \w9Try again.\![open,inputbox,OnUserBornDay,-1]\e"
 				
 			//Zarla : Similar as you can see to the month check above. You can replace the dialogue here up to the tag as you just did, but make sure to leave the input box tag so the user can put in a correct day.
 		}
@@ -577,14 +577,40 @@ OnUserBornDay
 
 birthchecked
 {
-	if userbirthday == dayslot //Zarla : if today is the user's birthday
+	if userbirthday == dayslot //130, 70, 30
 	{
-		"\0It's your birthday today.\w7 Happy birthday, %(username).\e"
+		if useraffection <= 130
+		{
+			"\0Huh. \w8It's your birthday today. \w9Happy birthday then, %(username).\e"
+		}
+		if useraffection <= 70
+		{
+			"\0Great. \w9Never really celebrated birthdays much, \w7but I suppose you still do.\e"
+		}
+		if whymustyoudothis <= 30
+		{
+			"\0What day is it again? \w8I don't really remember.\e"
+		}
+		else
+		{
+			"\0Oh. \w9Okay.\e"
+		}
 		//Zarla : replace this dialogue with whatever you like
 	}
-	elseif userbirthday == "12month 25day"
+	elseif userbirthday == "10month 31day"
 	{
-		"\0You were born on Christmas. \w7It's sad to have presents only once per year.\e"
+		if useraffection <= 130
+		{
+		}
+		elseif useraffection <= 80
+		{
+		}
+		elseif whymustyoudothis <= 30
+		{
+		}
+		else
+		{
+		}
 		//Zarla : As you can see, you can set up an elseif statement to check if the user's birthday is any day you want! More on elseif statements in bootend.dic. In this case, there's specialized dialogue if the user was born on Christmas. You can replace this with whatever you like, or change the date you're checking as well, like to one of your character's birthdays if you want. You can also delete this elseif if you don't care.
 	}
 	else //Zarla : if the birthday is not listed above.
@@ -614,7 +640,59 @@ Select.talkinter
 //Zarla : If the user doesn't want to change the rate. You can change all of the dialogue in any of these options if you want to reflect the choice the user made. You TECHNICALLY could also change the value in talktime to reflect some other way of measuring time but I would NOT recommend it, it'd just be confusing I'm sure.
 Select.TalksTill
 {
-	"Ok.\e"
+	if useraffection <= 130
+	{
+		if impostorrat == 1 //Echo: Originally wrote some dialogue talking about crewmates and THEIR ways of talking, but deleted it.
+		{
+		}
+		elseif impostormode == 1
+		{
+		}
+		else
+		{
+			"\0I suppose you didn't find anything that made you satisfied? \w9I don't mind talking.\e"
+			"\0Alright then, \w8I'll just be the same over here.\e"
+		}
+	}
+	elseif useraffection <= 70 //echo: edit dialogue if you'd like. i really just put stuff here as placeholders.
+	{
+		if impostorrat == 1
+		{
+		}
+		elseif impostormode == 1
+		{
+		}
+		else
+		{
+		}
+	}
+	elseif whymustyoudothis <= 30 //Echo: The only negative counter here.
+	{
+		if impostorrat == 1
+		{
+			"\0First you force me to tell you things, \w8now you're playing around with my menu?\e"
+		}
+		elseif impostormode == 1
+		{
+			"\0Kay. \w7I really would've preferred it better had I been able to choose how much I talk.\e"
+			"\0You like being rude to people at your own expense, \w8don't you?\e"
+			"\0Fine. \w8Like I care about this.\e"
+		}
+		else
+		{
+			"\0Fine. \w8You didn't have to do that.\e"
+			"\0Took you long enough.\e"
+			"\0At least I'm better off this way.\e"
+		}
+	}
+	else 
+	{
+		"Ok.\e"
+		"\0Okay.\e"
+		"\0Alright.\e"
+		"\0Mhm.\e"
+		"\0Mk.\e"
+	}
 }
 
 //Zarla : If the user chooses every 30 seconds.
@@ -622,8 +700,55 @@ Select.TALKMAX
 {
 	talktime = "30 seconds" //Zarla : this sets up the envelope properly
 	aitalkinterval = 45 //Zarla : this changes the actual rate
-		
-	"30 seconds...\w5I will speak a lot!\e"
+	
+	if useraffection <= 130
+	{
+		if impostorrat == 1
+		{
+		}
+		elseif impostormode == 1
+		{
+		}
+		else
+		{
+		}
+	}
+	elseif useraffection <= 70
+	{
+		if impostorrat == 1
+		{
+		}
+		elseif impostormode == 1
+		{
+		}
+		else
+		{
+		}
+	}
+	elseif whymustyoudothis <= 30
+	{
+		if impostorrat == 1
+		{
+		}
+		elseif impostormode == 1
+		{
+		}
+		else
+		{
+		}
+	}
+	else
+	{
+		if impostorrat == 1
+		{
+		}
+		elseif impostormode == 1
+		{
+		}
+		else
+		{
+		}
+	}
 }
 
 //Zarla : If the user chooses every minute.
@@ -631,8 +756,56 @@ Select.TALKHIGH
 {
 	talktime = "minute"
 	aitalkinterval = 90
+	
+	if useraffection <= 130
+	{
+		if impostorrat == 1
+		{
+		}
+		elseif impostormode == 1
+		{
+		}
+		else
+		{
+		}
+	}
+	elseif useraffection <= 70
+	{
+		if impostorrat == 1
+		{
+		}
+		elseif impostormode == 1
+		{
+		}
+		else
+		{
+		}
+	}
+	elseif whymustyoudothis <= 30
+	{
+		if impostorrat == 1
+		{
+		}
+		elseif impostormode == 1
+		{
+		}
+		else
+		{
+		}
+	}
+	else
+	{
+		if impostorrat == 1
+		{
+		}
+		elseif impostormode == 1
+		{
+		}
+		else
+		{
+		}
+	}
 		
-	"\0I will speak every minute.\e"
 }
 
 //Zarla : If the user chooses every three minutes.
@@ -640,8 +813,55 @@ Select.TALKNORMAL
 {
 	talktime = "3 minutes"
 	aitalkinterval = 270
-		
-	"\0I will speak every three minutes.\w7 It's a good talk rate for monologuing.\e"
+	
+	if useraffection <= 130
+	{
+		if impostorrat == 1
+		{
+		}
+		elseif impostormode == 1
+		{
+		}
+		else
+		{
+		}
+	}
+	elseif useraffection <= 70
+	{
+		if impostorrat == 1
+		{
+		}
+		elseif impostormode == 1
+		{
+		}
+		else
+		{
+		}
+	}
+	elseif whymustyoudothis <= 30
+	{
+		if impostorrat == 1
+		{
+		}
+		elseif impostormode == 1
+		{
+		}
+		else
+		{
+		}
+	}
+	else
+	{
+		if impostorrat == 1
+		{
+		}
+		elseif impostormode == 1
+		{
+		}
+		else
+		{
+		}
+	}
 }
 
 //Zarla : If the user chooses every five minutes. This is the default rate the ghost will start up in, as seen in bootend.dic.
@@ -650,7 +870,54 @@ Select.TALKPOOR
 	talktime = "5 minutes"
 	aitalkinterval = 400
 	
-	"\0I will speak every five minutes.\w5 It's a relaxing talk rate.\e"
+	if useraffection <= 130
+	{
+		if impostorrat == 1
+		{
+		}
+		elseif impostormode == 1
+		{
+		}
+		else
+		{
+		}
+	}
+	elseif useraffection <= 70
+	{
+		if impostorrat == 1
+		{
+		}
+		elseif impostormode == 1
+		{
+		}
+		else
+		{
+		}
+	}
+	elseif whymustyoudothis <= 30
+	{
+		if impostorrat == 1
+		{
+		}
+		elseif impostormode == 1
+		{
+		}
+		else
+		{
+		}
+	}
+	else
+	{
+		if impostorrat == 1
+		{
+		}
+		elseif impostormode == 1
+		{
+		}
+		else
+		{
+		}
+	}
 }
 
 //Zarla : If the user chooses to not have them speak. This is one case where you MIGHT want to make talktime equal something else, if you have a snappier way of saying the ghost won't talk. Make sure it flows well in your menus though, since it will be displayed in your config menu.
@@ -658,10 +925,58 @@ Select.TALKNONE
 {
 	talktime = "...actually they don't talk at all"
 	aitalkinterval = 0
-
-	"\0Huh, \w5rude.\e"
+	
+if useraffection <= 130
+	{
+		if impostorrat == 1
+		{
+		}
+		elseif impostormode == 1
+		{
+		}
+		else
+		{
+		}
+	}
+	elseif useraffection <= 70
+	{
+		if impostorrat == 1
+		{
+		}
+		elseif impostormode == 1
+		{
+		}
+		else
+		{
+		}
+	}
+	elseif whymustyoudothis <= 30
+	{
+		if impostorrat == 1
+		{
+		}
+		elseif impostormode == 1
+		{
+		}
+		else
+		{
+		}
+	}
+	else
+	{
+		if impostorrat == 1
+		{
+		}
+		elseif impostormode == 1
+		{
+		}
+		else
+		{
+		}
+	}
 }
 
+//Echo: Change if needed. I get that writing dialogue can get hard with this many if-else statements, so feel free to delete some.
 	
 //Zarla : This is when the user chooses to change their name. It's linked to the functions outlined in nameteach.dic. Nothing to touch here.
 Select.TEACHNAME
@@ -671,9 +986,14 @@ Select.TEACHNAME
 
 	
 //Zarla : If the user selects cancel in a menu. Replace as you like, or just leave them blank.
-Select.CANCEL
+Select.CANCEL 
 {
-	"\0Ok.\e"	
+	if whymustyoudothis <= 30 //Echo: Would be ruder than usual, which is saying a lot. Don't see the need for useraffection values here.
+	{
+	}
+	else
+	{
+	}
 }
 
 	
@@ -681,18 +1001,6 @@ Select.CANCEL
 
 Select.dosomething
 {
-	/*if useraffection <= 70 //Echo: Almost best buddies.
-	{
-	}
-	if useraffection <= 45 //Echo: Friends. By the way, these variables increase & decrease by one. Petting should increase by 0.5? I'm not sure yet.
-	{
-	}
-	if useraffection <= 30 //Echo: Not surprisingly, I imagine the Among Us SSP would definitely be suspicious of the user. Still not friends, but close.
-	{
-	}
-	if useraffection <= 15 //Echo: Near strangers.
-	{
-	}
 	else //Echo: The neutral dialogue.
 	{*/
 		"\0\b2Do you want something?\n\n[half]"
@@ -706,9 +1014,9 @@ Select.dosomething
 	\![*]\q[Empty Trash,ChoiceGarbagecan]\n/
 	\![*]\q[Update,keroupdatecheck]\n"
 	--
-	"\![*]\q[System Info.,ChoiceSystemInformation]\n/
-	\![*]\q[Update Info.,AfterUpdate]\n/
-	\![*]\q[Stats.,UserDescript]\n\n[half]/
+	"\![*]\q[System Info,ChoiceSystemInformation]\n/
+	\![*]\q[Update Info,AfterUpdate]\n/
+	\![*]\q[Stats,UserDescript]\n\n[half]/
  	\![*]\q[Go Back,BACKTOMENU]\e"
 }
 
@@ -753,30 +1061,22 @@ Select.CALENDAR
 		}
 		else
 		{
-			"\0Hm. \w7Usually, \w7in the first ten minutes someone gets killed. \w9So at least one person is dead now.\![open,calender]\e"
+			"\0Hm. \w7Usually, \w7in the first five minutes someone gets killed. \w9So at least one person is dead now.\![open,calender]\e"
 			"\0It's safe here. \w9...Safer than being abroad, \w8of course.\![open,calender]\e"
 			"\0Sure. \w9I can do that. \w8...Though, \w7it's strange knowing that no one is in grave danger here.\![open,calender]\e"
 		}
 	}
-	elseif useraffection <= 30 //Echo: Not surprisingly, I imagine the Among Us SSP would definitely be (sort of) suspicious of the user. Still not friends, but close.
+	elseif whymustyoudothis <= 30 //Echo: Negative counter
 	{
 		if impostorrat == 1
 		{
-			"\0Okay. \w7At least I can do this without seeming too sus.\![open,calender]\e"
-			"\0Okay. \w7I'll do this, \w6then. \w9Apparently I can still do tasks. \w5Cool.\![open,calender]\e"
-			"\0Sure.\![open,calender]\e"
+			"\0Fine. \w8Though I wouldn't see why a monster like you would be interested in such a mundane thing.\e"
 		}
 		elseif impostormode == 1
 		{
-			"\0I wonder, \w7is it still light over here? \w9In the morning, \w5it's terrible waking up to the lights on.\![open,calender]\e"
-			"\0Okay. \w7I'll do this, \w6then. \w9Apparently I can still do tasks. \w5Cool.\![open,calender]\e"
-			"\0Mkay. \w8I should check the date too. \w7Shouldn't take too long.\![open,calender]\e"
 		}
 		else
 		{
-			"\0Sure. \w8Back in the maps, \w8the time's always changing. \w8Makes it so I can't tell what month it is.\![open,calender]\e"
-			"\0Okay. \w8I got it.\![open,calender]\e"
-			"\0Sure. \w8Though the time's usually more important.\![open,calender]\e"
 		}
 	}
 	else
