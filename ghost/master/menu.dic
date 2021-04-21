@@ -1205,14 +1205,14 @@ Select.actmenu
 	--
 	"\![*]\q[Flatter them,flatter]\n\![*]\q[Insult them,insult]\n"
 	--
-	if useraffection <= 70
+	if useraffection >= 70
 	{
-	"\![*]\q[Hug them,hug]\n\n[half]"
+	"\![*]\q[Hug them,hug]\n"
 	}
 	--
-	if whymustyoudothis <= 20
+	if whymustyoudothis >= 20
 	{
-	"\![*]\q[Taunt them,taunt]\n\n[half]"
+	"\![*]\q[Taunt them,taunt]\n"
 	}
 	--
 	"\![*]\q[Accuse them,accuse]\n\n[half]"
@@ -1228,10 +1228,7 @@ Select.itmenu
 	--
 	"\![*]\q[Some drink,givedrink]\n"
 	--
-	if useraffection <= 0 && whymustyoudothis >= 2
-	{
 	"\![*]\q[Something useful,giveuseful]\n\n[half]"
-	}
 	--
 	"\![*]\q[Nothing,BACKTOMENU]"
 }
@@ -1288,7 +1285,7 @@ Select.flatter
 
 Select.insult
 {
-	if useraffection <= 70
+	if useraffection >= 70
 	{
 		if impostorrat == 1
 		{
@@ -1300,8 +1297,7 @@ Select.insult
 		{
 		}
 	}
-	
-	elseif whymustyoudothis <= 30
+	elseif useraffection >= 30
 	{
 		if impostorrat == 1
 		{
@@ -1312,6 +1308,10 @@ Select.insult
 		else
 		{
 		}
+	}
+	else
+	{
+		
 	}
 	
 	--
@@ -1320,7 +1320,7 @@ Select.insult
 
 Select.accuse
 {
-	if useraffection <= 70
+	if useraffection >= 70
 	{
 		if impostorrat == 1
 		{
@@ -1332,8 +1332,7 @@ Select.accuse
 		{
 		}
 	}
-	
-	elseif whymustyoudothis <= 30
+	elseif useraffection >= 30
 	{
 		if impostorrat == 1
 		{
@@ -1344,6 +1343,10 @@ Select.accuse
 		else
 		{
 		}
+	}
+	else
+	{
+		
 	}
 	
 	--
@@ -1352,7 +1355,7 @@ Select.accuse
 
 Select.hug
 {
-	if useraffection <= 70
+	if useraffection >= 70
 	{
 		if impostorrat == 1
 		{
@@ -1364,8 +1367,7 @@ Select.hug
 		{
 		}
 	}
-	
-	elseif whymustyoudothis <= 30
+	elseif useraffection >= 30
 	{
 		if impostorrat == 1
 		{
@@ -1376,6 +1378,10 @@ Select.hug
 		else
 		{
 		}
+	}
+	else
+	{
+		
 	}
 	
 	--
@@ -1384,7 +1390,7 @@ Select.hug
 
 Select.taunt
 {	
-	if useraffection <= 70
+	if useraffection >= 70
 	{
 		if impostorrat == 1
 		{
@@ -1396,8 +1402,7 @@ Select.taunt
 		{
 		}
 	}
-	
-	elseif whymustyoudothis <= 30
+	elseif useraffection >= 30
 	{
 		if impostorrat == 1
 		{
@@ -1408,6 +1413,10 @@ Select.taunt
 		else
 		{
 		}
+	}
+	else
+	{
+		
 	}
 	
 	--
@@ -1424,7 +1433,7 @@ Select.givefood
 		"(You hold %(food) out to them.)"
 		"(You treat them with %(treat).)"
 		"(You give them %(food) to eat.)"
-	--
+		--
 		"\n\n[half]Thanks."
 		"\n\n[half]Thank you."
 		"\n\n[half]What a tasty food."
@@ -1454,34 +1463,46 @@ Select.givefood
 
 Select.givedrink
 {
-	if useraffection <= 70
+
+	"(You give them some %(drink).)"
+	"(You hold some %(drink) out to them.)"
+	if nbpunched <= 3
 	{
-		"(You give them some %(drink).)"
-		"(You hold some %(drink) out to them.)"
 		"(You think of their hydration with %(drink).)"
+	}
+	
 	--
-		"\n\n[half]Thanks."
-		"\n\n[half]Thank you."
+	if useraffection >= 30
+	{
 		"\n\n[half]What a tasty drink."
 		"\n\n[half]What a pleasant drink."
-		"\n(They drank it all.)"
+	}
+	if nbpunched <= 0
+	{
+		"\n\n[half]Thanks."
+		"\n\n[half]Thank you."
+	}
+	
+	if nbpunched <= 3
+	{
 		"\n(They appreciated.)"
 		"\n(They enjoyed it.)"
 		"\n(They seem to have enjoyed it.)"
+	}
+	elseif nbpunched <= 7
+	{
+		"\n(They take it carefully.)"
+	}
+	else
+	{
+		"\n(They take it relunctantly.)"
+	}
+	
+	{
+		"\n(They drank it all.)"
 		"\n(They seem to have like it.)"
 		"\n(They seem better hydrated.)"
 	}
-	
-	elseif whymustyoudothis <= 30
-	{
-	--
-	}
-	
-	else
-	{
-	--
-	}
-	
 	--
 	"\n\n[half]\![*]\q[Give something else,itmenu]     \![*]\q[Nevermind,CANCEL]"
 }
