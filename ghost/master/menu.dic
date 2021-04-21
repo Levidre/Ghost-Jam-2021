@@ -228,13 +228,13 @@ GetWeekDay
 GetAP
 {
  	if hour >= 0 && hour <= 11
- 		{
- 			"AM"
- 		}
+ 	{
+ 		"AM"
+ 	}
  	else
- 		{
- 			"PM"
- 		}
+ 	{
+ 		"PM"
+ 	}
 }
 
 //Zarla : This is figuring out the minute. Leave it alone.
@@ -1043,10 +1043,10 @@ Select.ChoiceGarbagecan
 	
 	if _gomicheck == 0 //Zarla : If the recycle bin is empty.
 	{
-		if useraffection <= 70
+		/*if useraffection <= 70
 		{
 		}
-		elseif whymustyoudothis <= 30
+		else*/if whymustyoudothis >= 30
 		{
 			"\0The garbage can's empty. \w8Maybe you should go climb in there instead.\e"
 		}
@@ -1544,7 +1544,7 @@ Select.giveuseful //Echo: Not much need for negative value here, seeing as this 
 
 Select.askthemself
 {
-	if useraffection <= 70
+	if useraffection >= 70
 	{
 		if impostorrat == 1
 		{
@@ -1557,7 +1557,7 @@ Select.askthemself
 		}
 	}
 	
-	elseif whymustyoudothis <= 30
+	elseif whymustyoudothis >= 30
 	{
 		if impostorrat == 1
 		{
@@ -1569,14 +1569,22 @@ Select.askthemself
 		{
 		}
 	}
-	
+	else
+	{}
+	"I'm just a normal crewmate."
+	"My job is to do tasks to win."
+	"I need to investigate to find the impostors in plus of tasks."
+	"I'm an innocent crewmate."
+	"There are other crewmates like me,\w5 and impostors among us."
+	"(They just look like a cute bean.)"
+	"(Are all crewmates beans?)"
 	--
 	"\n\n[half]\![*]\q[Ask something else,asksthg]     \![*]\q[Nevermind,CANCEL]"
 }
 
 Select.askgame
 {
-	if useraffection <= 70
+	if useraffection >= 70
 	{
 		if impostorrat == 1
 		{
@@ -1589,7 +1597,7 @@ Select.askgame
 		}
 	}
 	
-	elseif whymustyoudothis <= 30
+	elseif whymustyoudothis >= 30
 	{
 		if impostorrat == 1
 		{
@@ -1601,14 +1609,17 @@ Select.askgame
 		{
 		}
 	}
-	
+	"We,\w5 crewmates,\w5 must do tasks to win or to get rid of all the impostors before they kill us."
+	"We're often on a planet,\w5 in a ship or in a station.\w7 We always need to complete our tasks."
+	"We must find all the impostors or finish our mission before they kill us."
+	"We can still do our tasks when we're dead,\w5 even being a ghost don't give us a break."	
 	--
 	"\n\n[half]\![*]\q[Ask something else,asksthg]     \![*]\q[Nevermind,CANCEL]"
 }
 
 Select.askcrewmates
 {	
-	if useraffection <= 70
+	if useraffection >= 70
 	{
 		if impostorrat == 1
 		{
@@ -1620,8 +1631,7 @@ Select.askcrewmates
 		{
 		}
 	}
-	
-	elseif whymustyoudothis <= 30
+	elseif whymustyoudothis >= 30
 	{
 		if impostorrat == 1
 		{
@@ -1633,14 +1643,17 @@ Select.askcrewmates
 		{
 		}
 	}
-	
+	"Crewmates are normal people."
+	"They must do their tasks, \w5even when they're dead."
+	"They can win by finishing their tasks."
+	"They can win by eliminating all impostors."
 	--
 	"\n\n[half]\![*]\q[Ask something else,asksthg]     \![*]\q[Nevermind,CANCEL]"
 }
 
 Select.askimpostors
 {
-	if useraffection <= 70
+	if useraffection >= 70
 	{
 		if impostorrat == 1
 		{
@@ -1653,7 +1666,7 @@ Select.askimpostors
 		}
 	}
 	
-	elseif whymustyoudothis <= 30
+	elseif whymustyoudothis >= 30
 	{
 		if impostorrat == 1
 		{
@@ -1672,7 +1685,7 @@ Select.askimpostors
 
 Select.askmaps
 {
-	if useraffection <= 70
+	if useraffection >= 70
 	{
 		if impostorrat == 1
 		{
@@ -1685,7 +1698,7 @@ Select.askmaps
 		}
 	}
 	
-	elseif whymustyoudothis <= 30
+	elseif whymustyoudothis >= 30
 	{
 		if impostorrat == 1
 		{
