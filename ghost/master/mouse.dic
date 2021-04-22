@@ -94,6 +94,7 @@ MouseMoveSakura
 				elseif whymustyoudothis >= 30 //Echo: I'm pretty sure the stroke value only goes up by one each time so guess I gotta do this.
 				{
 					stroke -= 1
+					"\0Stop trying to pet me. \w8You made your choice a long time ago."
 				}
 				elseif whymustyoudothis >= 20
 				{
@@ -207,19 +208,12 @@ MouseDoubleClickSakura
 			}
 			else
 			{
-				whymustyoudothis += 1
-				"\0\i[40]\i[187]\i[36]\i[37]* Alright,\w5 you have been warned,\w5 you made your choice. \w7Now you will never see me again.\w7 I will go back home.\w7 Good bye forever.\w9\![raise,OnPunchedUninstalled]\e"
+				"\0%(lsta)You stop yourself before hitting her. That's not the right moment.%(lsto)\e"
 			}
 			--
 			"\e"
-			--
-			nbpunched++
-			whymustyoudothis += 1
+		nbpunched++
 			
-		else
-		{
-			"\0%(lsta)You stop yourself before hitting her. That's not the right moment.%(lsto)\e"
-		}
 		//Zarla : Replace this dialogue with appropriate dialogue as you need. You can add more or cut it down if you want, even down to nothing if you want no response from your ghost at all when those areas are double clicked.
  	}
 	else
