@@ -1,5 +1,5 @@
 
-This is the Fortegreen Shell for the Among Us Ghost.
+This is a Template shell for the Among Us Ghost.
 
 - GhostJam 2021 -
 
