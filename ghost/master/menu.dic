@@ -1257,12 +1257,15 @@ Select.flatter
 	{
 		if impostorrat == 1
 		{
+			useraffection += 1
 		}
 		elseif impostormode == 1
 		{
+			useraffection += 1
 		}
 		else
 		{
+			useraffection += 1
 		}
 	}
 	
@@ -1270,12 +1273,15 @@ Select.flatter
 	{
 		if impostorrat == 1
 		{
+			useraffection += 0.1
 		}
 		elseif impostormode == 1
 		{
+			useraffection += 0.1
 		}
 		else
 		{
+			useraffection += 0.1
 		}
 	}
 	
@@ -1289,29 +1295,35 @@ Select.insult
 	{
 		if impostorrat == 1
 		{
+			whymustyoudothis += 0.3
 		}
 		elseif impostormode == 1
 		{
+			whymustyoudothis += 0.3
 		}
 		else
 		{
+			whymustyoudothis += 0.3
 		}
 	}
-	elseif useraffection >= 30
+	elseif whymustyoudothis >= 30
 	{
 		if impostorrat == 1
 		{
+			whymustyoudothis += 1
 		}
 		elseif impostormode == 1
 		{
+			whymustyoudothis += 1
 		}
 		else
 		{
+			whymustyoudothis += 1
 		}
 	}
 	else
 	{
-		
+		whymustyoudothis += 1
 	}
 	
 	--
@@ -1359,27 +1371,33 @@ Select.hug
 	{
 		if impostorrat == 1
 		{
+			useraffection += 1
 		}
 		elseif impostormode == 1
 		{
+			useraffection += 1
 		}
 		else
 		{
+			useraffection += 1
 		}
 	}
 	elseif useraffection >= 30
 	{
 		if impostorrat == 1
 		{
+			useraffection += 0.5
 		}
 		elseif impostormode == 1
 		{
+			useraffection += 0.5
 		}
 		else
 		{
+			useraffection += 0.5
 		}
 	}
-	else
+	else 
 	{
 		
 	}
@@ -1394,29 +1412,35 @@ Select.taunt
 	{
 		if impostorrat == 1
 		{
+			whymustyoudothis += 1
 		}
 		elseif impostormode == 1
 		{
+			whymustyoudothis += 1
 		}
 		else
 		{
+			whymustyoudothis += 1
 		}
 	}
 	elseif useraffection >= 30
 	{
 		if impostorrat == 1
 		{
+			whymustyoudothis += 1.5
 		}
 		elseif impostormode == 1
 		{
+			whymustyoudothis += 1.5
 		}
 		else
 		{
+			whymustyoudothis += 1.5
 		}
 	}
 	else
 	{
-		
+		whymustyoudothis += 2
 	}
 	
 	--
@@ -1468,17 +1492,20 @@ Select.givedrink
 	"(You hold some %(drink) out to them.)"
 	if nbpunched <= 3
 	{
+		useraffection += 1
 		"(You think of their hydration with %(drink).)"
 	}
 	
 	--
 	if useraffection >= 30
 	{
+		useraffection += 1
 		"\n\n[half]What a tasty drink."
 		"\n\n[half]What a pleasant drink."
 	}
 	if nbpunched <= 0
 	{
+		useraffection += 0.5
 		"\n\n[half]Thanks."
 		"\n\n[half]Thank you."
 	}
@@ -1491,16 +1518,18 @@ Select.givedrink
 	}
 	elseif nbpunched <= 7
 	{
+		useraffection += 0.1
 		"\n(They take it carefully.)"
 	}
 	else
 	{
+		useraffection += 0.3
 		"\n(They take it relunctantly.)"
 	}
 	
 	{
 		"\n(They drank it all.)"
-		"\n(They seem to have like it.)"
+		"\n(They seem to have liked it.)"
 		"\n(They seem better hydrated.)"
 	}
 	--
