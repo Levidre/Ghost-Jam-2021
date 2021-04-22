@@ -58,8 +58,9 @@ MouseMoveSakura
  			}
  			elseif reference4 == "Face" //Zarla : Another area set up by the collisions in surfaces.txt. You can expand this list with as many elseifs as you need depending on how many collisions you've set up.
  			{
- 				if useraffection >= 300
+ 				if useraffection >= 130
 				{
+					useraffection += 1
 					"\0\i[15]%(lsto)* Huh,\w5 \i[11]sigh...\e"
 					"\0\i[15]%(lsto)* Huh,\w5 \i[12]sigh...\e"
 					"\0\i[15]%(lsta)Boop !%(lsto)\w5 \n\n[half]\i[11]* Sigh...\e"
@@ -68,30 +69,44 @@ MouseMoveSakura
 					"\0\i[15]%(lsta)Boop, hehe...%(lsto)\w5 \n\n[half]\i[12]* Sigh...\e"
 					"\0\i[13]%(lsta)Boop !%(lsto)\n\n[half]\i[18]* Will you stop one day ?\e"
 				}
-				elseif useraffection >= 200
+				elseif useraffection >= 100
 				{
+					useraffection += 1
 					"\0\i[13]%(lsta)Boop !%(lsto)\n\n[half]\i[18]* This noze would like some peace.\e"
 					"\0\i[13]%(lsta)Boop !%(lsto)\n\n[half]\i[18]* Can you spare my noze please ?\e"
 					"\0\i[13]%(lsta)Boop !%(lsto)\n\n[half]\i[18]* Stop annoying my noze please.\e"
 					
 				}
-				elseif useraffection >= 100
+				elseif useraffection >= 70
 				{
+					useraffection += 1
 					"\0\i[13]%(lsto)* Huh, \w5that's my noze. \i[18]And it would like you stopping annoying it.\e"
 					"\0\i[15]%(lsta)Boop !%(lsto)\i[13]\n\n[half]* Yeah,\w5 that's my noze,\w5 now let it alone.\e"
 					"\0\i[13]%(lsta)Boop.\n\n[half]%(lsto)* Why are you touching my noze ?"
 				}
-				elseif useraffection >= 50
+				elseif useraffection >= 30
 				{
+					useraffection += 1
 					"\0%(lsto)* Ehh !!! \i[13]\w7Can you avoid doing this please ?\e"
 					"\0%(lsto)* Huh, \i[13]Don't touch my noze please.\e"
 					"\0%(lsto)\i[13]* Huh,\w5 my noze didn't do anything to you,\w5\i[12] let it alone."
 				}
-				else
-				{					
-					"\0%(lsto)* Don't touch me,\w5 you don't know me.\e"
-					"\0%(lsto)* Keep your hands for yourself.\e"
+				elseif whymustyoudothis >= 30 //Echo: I'm pretty sure the stroke value only goes up by one each time so guess I gotta do this.
+				{
+					stroke -= 1
 				}
+				elseif whymustyoudothis >= 20
+				{
+					stroke -= 1
+				}
+				elseif whymustyoudothis >= 10
+				{
+					stroke -= 1
+				}
+				else
+				{
+				}
+				
  			}
 			elseif reference4 == "Obsidian"
 			{
@@ -113,53 +128,6 @@ MouseMoveSakura
  	}
 }
 
- //---- MouseMoveKero -----------------------------------------------------------------
- //Zarla : MouseMoveKero is exactly like the above, except set up for your second character. 
- 
-MouseMoveKero
- {
-	if reference4 != ""
- 	{
- 		stroke++
- 		if stroke >= 40
-		{
-			stroke = 0
-			if reference4 == "Face" //Zarla : Put in the name of your collision area you set up for your secondary character here.
- 			{
-				"\1\s[1]This is a face touching dialogue.\e"
-				"\1\s[1]This is another face touching dialogue.\e"
-				"\1\s[1]This is yet another face touching dialogue.\e"
-				//Replace this dialogue with your secondary character's dialogue.
- 			}
-			elseif reference4 == "Point" //Like above, put in the name of another collision you set up in surfaces.txt for the secondary character. You can keep adding more elseifs like this for any extra collisions you may have set up.
-			{
-				"\1\s[1]This is a point touching dialogue since I don't really have a head, being a triangle.\e"
-				"\1\s[1]This is another point touching dialogue.\e"
-				"\1\s[1]This is yet another point touching dialogue.\e"
-				//Replace this dialogue as appropriate.
-			}
-			
- 		}
-	}
-	elseif reference3 == 1 && nowshell == "Halloween shell"
-	{
-		stroke ++
-		if stroke >= 40
-		{
-			"\1%(lsta)The pumpkin isn't cold."
-			"\1%(lsta)You feel a radiance coming from the pumpkin."
-			"\1%(lsta)It's a very weird glowing pumpkin."
-			"\1%(lsta)The skin feels like a normal pumpkin."
-			stroke = 0
-		}
-		
-	}
- 	else
-	{
- 		// If the mouse isn't over the ghost, it'll zero out the stroke value.
-		stroke = 0
- 	}
-}
 
 //---- OnMouseDoubleClick -------------------------------------------------------
 //Zarla : 
@@ -179,10 +147,6 @@ OnMouseDoubleClick
  		"\1%(lsta)It's a pumpkin."
 		"\1%(lsta)You don't dare touching the pumpkin."
 		"\1%(lsta)The menacing glow keeps you from punching the pumpkin."
-	}
-	else
-	{
-		MouseDoubleClickKero
 	}
  }
 
@@ -207,65 +171,51 @@ MouseDoubleClickSakura
  {
  	if reference4 == "Head" || reference4 == "Face" //Zarla : here, this is checking to see if the user is double clicking on either the character's head OR their face, which for our purposes means they're hitting the ghost. More about operators at the walkthrough.
 	{ 
-		if asleep != 1
-		{
-			if issat == 1
+			if useraffection >= 10 && nbpunched >= 0
 			{
-				if nowshell == "Old shell" && inpyjama == 1
-				{
-					azpose = "\0\s[20]%(smile)"
-				}
-				else
-				{
-					azpose = "\0\s[10]%(smile)"
-				}
-				"%(azpose)%(arms)\w2"
-				issat = 0
+				whymustyoudothis += 0.5
 			}
-			oncomputer = 0
-			isdrawing = 0
-			if alreadyeat >= 2
+			elseif nbpunched >= 30
 			{
-				alreadyeat = 1
-			}
-			--
-			"%(lsto)\_v[soul_damage_1.wav]"
-			--
-			if azpunched <= 0
-			{
+				whymustyoudothis += 1
 				"\0\i[13]\i[49]\i[36]\i[37]* Aye !!! \w6\i[18]\i[40]\i[91]Why ?\w7 Why did you do this ?"
 			}
-			elseif azpunched <= 2
+			elseif nbpunched >= 25
 			{
+				whymustyoudothis += 1
 				"\0%(azpose)\i[70]\i[13]\i[49]\i[36]\i[37]\i[179]* Eehhh ! \w6%(azpose)\i[90]\i[70]\i[40]I did nothing bad.\w7 Why are you mean with me ?"
 			}
-			elseif azpunched <= 4
+			elseif nbpunched >= 20
 			{
+				whymustyoudothis += 1
 				"\0\i[40]\i[187]\i[36]\i[37]* Humf !\w6 You really thought I wouldn't protect myself ?\w7 I did nothing wrong so stop punching me please."
 			}
-			elseif azpunched <= 5
+			elseif nbpunched >= 15
 			{
+				whymustyoudothis += 1
 				"\0\i[40]\i[187]\i[36]\i[37]* Huh !\w6 You punched me enough time, \w5stop that."
 			}
-			elseif azpunched <= 6
+			elseif nbpunched >= 10
 			{
-				"\0\i[40]\i[187]\i[36]\i[37]* I told you to stop punching me,\w5 my patience have limits."
+				whymustyoudothis += 1
+				"\0\i[40]\i[187]\i[36]\i[37]* I told you to stop punching me,\w5 my patience has limits."
 			}
-			elseif azpunched <= 7
+			elseif nbpunched >= 5
 			{
-				"\0\i[40]\i[187]\i[36]\i[37]* Do you really think you can punch me without any consequences ? \w7Do you think I can't escape ?\w7 Next time you punch me,\w5I go away.\w7 I go back in my world and you wouldn't be able to bring me back here.\w7 You're warned."
+				whymustyoudothis += 1
+				"\0\i[40]\i[187]\i[36]\i[37]* Do you really think you can punch me without any consequences ? \w7Do you think I can't escape ?\w7 Next time you punch me,\w5I'll go away.\w7 I'll go back in my world and you won't be able to bring me back here.\w7 You have been warned."
 			}
 			else
 			{
-				"\0\i[40]\i[187]\i[36]\i[37]* Alright,\w5 you have been warned,\w5 you made your choice. \w7Now you would never see me again.\w7 I go back home.\w7 Good bye forever.\w9\![raise,OnPunchedUninstalled]\e"
+				whymustyoudothis += 1
+				"\0\i[40]\i[187]\i[36]\i[37]* Alright,\w5 you have been warned,\w5 you made your choice. \w7Now you will never see me again.\w7 I will go back home.\w7 Good bye forever.\w9\![raise,OnPunchedUninstalled]\e"
 			}
 			--
 			"\e"
 			--
-			azpunched++
-			useraffection -= 20
-			DecreasePositiveAction
-		}
+			nbpunched++
+			whymustyoudothis += 1
+			
 		else
 		{
 			"\0%(lsta)You stop yourself before hitting her. That's not the right moment.%(lsto)\e"
@@ -283,79 +233,9 @@ MouseDoubleClickSakura
  //---- MouseDoubleClickKero -----------------------------------------------------------
  //Zarla : This is just the same as MouseDoubleClickSakura above, except for your secondary character. The same principles apply, including how to make your character unhittable.
  
- 
-MouseDoubleClickKero
- {
-	 /*
- 	if reference4 == "Face" || reference4 == "Head" //Triangle doesn't have a separate head really, being a triangle, so this only happens if you doubleclick his face.
-	{
-		"\1\s[1]This is hitting dialogue.\w8ha ha\w8\n\n[half]Quiet.\e"
-		"\1\s[1]This is another hit dialogue.\e"
-		"\1\s[1]This is yet another hit dialogue.\e"
-		"\1\s[1]This is the fourth hitting dialogue.\e"
-		//Replace the dialogue here for the second character with whatever you want. What I said above about adding or trimming still holds here.
- 	}*/
-	_kero = "\1"
-	if nowshell == "Halloween shell"
-	{
-		_kero = "\p[2]"
-	}
-	if reference4 == "Play"
-	{
-		songpaused = songplayed
-		paused = 1
-		--
-		Select.playmu
-	}
-	elseif reference4 == "Prev"
-	{
-		Select.previousmu
-	}
-	elseif reference4 == "Next"
-	{
-		Select.nextmu
-	}
-	elseif reference4 == "Info"
-	{
-		OnCreateMuInfo
-	}
-	elseif reference4 == "Playlist"
-	{
-		OnPlayerPlaylist
-	}
-	elseif reference4 == "Mini"
-	{
-		"%(_kero)\s[8]"
-	}
-	elseif reference4 == "Maxi"
-	{
-		"%(_kero)\s[5]"
-		--
-		if isplayed == 1
-		{
-			"%(_kero)\i[2003]"
-		}
-	}
-	elseif reference4 == "Maximax"
-	{
-		"%(_kero)\s[2]"
-		--
-		if isplayed == 1
-		{
-			"%(_kero)\i[2003]\i[9000]"
-		}
-	}
-	elseif reference4 == "Close"
-	{
-		boarddisplayed = 0
-		"%(_kero)\s[-1]"
-	}
-	else //Zarla : Otherwise if you click anywhere else on Triangle's body
- 	{
-		OpenKeroMenu //This will open his menu set up in menu.dic.
-	}
- }
 
  //*********************Advanced User Info*******************************
  //Zarla : There are other mouse related functions you could set up much like the above, such as OnMouseDragStart, OnMouseDragEnd, OnMouseWheel, and others which correspond to various things you can do with your mouse. You can probably guess what those functions do just by their names - OnMouseWheel would be if someone spun their mouse wheel over a certain area, for example. If you're interested in these, I'd recommend doing some reading at the CROW-SSP Encyclopedia to get a better idea of them and settle down for some trial and error learning as you try to put them in.
  //***********************************************************************
+ 
+ //Echo: Might check the other mouse related functions out later.. still have some files to go through and edit, though. I'll come back later.
