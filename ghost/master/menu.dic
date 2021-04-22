@@ -300,8 +300,7 @@ TalkConfig
 	--
 
 	"\![*]\q[Enable Uninstall,deleteonoff] \n        \f[italic,true](currently %(deleteshitai))\f[italic,false]\n/
-	\![*]\q[Reset the relationship,ResetRelation]\n        \f[italic,true](WARNING: cannot be undo)\f[italic,false]\n/
-	\![*]\q[Open SSP preferences,sspconfig]\n\n[half]/
+	\![*]\q[Reset the relationship,ResetRelation]\n        \f[italic,true](WARNING: cannot be undone)\f[italic,false]\n/
 	\![*]\q[Enable the tests,enabletest]\n\n[half]/
 	\![*]\q[Back to the menu,BACKTOMENU]"
 	--
@@ -1000,42 +999,6 @@ Select.CALENDAR
 	//Advanced users, can you break it down yet? It's basically just using \! to open calender.exe or dll or whatever SSP uses to make it happen.
 }
 
-//Zarla : When the user chooses SSP preferences. This will open the same window that shows up if you right click your ghost and go to Utilities - Preferences.
-Select.sspconfig //Echo: Sorry if this gets taxing. 
-{
-	if useraffection <= 70
-	{
-		if impostorrat == 1
-		{
-		}
-		elseif impostormode == 1
-		{
-		}
-		else
-		{
-		}
-	}
-	elseif whymustyoudothis <= 30
-	{
-		if impostorrat == 1
-		{
-		}
-		elseif impostormode == 1
-		{
-		}
-		else
-		{
-		}
-	}
-	else
-	{
-		"\0Uh, \w7here then.\![open,configurationdialog]\e"
-		"\0Alright. \w7Here you go.\![open,configurationdialog]\e"
-	}
-	
-	//Zarla : Again, you can replace up to the \! tag.
-}
-
 //Zarla : If the user chooses to empty the recycle bin.
 Select.ChoiceGarbagecan
 {
@@ -1043,10 +1006,7 @@ Select.ChoiceGarbagecan
 	
 	if _gomicheck == 0 //Zarla : If the recycle bin is empty.
 	{
-		/*if useraffection <= 70
-		{
-		}
-		else*/if whymustyoudothis >= 30
+		if whymustyoudothis >= 30
 		{
 			"\0The garbage can's empty. \w8Maybe you should go climb in there instead.\e"
 		}
