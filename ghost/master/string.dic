@@ -28,7 +28,7 @@ On_username
 
 On_homeurl
 {
-	if checkmirror == 1
+	if checkmirror == 1 //Echo: Will edit later.
 	{
 		"https://levidre.github.io/azura-files/Azura"
 	}
@@ -54,26 +54,18 @@ On_recommendrootbutton.caption
 
 On_sakura.recommendsites
  {
-	"Ghost Template Walkthrough"
+	"Ukagaka Dream Team Tumblr"
 	--
 	//Zarla : This first line is the name that will display in the menu for your site. In this case, it would display "Ghost Template Walkthrough".
-	"%ASC(1)http://www.ashido.com/ukagaka/walkthrough.html%ASC(2)"
+	"%ASC(1)https://ukagakadreamteam.tumblr.com/%ASC(2)"
 	--
 	//Zarla : And this is the site that it would link to. Note that a website address begins with %ASC(1) and ends with %ASC(2). Don't forget these!
 	
-	
-	"Zarla's Tumblr"
-	--
-	"%ASC(1)http://zarla-s.tumblr.com/%ASC(2)"
-	--
 	"Ukagaka Dream Team Website"
 	--
 	"%ASC(1)http://ukagakadreamteam.com/blog/%ASC(2)"
 	--
-	"Ukagaka Dream Team Tumblr"
-	--
-	"%ASC(1)https://ukagakadreamteam.tumblr.com/%ASC(2)"
-	--
+
 	
 	"SSP"
 	--
@@ -101,31 +93,30 @@ On_sakura.recommendsites
 
 On_portalrootbutton.caption
  {
-	"Azura and Levidre Sites"
+	"Collaborators' Websites"
 
  }
 
  //---- Websites in the Second Option --------------------------------------------------
  //Zarla : These are the websites listed under that second button we just named up there. Like with the other option, these are the websites you want to link to. You can put whatever sites you want in here. Pay close attention to the formatting that follows!
  
-On_sakura.portalsites
+On_sakura.portalsites //Echo: Of course, these websites won't be shown together. They'll be scrambled and chosen at random by the code I think.
  {
- 	"Azura and Levidre Website"
-	--
-	"%ASC(1)https://azura-levidre.000webhostapp.com/%ASC(2)"
-	--
-	//Zarla : Here, you'll notice that there are two names, a --, then a website bracketed by %ASC(1) and %ASC(2). What this will do is randomly chose between those two site names for the link. So if you open the menu, maybe it will say Site Name 1, or maybe it will say Site Name 1 Alternate. Honestly I find links changing names without warning kind of confusing, but maybe some find it amusing, idk. Put the address of the site you want to link to between the two ASC tags.
-	
-	"Tumblr Site"
+	"Levidre's Tumblr"
 	--
 	"%ASC(1)https://azura-levidre.tumblr.com/%ASC(2)"
 	--
 	
+	"ScardyFluff's Tumblr"
+	--
+	"%ASC(1)https://the-multi-themed-scardyfluff.tumblr.com/%ASC(2)"
+	--
+	
 	//Zarla : If you want to keep things simple, you can just give each website one name like so.
 	
-	"Deviantart Site"
+	"EchoStarling's Tumblr"
 	--
-	"%ASC(1)https://www.deviantart.com/azura-levidre/%ASC(2)"
+	"%ASC(1)https://echostarling.tumblr.com/%ASC(2)"
 	
 	//Zarla : You get the idea. You can add more links or take them away as you like following this basic formula.
  }
@@ -158,7 +149,7 @@ On_kero.recommendsites
  
 On_updatebutton.caption
  {
-	"Update Menu Caption"
+	"Update"
 }
 
 //---- Dress-up Menu Caption ----------------------------------------------------------
@@ -166,7 +157,7 @@ On_updatebutton.caption
 
 On_dressuprootbutton.caption
 {
-	"Dress-Up Caption"
+	"Dress-Up"
 }
 
 //---- Headlines and RSS Feeds ---------------------------------------------------------
