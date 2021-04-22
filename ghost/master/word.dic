@@ -169,7 +169,15 @@ nice
 	"beautiful"
 	"amazing"
 	"wonderful"
-	"comfy"
+}
+
+bad
+{
+	"bad"
+	"awful"
+	"ugly"
+	"terrible"
+	"horrible"
 }
 
 //Zarla : This envelope in particular I think is fun. You can use this in dialogue to pretend like your ghost is looking through your user's files!

@@ -580,31 +580,27 @@ birthchecked
 	{
 		if useraffection <= 70
 		{
-			"\0Great. \w9Never really celebrated birthdays much, \w7but I suppose you still do.\e"
+			"\0Great. \w7Never really celebrated birthdays much, \w5but I suppose you still do.\e"
 		}
 		if whymustyoudothis <= 30
 		{
-			"\0What day is it again? \w8I don't really remember.\e"
+			"\0What day is it again? \w7I don't really remember.\e"
 		}
 		else
 		{
-			"\0Oh. \w9Okay.\e"
+			"\0Oh. \w7Okay.\e"
 		}
 		//Zarla : replace this dialogue with whatever you like
 	}
 	elseif userbirthday == "10month 31day"
 	{
-		if useraffection <= 130
+		if whymustyoudothis >= 10
 		{
-		}
-		elseif useraffection <= 80
-		{
-		}
-		elseif whymustyoudothis <= 30
-		{
+			"\0Err,\w5 you don't deserve to have your birthday in a such nice day.\e"
 		}
 		else
 		{
+			"\0Happy spooky birthday!\e"
 		}
 		//Zarla : As you can see, you can set up an elseif statement to check if the user's birthday is any day you want! More on elseif statements in bootend.dic. In this case, there's specialized dialogue if the user was born on Christmas. You can replace this with whatever you like, or change the date you're checking as well, like to one of your character's birthdays if you want. You can also delete this elseif if you don't care.
 	}
@@ -635,19 +631,7 @@ Select.talkinter
 //Zarla : If the user doesn't want to change the rate. You can change all of the dialogue in any of these options if you want to reflect the choice the user made. You TECHNICALLY could also change the value in talktime to reflect some other way of measuring time but I would NOT recommend it, it'd just be confusing I'm sure.
 Select.TalksTill
 {
-	if useraffection <= 70 //echo: edit dialogue if you'd like. i really just put stuff here as placeholders.
-	{
-		if impostorrat == 1
-		{
-		}
-		elseif impostormode == 1
-		{
-		}
-		else
-		{
-		}
-	}
-	elseif whymustyoudothis <= 30 //Echo: The only negative counter here.
+	if whymustyoudothis >= 30 //Echo: The only negative counter here.
 	{
 		if impostorrat == 1
 		{
@@ -682,41 +666,19 @@ Select.TALKMAX
 	talktime = "30 seconds" //Zarla : this sets up the envelope properly
 	aitalkinterval = 45 //Zarla : this changes the actual rate
 	
-	if useraffection <= 70
+	if whymustyoudothis >= 30 //Echo: The only negative counter here.
 	{
-		if impostorrat == 1
-		{
-		}
-		elseif impostormode == 1
-		{
-		}
-		else
-		{
-		}
+		"\0Forcing me to talk non-stop?\e"
 	}
-	elseif whymustyoudothis <= 30
+	else 
 	{
-		if impostorrat == 1
-		{
-		}
-		elseif impostormode == 1
-		{
-		}
-		else
-		{
-		}
-	}
-	else
-	{
-		if impostorrat == 1
-		{
-		}
-		elseif impostormode == 1
-		{
-		}
-		else
-		{
-		}
+		"Ok."
+		"\0Okay."
+		"\0Alright."
+		"\0Mhm."
+		"\0Mk."
+		--
+		"\w7 That's very often.\e"
 	}
 }
 
@@ -726,41 +688,19 @@ Select.TALKHIGH
 	talktime = "minute"
 	aitalkinterval = 90
 	
-	if useraffection <= 70
+	if whymustyoudothis >= 30 //Echo: The only negative counter here.
 	{
-		if impostorrat == 1
-		{
-		}
-		elseif impostormode == 1
-		{
-		}
-		else
-		{
-		}
+		"\0Forcing me to talk often?\e"
 	}
-	elseif whymustyoudothis <= 30
+	else 
 	{
-		if impostorrat == 1
-		{
-		}
-		elseif impostormode == 1
-		{
-		}
-		else
-		{
-		}
-	}
-	else
-	{
-		if impostorrat == 1
-		{
-		}
-		elseif impostormode == 1
-		{
-		}
-		else
-		{
-		}
+		"Ok."
+		"\0Okay."
+		"\0Alright."
+		"\0Mhm."
+		"\0Mk."
+		--
+		"\w7 That's often.\e"
 	}
 		
 }
@@ -771,41 +711,19 @@ Select.TALKNORMAL
 	talktime = "3 minutes"
 	aitalkinterval = 270
 
-	if useraffection <= 70
+	if whymustyoudothis >= 30 //Echo: The only negative counter here.
 	{
-		if impostorrat == 1
-		{
-		}
-		elseif impostormode == 1
-		{
-		}
-		else
-		{
-		}
+		"\0... fine.\e"
 	}
-	elseif whymustyoudothis <= 30
+	else 
 	{
-		if impostorrat == 1
-		{
-		}
-		elseif impostormode == 1
-		{
-		}
-		else
-		{
-		}
-	}
-	else
-	{
-		if impostorrat == 1
-		{
-		}
-		elseif impostormode == 1
-		{
-		}
-		else
-		{
-		}
+		"Ok."
+		"\0Okay."
+		"\0Alright."
+		"\0Mhm."
+		"\0Mk."
+		--
+		"\e"
 	}
 }
 
@@ -815,41 +733,19 @@ Select.TALKPOOR
 	talktime = "5 minutes"
 	aitalkinterval = 400
 	
-	if useraffection <= 70
+	if whymustyoudothis >= 30 //Echo: The only negative counter here.
 	{
-		if impostorrat == 1
-		{
-		}
-		elseif impostormode == 1
-		{
-		}
-		else
-		{
-		}
+		"\0At least it's not often.\e"
 	}
-	elseif whymustyoudothis <= 30
+	else 
 	{
-		if impostorrat == 1
-		{
-		}
-		elseif impostormode == 1
-		{
-		}
-		else
-		{
-		}
-	}
-	else
-	{
-		if impostorrat == 1
-		{
-		}
-		elseif impostormode == 1
-		{
-		}
-		else
-		{
-		}
+		"Ok."
+		"\0Okay."
+		"\0Alright."
+		"\0Mhm."
+		"\0Mk."
+		--
+		"\w7 That's often.\e"
 	}
 }
 
@@ -859,41 +755,19 @@ Select.TALKNONE
 	talktime = "...actually they don't talk at all"
 	aitalkinterval = 0
 	
-	if useraffection <= 70
+	if whymustyoudothis >= 30 //Echo: The only negative counter here.
 	{
-		if impostorrat == 1
-		{
-		}
-		elseif impostormode == 1
-		{
-		}
-		else
-		{
-		}
+		"\0At least I can stay silent.\e"
 	}
-	elseif whymustyoudothis <= 30
+	else 
 	{
-		if impostorrat == 1
-		{
-		}
-		elseif impostormode == 1
-		{
-		}
-		else
-		{
-		}
-	}
-	else
-	{
-		if impostorrat == 1
-		{
-		}
-		elseif impostormode == 1
-		{
-		}
-		else
-		{
-		}
+		"Ok."
+		"\0Okay."
+		"\0Alright."
+		"\0Mhm."
+		"\0Mk."
+		--
+		"\w7 Silence doesn't bother me.\e"
 	}
 }
 
@@ -909,8 +783,9 @@ Select.TEACHNAME
 //Zarla : If the user selects cancel in a menu. Replace as you like, or just leave them blank.
 Select.CANCEL 
 {
-	if whymustyoudothis <= 30 //Echo: Would be ruder than usual, which is saying a lot. Don't see the need for useraffection values here.
+	if whymustyoudothis >= 30 //Echo: Would be ruder than usual, which is saying a lot. Don't see the need for useraffection values here.
 	{
+		"\0Why did you bother me?"
 	}
 	else
 	{
@@ -923,7 +798,7 @@ Select.CANCEL
 Select.dosomething
 {
 	
-		"\0\b2Do you want something?\n\n[half]"
+	"\0\b2Do you want something?\n\n[half]"
 	//}
 	//Zarla : 
 	//I mentioned this above in MenuRun, but you can have a set of multiple different responses that may randomly appear when the menu is opened if you offset them from the rest with the -- dashes below this note. Try opening this menu yourself with the template to see how it works. The character will randomly choose one line as the intro. 
@@ -1069,7 +944,13 @@ Select.HEADLINECANCEL
 
 OnChoiceTimeout
 {
-	
+	if whymustyoudothis >= 30 //Echo: Would be ruder than usual, which is saying a lot. Don't see the need for useraffection values here.
+	{
+		"\0Why did you bother me?"
+	}
+	else
+	{
+	}
 }
 
 
@@ -1094,12 +975,6 @@ Select.keroCANCEL
 }
 
 
-//Zarla : This is when they select bug report. This is mostly meant to briefly give the user information about you, the creator, and how to report a problem to you. This can be handy if the person forgot where they got their ghost or how to contact you. Add whatever info you like here.
-Select.bugreport
-{
-"\1\s[1]This is the bug report dialogue. \w5Report bugs to youremailaddress@emailprovider.com. \w5We were downloaded from \_a[http://www.whereveryoupostedthem.com/]some place\_a.\e"
-}
-
 //Zarla : When clicked, this will automatically tell the ghost to check for updates. More detail on updates in etc.dic. You can leave this alone.
 Select.keroupdatecheck
 {
@@ -1108,35 +983,7 @@ Select.keroupdatecheck
 
 IncreaseAffection
 {
-	if useraffection >= 100
-	{
-		useraffection += 1
-	}
-	elseif useraffection >= 70
-	{
-		if cumuhour >= 47
-		{
-			useraffection += 1
-		}
-	}
-	elseif useraffection >= 30
-	{
-		if cumuhour >= 30
-		{
-			useraffection += 1
-		}
-	}
-	elseif useraffection >= 10
-	{
-		if cumuhour >= 10
-		{
-			useraffection += 1
-		}
-	}
-	else
-	{
-		useraffection += 1
-	}
+	
 }
 
 Select.UserDescript
@@ -1248,6 +1095,33 @@ Select.flatter
 		
 	}
 	
+	"(You flatter them.)"
+	"(You compliment their color.)"
+	"(You tell them they're smart.)"
+	"(You tell them they're %(nice).)"
+	"(You tell them they're a  %(nice) bean.)"
+	"(You compliment their skills.)"
+	"(You tell them you're sure they'll win.)"
+	if impostorrat == 1
+	{
+		"(You compliment their impostor skills.)"
+	}
+	--
+	if whymustyoudothis >= 30
+	{
+		"\n\n[half]Why would I listen to you?"
+		"\n\n[half]Why would I trust you?"
+		"\n(They didn't listen.)"
+		"\n(They didn't react.)"
+	}
+	else
+	{
+		"\n\n[half]Thanks."
+		"\n(They seem happy.)"
+		"\n(It pleased them.)"
+		"\n(They blush under the compliment.)"
+	}
+	
 	--
 	"\n\n[half]\![*]\q[Do something else,actmenu]     \![*]\q[Nevermind,CANCEL]"
 }
@@ -1289,39 +1163,62 @@ Select.insult
 		whymustyoudothis += 1
 	}
 	
+	if impostorrat == 1
+	{
+		"(You tell them they're an %(bad) impostor.)"
+	}
+	"(You tell them they're %(bad).)"
+	"(You tell them they're too bad to win.)"
+	"(You tell them their skills are %(bad).)"
+	--
+	if nbpunched <= 3
+	{
+		"\n\n[half]That's hurtful."
+	}
+	"\n\n[half]That's mean."
+	"\n\n[half]... mean."
+	"\n\n[half]... rude."
+	"\n(It made them sad.)"
+	"\n(They look unhappy.)"
 	--
 	"\n\n[half]\![*]\q[Do something else,actmenu]     \![*]\q[Nevermind,CANCEL]"
 }
 
 Select.accuse
 {
-	if useraffection >= 70
+	"(You accuse them of being an impostor.)"
+	"(You call them impostor.)"
+	"(You ask them if they're impostor.)"
+	"(You insist on them being impostor.)"
+	"(You're implying they're impostor.)"
+	--
+	if impostorrat == 1
 	{
-		if impostorrat == 1
-		{
-		}
-		elseif impostormode == 1
-		{
-		}
-		else
-		{
-		}
+		"\n\n[half]Yes,\w5 and I'll kill them all!"
+		"\n\n[half]I am."
+		"\n\n[half]I'm impostor."
+		"\n\n[half]Don't tell the others."
+		"\n\n[half]I am and I'll try to kill you one day."
 	}
-	elseif useraffection >= 30
+	elseif impostormode == 1
 	{
-		if impostorrat == 1
-		{
-		}
-		elseif impostormode == 1
-		{
-		}
-		else
-		{
-		}
+		"\n\n[half]!?\w7 No!"
+		"\n\n[half]!?\w7 Of course not!"
+		"\n\n[half]I'm totally innocent!"
+		"\n\n[half]Why are you accusing me!?!"
+		"\n\n[half]!?\w7 Whoa,\w5 what an unfair accusation!"
+		"\n\n[half]I'm not an impostor!"
+		"\n\n[half]I'm not!"
 	}
 	else
 	{
-		
+		"\n\n[half]!?\w7 No!"
+		"\n\n[half]!?\w7 Of course not!"
+		"\n\n[half]I'm just an innocent crewmate."
+		"\n\n[half]You're wrong."
+		"\n\n[half]I'm safe."
+		"\n\n[half]I'm not an impostor."
+		"\n\n[half]I'm not though."
 	}
 	
 	--
@@ -1364,7 +1261,19 @@ Select.hug
 	{
 		
 	}
-	
+	"(You give them a big hug.)"
+	"(You hug them.)"
+	"(You reach to them to hug.)"
+	"(You suddenly hug them.)"
+	"(You hug the bean.)"
+	"(You catch them in your arms.)"
+	"(You take them in your arms.)"
+	--
+	"\n\n[half]..."
+	"\n\n[half]!?..."
+	"\n\n[half]Thanks..."
+	"\n(They seem surprised.)"
+	"\n(You startled them.)"
 	--
 	"\n\n[half]\![*]\q[Do something else,actmenu]     \![*]\q[Nevermind,CANCEL]"
 }
@@ -1406,6 +1315,18 @@ Select.taunt
 		whymustyoudothis += 2
 	}
 	
+	if impostorrat == 0
+	{
+		"(You tell them impostors will have pity for them.)"
+	}
+	"(You make fun of them.)"
+	"(You tell them they won't win.)"
+	"(You tell them they can't do anything against you.)"
+	"(You tell them they're at your mercy.)"
+	--
+	""
+	"\n\n[half]..."
+	"\n\n[half]Why this?"
 	--
 	"\n\n[half]\![*]\q[Do something else,actmenu]     \![*]\q[Nevermind,CANCEL]"
 }
@@ -1414,34 +1335,52 @@ Select.taunt
 
 Select.givefood
 {
-	if useraffection >= 70
+	"(You give them some %(food).)"
+	"(You hold %(food) out to them.)"
+	"(You give them %(food) to eat.)"
+	
+	if nbpunched <= 3
 	{
-		"(You give them some %(food).)"
-		"(You hold %(food) out to them.)"
+		useraffection += 1
 		"(You treat them with %(treat).)"
-		"(You give them %(food) to eat.)"
-		--
-		"\n\n[half]Thanks."
-		"\n\n[half]Thank you."
+	}
+	
+	--
+	if useraffection >= 30
+	{
+		useraffection += 1
 		"\n\n[half]What a tasty food."
 		"\n\n[half]What a pleasant meal."
 		"\n\n[half]Thanks for the good snack."
-		"\n(They ate it all.)"
-		"\n(They appreciated it.)"
+	}
+	if nbpunched <= 0
+	{
+		
+		"\n\n[half]Thanks."
+		"\n\n[half]Thank you."
+	}
+	
+	if nbpunched <= 3
+	{
+		"\n(They appreciated.)"
 		"\n(They enjoyed it.)"
 		"\n(They seem to have enjoyed it.)"
-		"\n(They seem to have like it.)"
-		"\n(They seem stuffed.)"
 	}
-	
-	elseif whymustyoudothis <= 30
+	elseif nbpunched <= 7
 	{
-	--
+		useraffection += 0.1
+		"\n(They take it carefully.)"
 	}
-	
 	else
 	{
-	--
+		useraffection += 0.3
+		"\n(They take it relunctantly.)"
+	}
+	
+	{
+		"\n(They ate it all.)"
+		"\n(They seem to have liked it.)"
+		"\n(They seem stuffed.)"
 	}
 	
 	--
@@ -1501,35 +1440,63 @@ Select.givedrink
 
 Select.giveuseful
 {
-	if useraffection >= 70
+	
+	"(You give them %(present).)"	
+	"(You hold %(present) out to them.)"
+	if useraffection >= 30
+	{
+		"(You please them with %(present).)"
+	}
+	
+	if nbpunched <= 3
 	{
 		useraffection += 1
-		"(You give them %(present).)"
 		"(You offer them %(present).)"
 		"(You gift them %(present).)"
-		"(You hold %(present) out to them.)"
-		"(You please them with %(present).)"
-		--
+	}
+	
+	--
+	if useraffection >= 30
+	{
+		useraffection += 1
+		"\n\n[half]It's pretty useful,\w5 thanks."
+		"\n\n[half]It's pretty useful,\w5 thank you."
+	}
+	
+	if useraffection >= 30 && nbpunched <= 0 
+	{
+		"\n\n[half]This is %(nice), \w5thanks."
+		"\n\n[half]This is %(nice), \w5thank you."
+	}
+	
+	if nbpunched <= 0
+	{
+		useraffection += 0.5
 		"\n\n[half]Thanks."
 		"\n\n[half]Thank you."
 		"\n\n[half]This will be useful."
-		"\n\n[half]It's pretty useful,\w5 thanks."
-		"\n\n[half]It's pretty useful,\w5 thank you."
 		"\n\n[half]I'll test it as soon as I leave."
-		"\n\n[half]This is %(nice), \w5thanks."
-		"\n\n[half]This is %(nice), \w5thank you."
+		
+	}
+	
+	if nbpunched <= 3
+	{
 		"\n\n[half]This is %(nice)."
 		"\n(It pleased them.)"
 		"\n(They seem pleased.)"
 		"\n(They appreciate the gift.)"
 	}
-	elseif whymustyoudothis >= 30
+	elseif nbpunched <= 7
 	{
-		--
+		useraffection += 0.1
+		"\n(They take it carefully.)"
 	}
+	else
 	{
-		--
+		useraffection += 0.3
+		"\n(They take it relunctantly.)"
 	}
+
 	
 	--
 	"\n\n[half]\![*]\q[Give something else,itmenu]     \![*]\q[Nevermind,CANCEL]"
@@ -1540,40 +1507,51 @@ Select.giveuseful
 
 Select.askthemself
 {
-	if useraffection >= 70
+	if nbpunched <= 3
 	{
-		if impostorrat == 1
+		"(They just look like a cute bean.)"
+		"(Are all crewmates beans?)"
+		"I'm just a normal crewmate."
+		if impostorrat != 1
 		{
-		}
-		elseif impostormode == 1
-		{
+			"My job is to do tasks to win."
+			"I need to investigate to find the impostors in plus of tasks."
 		}
 		else
 		{
-		}
-	}
-	
-	elseif whymustyoudothis >= 30
-	{
-		if impostorrat == 1
-		{
-		}
-		elseif impostormode == 1
-		{
-		}
-		else
-		{
+			"I just have to kill everybody."
 		}
 	}
 	else
-	{}
-	"I'm just a normal crewmate."
-	"My job is to do tasks to win."
-	"I need to investigate to find the impostors in plus of tasks."
-	"I'm an innocent crewmate."
+	{
+		"(They don't seem comfortable.)"
+		
+		
+	}
+	
+	if nbpunched > 3
+	{
+		"Someone you hurt."
+		"I don't have to answer you."
+	}
+	
+	if impostorrat == 0 && impostormode == 1
+	{
+		"I'm a totally normal crewmate."
+	}
+	
+	if impostorrat == 1
+	{
+		"I'm an impostor this time."
+	}
+	else
+	{
+		"I'm an innocent crewmate."
+	}
+	
 	"There are other crewmates like me,\w5 and impostors among us."
-	"(They just look like a cute bean.)"
-	"(Are all crewmates beans?)"
+	
+	
 	--
 	"\n\n[half]\![*]\q[Ask something else,asksthg]     \![*]\q[Nevermind,CANCEL]"
 }
@@ -1639,6 +1617,10 @@ Select.askcrewmates
 		{
 		}
 	}
+	if nbpunched > 3
+	{
+		"They aren't there for you to torture them."
+	}
 	"Crewmates are normal people."
 	"They must do their tasks, \w5even when they're dead."
 	"They can win by finishing their tasks."
@@ -1674,7 +1656,10 @@ Select.askimpostors
 		{
 		}
 	}
-	
+	"They have to kill everybody to win."
+	"If a vital sabotage as reactor or O2 isn't fixed, \w5they win."
+	"They must stay discreet."
+	"They hide among the crewmates."
 	--
 	"\n\n[half]\![*]\q[Ask something else,asksthg]     \![*]\q[Nevermind,CANCEL]"
 }
@@ -1706,7 +1691,12 @@ Select.askmaps
 		{
 		}
 	}
-	
+	"We're sometimes on a ship,\w5 on a planet or on a station."
+	"The ship is the Skeld but we now have an aircraft."
+	"The aircraft is huge."
+	"Security has the cameras, \w5you can spy people on them."
+	"Medbay generally has vitals,\w5 you can check who is dead on it."
+	"Electrical is where you can put lights back on when impostors sabotage it."
 	--
 	"\n\n[half]\![*]\q[Ask something else,asksthg]     \![*]\q[Nevermind,CANCEL]"
 }
