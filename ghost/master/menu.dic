@@ -1253,7 +1253,7 @@ Select.asksthg
 
 Select.flatter
 {
-	if useraffection <= 70
+	if useraffection >= 70
 	{
 		if impostorrat == 1
 		{
@@ -1269,7 +1269,7 @@ Select.flatter
 		}
 	}
 	
-	elseif whymustyoudothis <= 30
+	elseif whymustyoudothis >= 30
 	{
 		if impostorrat == 1
 		{
@@ -1451,7 +1451,7 @@ Select.taunt
 
 Select.givefood
 {
-	if useraffection <= 70
+	if useraffection >= 70
 	{
 		"(You give them some %(food).)"
 		"(You hold %(food) out to them.)"
@@ -1536,10 +1536,11 @@ Select.givedrink
 	"\n\n[half]\![*]\q[Give something else,itmenu]     \![*]\q[Nevermind,CANCEL]"
 }
 
-Select.giveuseful //Echo: Not much need for negative value here, seeing as this is only accessible by people with a max of 2 negatives and at least 0 positives.
+Select.giveuseful
 {
-	if useraffection <= 70
+	if useraffection >= 70
 	{
+		useraffection += 1
 		"(You give them %(present).)"
 		"(You offer them %(present).)"
 		"(You gift them %(present).)"
@@ -1559,7 +1560,10 @@ Select.giveuseful //Echo: Not much need for negative value here, seeing as this 
 		"\n(They seem pleased.)"
 		"\n(They appreciate the gift.)"
 	}
-	else
+	elseif whymustyoudothis >= 30
+	{
+		--
+	}
 	{
 		--
 	}
