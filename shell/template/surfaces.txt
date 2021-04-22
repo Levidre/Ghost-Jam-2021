@@ -8,14 +8,12 @@ surface0
 element0,overlay,surface0.png,0,0
 
 //Typing
-//10interval,talk,4
-//10pattern0,0,0,alternativestart,[11.12]
+10interval,talk,1
+10pattern0,0,0,alternativestart,[11]
 
-//11interval,never
-//11pattern0,1100,0,overlay,0,0
-
-//12interval,never
-//12pattern0,9999,0,overlay,0,0
+11interval,never
+11pattern0,1100,3-7,overlay,0,0
+11pattern1,1101,3,overlay,0,0
 
 //Hats
 //100interval,bind
@@ -46,36 +44,84 @@ element0,overlay,surface0.png,0,0
 surface1
 {
 element0,overlay,surface1001.png,0,0
+
+//Typing
+12interval,talk,1
+12pattern0,0,0,alternativestart,[13]
+
+13interval,never
+13pattern0,1102,3-7,overlay,0,0
+13pattern1,1103,3,overlay,0,0
 }
 
 //Mad
 surface2
 {
 element0,overlay,surface1002.png,0,0
+
+//Typing
+14interval,talk,1
+14pattern0,0,0,alternativestart,[15]
+
+15interval,never
+15pattern0,1100,3-7,overlay,0,0
+15pattern1,1101,3,overlay,0,0
 }
 
 //Scared
 surface3
 {
 element0,overlay,surface1003.png,0,0
+
+//Typing
+16interval,talk,1
+16pattern0,0,0,alternativestart,[17]
+
+17interval,never
+17pattern0,1100,3-7,overlay,0,0
+17pattern1,1101,3,overlay,0,0
 }
 
 //Disappointed
 surface4
 {
 element0,overlay,surface1004.png,0,0
+
+//Typing
+18interval,talk,1
+18pattern0,0,0,alternativestart,[19]
+
+19interval,never
+19pattern0,1100,3-7,overlay,0,0
+19pattern1,1101,3,overlay,0,0
 }
 
 //Stunned
 surface5
 {
 element0,overlay,surface1005.png,0,0
+
+//Typing
+20interval,talk,1
+20pattern0,0,0,alternativestart,[21]
+
+21interval,never
+21pattern0,1102,3-7,overlay,0,0
+21pattern1,1103,3,overlay,0,0
 }
 
 //Blush
 surface6
 {
 element0,overlay,surface1006.png,0,0
+
+//Typing
+22interval,talk,1
+22pattern0,0,0,alternativestart,[23]
+
+23interval,never
+23pattern0,1100,3-7,overlay,0,0
+23pattern1,1101,3,overlay,0,0
 }
 
 //Confused
