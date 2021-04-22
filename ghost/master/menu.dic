@@ -1159,21 +1159,21 @@ IncreaseAffection
 			useraffection += 1
 		}
 	}
-	elseif whymustyoudothis >= 30
+	elseif useraffection >= 30
 	{
 		if cumuhour >= 30
 		{
-			whymustyoudothis += 1
+			useraffection += 1
 		}
 	}
-	elseif whymustyoudothis >= 10
+	elseif useraffection >= 10
 	{
 		if cumuhour >= 10
 		{
-			whymustyoudothis += 0.5
+			useraffection += 1
 		}
 	}
-	elseif cumuhour >= 1
+	else
 	{
 		useraffection += 1
 	}
@@ -1207,12 +1207,12 @@ Select.actmenu
 	--
 	if useraffection >= 70
 	{
-	"\![*]\q[Hug them,hug]\n"
+		"\![*]\q[Hug them,hug]\n"
 	}
 	--
 	if whymustyoudothis >= 20
 	{
-	"\![*]\q[Taunt them,taunt]\n"
+		"\![*]\q[Taunt them,taunt]\n"
 	}
 	--
 	"\![*]\q[Accuse them,accuse]\n\n[half]"
@@ -1268,8 +1268,7 @@ Select.flatter
 			useraffection += 1
 		}
 	}
-	
-	elseif whymustyoudothis >= 30
+	elseif useraffection >= 30
 	{
 		if impostorrat == 1
 		{
@@ -1283,6 +1282,10 @@ Select.flatter
 		{
 			useraffection += 0.1
 		}
+	}
+	else
+	{
+		
 	}
 	
 	--

@@ -59,7 +59,6 @@ normalfood
 	"bacon"
 	"a sausage"
 	"a hot dog"
-	"a hot cat"
 	"spaghetties"
 	"a poutine"
 	"a pizza"
@@ -69,7 +68,6 @@ normalfood
 	"a hamburger"
 	"a quiche"
 	"a soup"
-	
 }
 
 color
@@ -142,6 +140,7 @@ food
 	"snack"
 	"cake"
 	"a %(treat)"
+	"%(normalfood)"
 }
 
 fruit
