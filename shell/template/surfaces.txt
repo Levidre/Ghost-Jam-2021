@@ -128,18 +128,42 @@ element0,overlay,surface1006.png,0,0
 surface7
 {
 element0,overlay,surface1007.png,0,0
+
+//Typing
+24interval,talk,1
+24pattern0,0,0,alternativestart,[25]
+
+25interval,never
+25pattern0,1100,3-7,overlay,0,0
+25pattern1,1101,3,overlay,0,0
 }
 
 //Thinking
 surface8
 {
 element0,overlay,surface1008.png,0,0
+
+//Typing
+26interval,talk,1
+26pattern0,0,0,alternativestart,[27]
+
+27interval,never
+27pattern0,1100,3-7,overlay,0,0
+27pattern1,1101,3,overlay,0,0
 }
 
 //Determined
 surface9
 {
 element0,overlay,surface1009.png,0,0
+
+//Typing
+28interval,talk,1
+28pattern0,0,0,alternativestart,[29]
+
+29interval,never
+29pattern0,1100,3-7,overlay,0,0
+29pattern1,1101,3,overlay,0,0
 }
 
 //Wonder
