@@ -16,7 +16,16 @@ OnTeachName
 {
 	if reference0 == "TEACHNAME" //ignore this
 	{
-		"%(lsto)* Huh, \w5so you didn't tell me the right name ?%(lsta)\![open,inputbox,OnNameTeach,-1]\e"
+		if useraffection >= 70
+		{
+			"%(lsto)* Huh, \w5so you didn't tell me the right name ?%(lsta)\![open,inputbox,OnNameTeach,-1]\e"
+		}
+		elseif whymustyoudothis >= 30
+		{
+		}
+		else
+		{
+		}
 		//Zarla : This is the bit of dialogue you can rewrite if you want. Note that this line ends with \![open,inputbox,OnNameTeach,-1]. You may recognize this from bootend.dic. Essentially, this will lead to the next function. Make sure you don't delete that tag! The rest you can do whatever with though.
 	}
 	else
@@ -57,14 +66,30 @@ OnNameTeach
 	tempname = reference0 //Zarla : this stores the name value temporarily in reference0
 	"%(lsto)"
 	--
-	if reference0 == "Mery" || reference0 == "mery" //Zarla : this checks to see if the user input the name "Girl" OR (that's what || means) "girl". You may want to put in a check here if the user tries to name themselves the same name as your characters, since that could be confusing in dialogue. Or just a response to any kind of strange name, like Barack Obama or Cindy Crawford or Mike Nelson or Random Hajile. Or you can prevent certain offensive names if you don't want users using them. Really the power is yours here. The OR operator there with "Girl" and "girl" is to cover people using lowercase as well. More on operators in the walkthrough page on coding.
+	if reference0 == "Bean" || reference0 == "bean" //Zarla : this checks to see if the user input the name "Girl" OR (that's what || means) "girl". You may want to put in a check here if the user tries to name themselves the same name as your characters, since that could be confusing in dialogue. Or just a response to any kind of strange name, like Barack Obama or Cindy Crawford or Mike Nelson or Random Hajile. Or you can prevent certain offensive names if you don't want users using them. Really the power is yours here. The OR operator there with "Girl" and "girl" is to cover people using lowercase as well. More on operators in the walkthrough page on coding.
 	{
-		"\0\s[10]* That's my name.\w8I hope you didn't try to take my name just to bother me.\w7 Chose your own.\![open,inputbox,OnNameTeach,-1]"
+		if whymustyoudothis >= 30
+		{
+			if impostorrat == 1
+			{
+				"\0I may be a monster, \w9but I'll never be like you. \w9Choose another name.\![open,inputbox,OnNameTeach,-1]"
+			}
+			elseif impostormode == 1
+			{
+			}
+			else
+			{
+			}
+		}
+		else
+		{
+			"\0Hey, \w5no, \w5that's my name. \w9Try again.\![open,inputbox,OnNameTeach,-1]"
+		}
 		//Note here that it's using the same tag as above to reopen the text box to let the user put in another name. You can replace the dialogue with whatever as long as you keep the \![open,inputbox,OnNameTeach,-1] tag.
 	}
 	elseif "gaster" _in_ TOLOWER(reference0)
 	{
-		"\0\s[10]* It may be dangerous, \w5you know ? \w7First, he wouldn't appreciate your name's choice \w5and you don't know how he would react and, \w5second, \w8you don't know how this name would affect you. \w7So,\w5 please, \w5don't use it.\![open,inputbox,OnNameTeach,-1]"
+		"\0* (Absolutely not.)\-"
 	}
 	elseif reference0 == "" || reference0 == " " || reference0 == "   " //Zarla : This is if the user doesn't put in a name at all, since that'd also get awkward in dialogue. Admittedly if a user REALLY wanted to put a ton of spaces as their name, the OR operators can only go so far, but this situation would mostly come up by accident I'd figure from a user hitting enter too quickly.
 	{
@@ -75,37 +100,36 @@ OnNameTeach
 	}
 	elseif TOLOWER(reference0) == "daddy" || TOLOWER(reference0) == "dad" || TOLOWER(reference0) == "mom" || TOLOWER(reference0) == "mama"
 	{
-		"\0\s[10]* Huh ? \w7Nope.\w7 Choose something else.\![open,inputbox,OnNameTeach,-1]"
+		if useraffection >= 70
+		{
+			"\0Even though you are nice, \w8I'm going to have to ask you to choose another name.\![open,inputbox,OnNameTeach,-1]"
+		}
+		elseif whymustyoudothis >= 30
+		{
+			"\0Why would I call someone who has been terrible to me that? \w9Don't even try.\![open,inputbox,OnNameTeach,-1]"
+		}
+		else
+		{
+			"\0I barely know you, \w7let's not. \w9Try again.\![open,inputbox,OnNameTeach,-1]"
+		}
+
 	}
 	else //Zarla : if the user put in something not specified above, ie a proper name the ghost can use. 
 	{
-		if reference0 == "aaaaaa" || reference0 == "Aaaaaa" || reference0 == "azerty" || reference0 == "Azerty" || reference0 == "Qwerty" || reference0 == "qwerty"
+		if reference0 == "aaaaaa" || reference0 == "Aaaaaa" || reference0 == "azerty" || reference0 == "Azerty" || reference0 == "Qwerty" || reference0 == "qwerty" || reference0 == "afslkja"
 		{
 			chename = 1
 			--
-			"\0\s[10]\i[10]* You don't have much imagination.\w7\0\s[21]But I will really have fun in calling you %(reference0).\n\n[half]"
+			if whymustyoudothis >= 30
+			{
+			}
+			else
+			{
+				"\0\s[10]\i[10]* You don't have much imagination.\w7\0\s[21]But I will really have fun in calling you %(reference0).\n\n[half]"
+			}
 			--
 			username = reference0
 		}
-		--
-
-		"\0\s[10]* Do you want a title?\w4\n\n[half]\![*]\q[Nope,titlenone]\n"
-		//Zarla : You can replace "\0\s[0]Do you want a title?", but don't touch the rest of it.
-		--
-		if presuffix == "masculine" //Zarla : this value was defined in bootend.dic and menu.dic when the user chose their pronouns. Thus, if someone chose he/him pronouns, they would be able to choose Mr. or Master.
-		{
-		"\![*]\q[Mr.,titlemr]\n/
-		\![*]\q[Master,titlemaster]\n"
-		}
-		elseif presuffix == "feminine" //Zarla : Likewise, if someone chose she/her pronouns, they could choose Ms. or Lady.
-		{
-		"\![*]\q[Ms.,titlems]\n/
-		\![*]\q[Lady,titlelady]\n"
-		}
-		-- //Zarla : the titles after this are gender neutral and will appear for all users. If you want to remove the masculine and feminine titles entirely, just delete from the curly bracket one line up to the double dashes above "if presuffix == "masculine". That should leave only the neutral titles. Make sure to leave a set of double dashes above the neutral titles though.
-		"\![*]\q[-ssi,titlessi]\n/
-		\![*]\q[-san,titlesan]\e"
-		//Zarla : Note that the final line here ends with \e instead of \n/, since it is the final option. If you're copying and pasting to add new options, don't use the final line. More on that in the box below.
 	}
 }
 	//*********************Advanced User Info*******************************
@@ -121,55 +145,22 @@ OnNameTeach
 	//***********************************************************************
 	
 	//Zarla : The following Select.title[word] functions add the title to the user's name, then go to the final step, NameDone. You don't have to touch any of these. Advanced users, notice how these match the linked functions in the choices above.
-	
-Select.titlenone
-{
-		username = tempname
-		NameDone
-}
-
-Select.titlemr
-{
-		username = "Mr. " + tempname
-		NameDone
-}
-
-Select.titlemaster
-{
-		username = "Master " + tempname
-		NameDone
-}
-		
-Select.titlems
-{
-		username = "Ms. " + tempname
-		NameDone
-}
-
-Select.titlelady
-{
-		username = "Lady " + tempname
-		NameDone
-}
-
-Select.titlessi
-{
-		username = tempname + "-ssi"
-		NameDone
-}
-
-Select.titlesan
-{
-		username = tempname + "-san"
-		NameDone
-}
 
 //--NameDone
 //Zarla : This is the final bit of dialogue your ghosts will have when the user changes their name.
 
 NameDone
 {
-	"\0\s[10]%(lsto)* I'm glad to know your name, %(username).\n"
+	if useraffection >= 70
+	{
+	}
+	elseif whymustyoudothis >= 30
+	{
+	}
+	else
+	{
+		"\0\s[10]%(lsto)* I'm glad to know your name, %(username).\n"
+	}
 }
 OnNotifyBalloonInfo
 {
@@ -179,7 +170,7 @@ OnNotifyBalloonInfo
 	
 }
 
-OnBalloondefault
+OnBalloondefault //Echo: Will change later if other balloon is created.
 {
 	if currentballoon != "Z - Undertale"
 	{
@@ -196,7 +187,7 @@ OnBalloondefault
 	"\e"
 }
 
-OnBalloonChange
+OnBalloonChange //Echo: Will also change later.
 {
 	currentballoon = reference0
 	--
