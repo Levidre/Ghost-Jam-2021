@@ -306,6 +306,66 @@ OnGreetingDialogue
 	normalboottalk
 }
 
+
+ColorChoose //Echo: Bean color choosing. Changes daily.
+{
+	case colorlist
+	{
+		when "blue"
+		{
+			nowshell = "blue"
+		}
+		when "red"
+		{
+			nowshell = "red"
+		}
+		when "green"
+		{
+			nowshell = "green"
+		}
+		when "lime"
+		{
+			nowshell = "lime"
+		}
+		when "pink"
+		{
+			nowshell = "pink"
+		}
+		when "cyan"
+		{
+			nowshell = "cyan"
+		}
+		when "black"
+		{
+			nowshell = "black"
+		}
+		when "yellow"
+		{
+			nowshell = "yellow"
+		}
+		when "purple"
+		{
+			nowshell = "purple"
+		}
+		when "orange"
+		{
+			nowshell = "orange"
+		}
+		when "white"
+		{
+			nowshell = "white"
+		}
+		when "brown"
+		{
+			nowshell = "brown"
+		}
+		when "tan"
+		{
+			nowshell = "tan"
+		}
+	}
+}
+
 ImpostorChoose //Echo: For choosing if the bean is impostor or not. There's only a 1/4 chance of them being impostor; sounds about right.
 {
 	if RAND(100) <= 25
@@ -317,6 +377,7 @@ ImpostorChoose //Echo: For choosing if the bean is impostor or not. There's only
 		impostormode == 0
 	}
 }
+
 
 normalboottalk
 {
