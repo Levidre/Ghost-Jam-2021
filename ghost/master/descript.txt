@@ -8,15 +8,15 @@ charset,UTF-8
 
 //The name of your ghost is what will be displayed when you are loading your ghost or switching to it, and also how it is referred to in certain functions. Usually this will be "Character and character" or just "Character" depending on your ghost. The type of the ghost will be ghost, obviously, leave that alone.
 
-name,Template Mery
+name,Among Us
 type,ghost
 
 
 //This defines which is the main character and which is the side character. The main character of a ghost is referred to as "sakura" by the code, and the side character as "kero". If you see these names in the functions, that's who they are referring to. Replace the names as you need.
 
 
-sakura.name,Mery
-kero.name,Lili
+sakura.name,Crewmate
+kero.name,Nothing
 
 
 //This is the information about you, the creator of your ghost! Put in your name or whatever alias you want and whatever website you'd like to link to.
@@ -37,4 +37,4 @@ shiori,yaya.dll
 //This next bit defines what icon your ghost will use in your taskbar. Replace "gt_template.ico" with the icon file you're going to be using.
 //To make an icon file, draw yourself a 16x16 image for your ghost and save it as a png. I then went to a free site to convert it to an ico file. I believe it was this site - http://www.convertico.com/ but I can't quite remember. Anyway, I'm sure some quick googling will find a site that'll convert your png into an ico for you.
 
-icon,ico-azu.ico
+icon,ico-among-us.ico

@@ -36,33 +36,23 @@ AiTalk
  //Alright, here we go! This is where ALL your ghost's random dialogue will go! These are the conversations that they'll have with you or each other that pop up depending on the talk rate defined in menu.dic (or if you ignored that, set in bootend.dic in the first boot, which would be every five minutes).
  
 
-RandomTalk //: nonoverlap
+RandomTalk : nonoverlap
 {
 	//Levidre :
 	//There is something in bootend that is filling dayslot.
 	//You can use it to change what dialogues are displayed depending on what day it is. For exemple you have here 50% of chance of getting an Halloween related dialogu.e
 	//It can be useful for special days as celebrations
 
-	if dayslot == "10month 31day"
-	{
-		if RAND(2) == 1
-		{
-			NormalTalk
-		}
-		else
-		{
-			HalloweenTalk
-		}
-	}
-	elseif impostorrat == 1
+	if impostorrat == 1
 	{
 		DiscoveredImpostorTalk
 	}
 	elseif impostormode == 1
 	{
 		ImpostorTalk
+		NormalTalk
 	}
-	elseif whymustyoudothis >= 30
+	elseif whymustyoudothis >= 30 || nbpunched > 3
 	{
 		NegativeTalk
 	}
@@ -70,11 +60,16 @@ RandomTalk //: nonoverlap
 	{
 		NormalTalk
 	}
+	
+	if nbpunched <= 7 && whymustyoudothis <= 60
+	{
+		GlobalTalk
+	}
 }
 
 //Levidre :
 //Here you have your normal dialogues
-NormalTalk
+NormalTalk : nonoverlap
 {	
 	/*if ARRAYSIZE(ghostexlist) != 0
 	{
@@ -103,13 +98,18 @@ NormalTalk
 	"The ghosts aren't doing their tasks."
 	"I have %(task)."
 	"I still have %(task) left."
+	"Do you have some tasks here?"
 	--
 	"\e"
 }
 
-ImpostorTalk
+ImpostorTalk : nonoverlap
 {
 	"(They're staring at you.)"
+	"(It smells like iron.)"
+	"(They look agitated.)"
+	"(They're having a strange look.)"
+	"(There is a strange smell.)"
 	"I need to find %(color)..."
 	"I saw %(color) staying alone."
 	"I think %(color) trusts me."
@@ -118,14 +118,22 @@ ImpostorTalk
 	"There is a body in %(place)."
 	"I wonder how the ghosts are doing."
 	"Eh,\w5 %(color) got a bad timing."
+	--
+	"\e"
 }
 
-DiscoveredImpostorTalk
+DiscoveredImpostorTalk : nonoverlap
 {
+	"(Smells like rampage.)"
+	"(Smells like bloodthirst.)"
+	"(They're having a strange look.)"
 	"Kill them all.... Kill themmm alllll.... Hum,\w5 sorry."
 	"Mmh,\w5 what weapon would be the better?"
 	"Do you know... vents?"
+	"It's fun to hide into vents."
 	"Electrical is just the perfect place to kill someone."
+	"Electrical is the best place to kill."
+	"Oxygen at the bottom of Mira HQ offers a free kill."
 	"Vents are pretty dusty you know?\w7 Someone have to clean them time to time..."
 	"Hehe,\w5 %(color) will vouch for me."
 	"How should I kill..."
@@ -141,17 +149,79 @@ DiscoveredImpostorTalk
 	"I'll get them all."
 	"They still have plenty of tasks to do."
 	"Last time they won with tasks,\w5 they won't this time."
+	"I hope my mate is doing well."
+	"I hope my mate won't get voted out while I'm here."
+	"I apparently can't kill you..."
+	"As soon as I get back,\w5 I'll kill them all..."
+	"I love sabotaging."
+	"Mmh,\w5 reactor or oxygen?"
+	"They can't see me without the light... but I can see them... hehehehehe...."
+	"How did you know I was impostor?"
+	"I'll take care of not being discovered next time."
 	--
 	"\e"
 }
 
-NegativeTalk
+NegativeTalk : nonoverlap
+{
+	"(They're just standing there.)"
+	"(They look impatient.)"
+	"(They're staring at you.)"
+	"(They seem unhappy to be here.)"
+	"(They're staying on guard.)"
+	"(They're wary.)"
+	"(They're still.)"
+	"(They're uncomfortable.)"
+	"(They just want to leave.)"
+	"We're used to getting killed."
+	"At least impostors are hurful because they have to be to win."
+	"I don't even think you would be a good impostor."
+	"You're too mean to be a good impostor."
+	"Impostors aren't that mean,\w5 they don't torture their victims."
+	"When will you close me?"
+	"I would like to go back."
+	"I wanna go back with the other crewmates."
+	"What's next?\w7 Breaking my suit?"
+	"People like you are never allowed to go into space."
+	"You would be a good third impostor."
+	"Monsters like you just ruin everything."
+	--
+	"\e"
+}
+
+GlobalTalk : nonoverlap
 {
 	
+	if cumuhour < 10
+	{
+		"(They seem unsure about this place.)"
+		"(They seem curious.)"
+	}
+	else
+	{
+		if cumuhour > 300
+		{
+			"(They spent a lot of time here.)"
+		}
+		"(They seem to be used to this place.)"
+		"(They're used to your desktop.)"
+	}
+	"(They're looking around.)"
+	"(They observe you.)"
+	"(They're watching around.)"
+	"(They take a peek into your files.)"
+	"(It smells like stars.)"
+	"(It smells like space suits.)"
+	"Don't you need to clean those ones?\n\n[half](They point out a stack of files.)"
+	"Wouldn't this need to go in your archives or library?\n\n[half](They point out a file.)"
+	"Does it bother you if I clean some folders?"
+	"Did you ever think of going into space?"
+	"Are you doing tasks?"
+	"Do you have tasks to do?"
+	"Do you all have imposters among you?"
 	--
 	"\e"
 }
-
 
 //Levidre :
 //This function is for starting a communication with an other ghost.
