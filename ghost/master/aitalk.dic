@@ -54,6 +54,18 @@ RandomTalk //: nonoverlap
 			HalloweenTalk
 		}
 	}
+	elseif impostorrat == 1
+	{
+		DiscoveredImpostorTalk
+	}
+	elseif impostormode == 1
+	{
+		ImpostorTalk
+	}
+	elseif whymustyoudothis >= 30
+	{
+		NegativeTalk
+	}
 	else
 	{
 		NormalTalk
@@ -133,6 +145,13 @@ DiscoveredImpostorTalk
 	"\e"
 }
 
+NegativeTalk
+{
+	
+	--
+	"\e"
+}
+
 
 //Levidre :
 //This function is for starting a communication with an other ghost.
@@ -156,7 +175,7 @@ OnStartCommunication
 //--Chains
 //Zarla : Here is where you will put your bits of chain dialogue. They are outside of RandomTalk, which makes them a bit more flexible as I mentioned above. As you can see, this function is called "firstchain", which was the same tag we put at the end of the chain in aitalk with \e:chain=firstchain.
 
-firstchain
+/*firstchain
 {{CHAIN
 	"\0\s[10]Here is the second part of the chain.\w8Will there be more?\e:chain=end"
 }}CHAIN
@@ -174,6 +193,8 @@ thirdchain
 {{CHAIN
 	"\0\s[10]This is the third piece of chained dialogue.\1\w8\s[10]This is the end.\e:chain=end"
 }}CHAIN
+*/
+
 
 //Zarla :
 //As you can see, you can chain your chains together to make a very long-running conversation if you want! Just make sure to end the chain when you're done.
@@ -184,7 +205,7 @@ thirdchain
 //Zarla : 
 //These are time-related bits of dialogue for your ghost to say. If you're uninterested, you can delete it all except for a line for MikireTalk. So it'd look something like
 //But I think these are kind of neat, so I'd leave them myself.
-
+/*
 OnMinuteChange
 {
 	timeslot = GetTimeSlot //Zarla : this tells the ghost what time it is so the time related conversations above will work.
@@ -299,6 +320,7 @@ OnSurfaceRestore
  {
 	
  }
+ */
 
  //--OnKeyPress
  //Zarla : This defines the hotkeys your ghost will use. You can change these to whatever you want, but I don't really know why you would. I'd just leave this alone. Advanced Users can add new hotkeys attached to whatever function if you want.
