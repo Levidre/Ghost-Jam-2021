@@ -319,55 +319,55 @@ ColorChoose //Echo: Bean color choosing. Changes daily.
 	{
 		when "blue"
 		{
-			nowshell = "blue"
+			\![change,shell,Blue]
 		}
 		when "red"
 		{
-			nowshell = "red"
+			\![change,shell,Red]
 		}
 		when "green"
 		{
-			nowshell = "green"
+			\![change,shell,Green]
 		}
 		when "lime"
 		{
-			nowshell = "lime"
+			\![change,shell,Lime]
 		}
 		when "pink"
 		{
-			nowshell = "pink"
+			\![change,shell,Pink]
 		}
 		when "cyan"
 		{
-			nowshell = "cyan"
+			\![change,shell,Cyan]
 		}
 		when "black"
 		{
-			nowshell = "black"
+			\![change,shell,Black]
 		}
 		when "yellow"
 		{
-			nowshell = "yellow"
+			\![change,shell,Yellow]
 		}
 		when "purple"
 		{
-			nowshell = "purple"
+			\![change,shell,Purple]
 		}
 		when "orange"
 		{
-			nowshell = "orange"
+			\![change,shell,Orange]
 		}
 		when "white"
 		{
-			nowshell = "white"
+			\![change,shell,White]
 		}
 		when "brown"
 		{
-			nowshell = "brown"
+			\![change,shell,Brown]
 		}
 		when "tan"
 		{
-			nowshell = "tan"
+			\![change,shell,Tan]
 		}
 	}
 }
