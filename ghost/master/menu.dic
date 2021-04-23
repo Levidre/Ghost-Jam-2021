@@ -1123,7 +1123,8 @@ Select.flatter
 	}
 	
 	--
-	"\n\n[half]\![*]\q[Do something else,actmenu]\n\n[half]     \![*]\q[Nevermind,CANCEL]"
+
+	"\n\n[half]\![*]\q[Do something else,actmenu]\n\![*]\q[Nevermind,CANCEL]"
 }
 
 Select.insult
@@ -1181,7 +1182,7 @@ Select.insult
 	"\n(It made them sad.)"
 	"\n(They look unhappy.)"
 	--
-	"\n\n[half]\![*]\q[Do something else,actmenu]\n\n[half]     \![*]\q[Nevermind,CANCEL]"
+	"\n\n[half]\![*]\q[Do something else,actmenu]\n\![*]\q[Nevermind,CANCEL]"
 }
 
 Select.accuse
@@ -1222,7 +1223,7 @@ Select.accuse
 	}
 	
 	--
-	"\n\n[half]\![*]\q[Do something else,actmenu]\n\n[half]     \![*]\q[Nevermind,CANCEL]"
+	"\n\n[half]\![*]\q[Do something else,actmenu]\n\![*]\q[Nevermind,CANCEL]"
 }
 
 Select.hug
@@ -1275,7 +1276,7 @@ Select.hug
 	"\n(They seem surprised.)"
 	"\n(You startled them.)"
 	--
-	"\n\n[half]\![*]\q[Do something else,actmenu]\n\n[half]     \![*]\q[Nevermind,CANCEL]"
+	"\n\n[half]\![*]\q[Do something else,actmenu]\n\![*]\q[Nevermind,CANCEL]"
 }
 
 Select.taunt
@@ -1328,7 +1329,7 @@ Select.taunt
 	"\n\n[half]..."
 	"\n\n[half]Why this?"
 	--
-	"\n\n[half]\![*]\q[Do something else,actmenu]\n\n[half]     \![*]\q[Nevermind,CANCEL]"
+	"\n\n[half]\![*]\q[Do something else,actmenu]\n\![*]\q[Nevermind,CANCEL]"
 }
 
 //-- Give functions
@@ -1384,7 +1385,7 @@ Select.givefood
 	}
 	
 	--
-	"\n\n[half]\![*]\q[Give something else,itmenu]\n\n[half]     \![*]\q[Nevermind,CANCEL]"
+	"\n\n[half]\![*]\q[Give something else,itmenu]\n\![*]\q[Nevermind,CANCEL]"
 }
 
 Select.givedrink
@@ -1435,7 +1436,7 @@ Select.givedrink
 		"\n(They seem better hydrated.)"
 	}
 	--
-	"\n\n[half]\![*]\q[Give something else,itmenu]\n\n[half]     \![*]\q[Nevermind,CANCEL]"
+	"\n\n[half]\![*]\q[Give something else,itmenu]\n\![*]\q[Nevermind,CANCEL]"
 }
 
 Select.giveuseful
@@ -1499,7 +1500,7 @@ Select.giveuseful
 
 	
 	--
-	"\n\n[half]\![*]\q[Give something else,itmenu]\n\n[half]     \![*]\q[Nevermind,CANCEL]"
+	"\n\n[half]\![*]\q[Give something else,itmenu]\n\![*]\q[Nevermind,CANCEL]"
 }
 
 
@@ -1553,7 +1554,7 @@ Select.askthemself
 	
 	
 	--
-	"\n\n[half]\![*]\q[Ask something else,asksthg]\n\n[half]     \![*]\q[Nevermind,CANCEL]"
+	"\n\n[half]\![*]\q[Ask something else,asksthg]\n\![*]\q[Nevermind,CANCEL]"
 }
 
 Select.askgame
@@ -1590,7 +1591,7 @@ Select.askgame
 	"There are visual tasks everybody can see if we're doing them."
 	"Weapons and scan are generally visual tasks.\w7 Trash is too on the Skeld."
 	--
-	"\n\n[half]\![*]\q[Ask something else,asksthg]\n\n[half]     \![*]\q[Nevermind,CANCEL]"
+	"\n\n[half]\![*]\q[Ask something else,asksthg]\n\![*]\q[Nevermind,CANCEL]"
 }
 
 Select.askcrewmates
@@ -1629,7 +1630,7 @@ Select.askcrewmates
 	"They can win by eliminating all impostors."
 	"They have tasks to do."
 	--
-	"\n\n[half]\![*]\q[Ask something else,asksthg]\n\n[half]     \![*]\q[Nevermind,CANCEL]"
+	"\n\n[half]\![*]\q[Ask something else,asksthg]\n\![*]\q[Nevermind,CANCEL]"
 }
 
 Select.askimpostors
@@ -1671,7 +1672,7 @@ Select.askimpostors
 	"They can fake tasks to look less suspicious."
 	"They can't do visual tasks."
 	--
-	"\n\n[half]\![*]\q[Ask something else,asksthg]\n\n[half]     \![*]\q[Nevermind,CANCEL]"
+	"\n\n[half]\![*]\q[Ask something else,asksthg]\n\![*]\q[Nevermind,CANCEL]"
 }
 
 Select.askmaps
@@ -1694,7 +1695,7 @@ Select.askmaps
 	"Vents are ventilation corridors that go from one place to an other."
 	"Electrical is where you can put lights back on when impostors sabotage it."
 	--
-	"\n\n[half]\![*]\q[Ask something else,asksthg]\n\n[half]     \![*]\q[Nevermind,CANCEL]"
+	"\n\n[half]\![*]\q[Ask something else,asksthg]\n\![*]\q[Nevermind,CANCEL]"
 }
 
  
