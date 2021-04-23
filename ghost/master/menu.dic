@@ -1586,7 +1586,9 @@ Select.askgame
 	"We,\w5 crewmates,\w5 must do tasks to win or to get rid of all the impostors before they kill us."
 	"We're often on a planet,\w5 in a ship or in a station.\w7 We always need to complete our tasks."
 	"We must find all the impostors or finish our mission before they kill us."
-	"We can still do our tasks when we're dead,\w5 even being a ghost don't give us a break."	
+	"We can still do our tasks when we're dead,\w5 even being a ghost don't give us a break."
+	"There are visual tasks everybody can see if we're doing them."
+	"Weapons and scan are generally visual tasks.\w7 Trash is too on the Skeld."
 	--
 	"\n\n[half]\![*]\q[Ask something else,asksthg]     \![*]\q[Nevermind,CANCEL]"
 }
@@ -1625,6 +1627,7 @@ Select.askcrewmates
 	"They must do their tasks, \w5even when they're dead."
 	"They can win by finishing their tasks."
 	"They can win by eliminating all impostors."
+	"They have tasks to do."
 	--
 	"\n\n[half]\![*]\q[Ask something else,asksthg]     \![*]\q[Nevermind,CANCEL]"
 }
@@ -1660,42 +1663,35 @@ Select.askimpostors
 	"If a vital sabotage as reactor or O2 isn't fixed, \w5they win."
 	"They must stay discreet."
 	"They hide among the crewmates."
+	"Impostor is pretty fun."
+	"Impostors can use vents,\w5 normal crewmates cannot."
+	"Getting rid of all of them make the crewmates win."
+	"They're probably some sort of parasites?"
+	"They're some alien organisms."
+	"They can fake tasks to look less suspicious."
+	"They can't do visual tasks."
 	--
 	"\n\n[half]\![*]\q[Ask something else,asksthg]     \![*]\q[Nevermind,CANCEL]"
 }
 
 Select.askmaps
 {
-	if useraffection >= 70
+	if whymustyoudothis >= 30
 	{
-		if impostorrat == 1
-		{
-		}
-		elseif impostormode == 1
-		{
-		}
-		else
-		{
-		}
-	}
-	
-	elseif whymustyoudothis >= 30
-	{
-		if impostorrat == 1
-		{
-		}
-		elseif impostormode == 1
-		{
-		}
-		else
-		{
-		}
+		"You can jump anytime in Polus lava."
 	}
 	"We're sometimes on a ship,\w5 on a planet or on a station."
+	"The maps are The Skeld, The Aircraft, Polus and Mira HQ."
+	"The Aircraft is,\w5 well,\w5 an aicraft."
+	"Polus is a planet.\w7 A planet with lava."
 	"The ship is the Skeld but we now have an aircraft."
-	"The aircraft is huge."
+	"The Aircraft is huge."
+	"We even have to do the laundry in the Aircraft,\w5 and to unstuck toilets..."
 	"Security has the cameras, \w5you can spy people on them."
 	"Medbay generally has vitals,\w5 you can check who is dead on it."
+	"Maps are divided into places."
+	"Meetings happen in Admin."
+	"Vents are ventilation corridors that go from one place to an other."
 	"Electrical is where you can put lights back on when impostors sabotage it."
 	--
 	"\n\n[half]\![*]\q[Ask something else,asksthg]     \![*]\q[Nevermind,CANCEL]"

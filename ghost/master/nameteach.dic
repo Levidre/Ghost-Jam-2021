@@ -170,35 +170,7 @@ OnNotifyBalloonInfo
 	
 }
 
-OnBalloondefault //Echo: Will change later if other balloon is created.
-{
-	if currentballoon != "Z - Undertale"
-	{
-		if "z_undertale" _in_ installedballoons
-		{
-			"\![change,balloon,Z - Undertale]"
-		}
-		else
-		{
-			"%(lsto)* Huh ? \w7You don't have the Undertale's balloon.\w7Guess I will stay like this. \w7You should download it though."
-		}
-	}
-	--
-	"\e"
-}
-
 OnBalloonChange //Echo: Will also change later.
 {
-	currentballoon = reference0
-	--
-	if currentballoon == "Z - Undertale"
-	{
-		"\0%(lsto)* The best balloon, \w5it's perfect."
-	}
-	else
-	{
-		"\0%(lsto)* I wouldn't keep you from changing the balloon,\w5 but I prefer the Undertale's one."
-	}
-	--
-	"\e"
+	
 }
