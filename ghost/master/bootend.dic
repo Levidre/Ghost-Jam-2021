@@ -213,12 +213,18 @@ OnGreetingDialogue
 	if month > helloday[0]
 	{
 		helloday[2] = 0
+		--
+		ColorChoose
+		ImpostorChoose
 	}
 	elseif month == helloday[0]
 	{
 		if day > helloday[1]
 		{
 			helloday[2] = 0
+			--
+			ColorChoose
+			ImpostorChoose
 		}
 	}
 	if dayslot != "10month 31day"
