@@ -6,7 +6,29 @@ group,BlackBean
 	{
 	scope,0
 		0,Default
-		1,Emotion Test
+		1,Happy
+		2,Mad
+		3,Scared
+		4,Disappointed
+		5,Stunned
+		6,Blush
+		7,Confused
+		8,Thinking
+		9,Determined
+		11,Wonder
+		12,Mischief
+		13,Impostor-Happy
+		14,Impostor-Mad
+		15,Impostor-Scared
+		16,Impostor-Disappointed
+		17,Impostor-Stunned
+		18,Impostor-Blush
+		19,Impostor-Confused
+		20,Impostor-Thinking
+		21,Impostor-Determined
+		22,Impostor-Wonder
+		23,Impostor-Mischief
+		24,Impostor-Murdery
 	}
 
 	{

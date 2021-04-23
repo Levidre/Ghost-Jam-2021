@@ -7,7 +7,7 @@ charset,UTF-8
 type,shell
 name,White
 craftman,ScardyFluff
-craftmanurl,https://azura-levidre.tumblr.com
+craftmanurl,
 //menu,hidden
 
 //Balloon Co-ordinates
@@ -39,9 +39,9 @@ menu.disable.font.color.g,100
 menu.disable.font.color.b,100
 
 //Menu Separate Color
-menu.separator.color.r,0
-menu.separator.color.g,0
-menu.separator.color.b,0
+menu.separator.color.r,214
+menu.separator.color.g,224
+menu.separator.color.b,240
 
 //Menu Background Image Alignment
 menu.background.alignment,lefttop
@@ -55,39 +55,39 @@ menu.sidebar.bitmap.filename,menu_sidebar.png
 
 
 //Cosmetics
-sakura.bindgroup100.name,Hat,Paper Hat
-sakura.bindgroup100.default,0
-sakura.bindgroup101.name,Hat,Medical Mask
-sakura.bindgroup101.default,0
-sakura.bindgroup102.name,Hat,Plant Hat
-sakura.bindgroup102.default,0
+//sakura.bindgroup100.name,Hat,Paper Hat
+//sakura.bindgroup100.default,0
+//sakura.bindgroup101.name,Hat,Medical Mask
+//sakura.bindgroup101.default,0
+//sakura.bindgroup102.name,Hat,Plant Hat
+//sakura.bindgroup102.default,0
 
-sakura.bindgroup200.name,Skin,Black Suit
-sakura.bindgroup200.default,0
-sakura.bindgroup201.name,Skin,Doctor Skin
-sakura.bindgroup201.default,0
-sakura.bindgroup202.name,Skin,Prisoner Skin
-sakura.bindgroup202.default,0
+//sakura.bindgroup200.name,Skin,Black Suit
+//sakura.bindgroup200.default,0
+//sakura.bindgroup201.name,Skin,Doctor Skin
+//sakura.bindgroup201.default,0
+//sakura.bindgroup202.name,Skin,Prisoner Skin
+//sakura.bindgroup202.default,0
 
-sakura.bindgroup300.name,Pet,UFO
-sakura.bindgroup300.default,0
-sakura.bindgroup301.name,Pet,Mini Crewmate
-sakura.bindgroup301.default,0
-sakura.bindgroup302.name,Pet,Robot
-sakura.bindgroup302.default,0
+//sakura.bindgroup300.name,Pet,UFO
+//sakura.bindgroup300.default,0
+//sakura.bindgroup301.name,Pet,Mini Crewmate
+//sakura.bindgroup301.default,0
+//sakura.bindgroup302.name,Pet,Robot
+//sakura.bindgroup302.default,0
 
 //Cosmetics Menu
-sakura.menuitem0,100
-sakura.menuitem1,101
-sakura.menuitem2,102
-sakura.menuitem3,-
-sakura.menuitem4,200
-sakura.menuitem5,201
-sakura.menuitem6,202
-sakura.menuitem7,-
-sakura.menuitem8,300
-sakura.menuitem9,301
-sakura.menuitem10,302
+//sakura.menuitem0,100
+//sakura.menuitem1,101
+//sakura.menuitem2,102
+//sakura.menuitem3,-
+//sakura.menuitem4,200
+//sakura.menuitem5,201
+//sakura.menuitem6,202
+//sakura.menuitem7,-
+//sakura.menuitem8,300
+//sakura.menuitem9,301
+//sakura.menuitem10,302
 
 //Auto Alpha
 seriko.use_self_alpha,1
