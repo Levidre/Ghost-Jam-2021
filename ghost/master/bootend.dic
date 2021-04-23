@@ -201,7 +201,6 @@ OnBoot
 	nbconv = 0
 	dayslot = GetDaySlot
 	timeslot = GetTimeSlot
-	impostormode = 0
 	
  	"\0\s[0]\![set,otherghosttalk,true]\![set,otherghosttalk,before]"
 	--
@@ -238,27 +237,62 @@ OnGreetingDialogue
 	{
 		if timeslot == "morning" || timeslot == "earlymorning"
 		{
-			"Good morning.\n"
+			if whymustyoudothis >= 30
+			{
+				"..Good morning.\n"
+			}
+			else
+			{
+				"Good morning.\n"
+			}
 		}
 		elseif timeslot == "lunch"
 		{
-			"Hello.\n"
+			if whymustyoudothis >= 30
+			{
+				"...Hi.\n"
+			}
+			else
+			{
+				"Hello.\n"
+			}
 		}
 		elseif timeslot == "afternoon"
 		{
-			"Hello.\n"
+			"Hi.\n"
 		}
 		elseif timeslot == "evening"
 		{
-			"Good evening.\n"
+			if whymustyoudothis >= 30
+			{
+				"...It's evening.\n"
+			}
+			else
+			{
+				"Good evening.\n"
+			}
 		}
 		elseif timeslot == "latenight"
 		{
-			"Good evening.\n"
+			if whymustyoudothis >= 30
+			{
+				"..Still evening.\n"
+			}
+			else
+			{
+				"Good evening.\n"
+			}
 		}
 		else
 		{
-			"Good  night.\n"
+			if whymustyoudothis >= 30
+			{
+				"Great. \w9I was just going to get to sleep.\n"
+			}
+			else
+			{
+				"Must you call me at such an inconvienient time?\n"
+			}
 		}
 	}
 	--
@@ -270,6 +304,18 @@ OnGreetingDialogue
 	}
 	--
 	normalboottalk
+}
+
+ImpostorChoose //Echo: For choosing if the bean is impostor or not. There's only a 1/4 chance of them being impostor; sounds about right.
+{
+	if RAND(100) <= 25
+	{
+		impostormode == 1
+	}
+	else
+	{
+		impostormode == 0
+	}
 }
 
 normalboottalk
@@ -296,8 +342,15 @@ OnClose
 	timeslot = GetTimeSlot
 	if passmin >= 5 || passhour >= 1	//Zarla : This checks to see if you've had them open for at least five minutes.
 	{
-		"I hope not everybody got killed."
-		"I hope I'm not the last crewmate alive."
+		if impostorrat == 1
+		{
+		}
+	
+	else
+		{
+			"I hope not everybody got killed."
+			"I hope I'm not the last crewmate alive."
+		}
  	}	
  	else //Zarla : This dialogue is for if they haven't been open for at least five minutes.
  	{
