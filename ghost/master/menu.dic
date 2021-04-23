@@ -1079,15 +1079,15 @@ Select.flatter
 	{
 		if impostorrat == 1
 		{
-			useraffection += 0.1
+			useraffection += 0.5
 		}
 		elseif impostormode == 1
 		{
-			useraffection += 0.1
+			useraffection += 0.5
 		}
 		else
 		{
-			useraffection += 0.1
+			useraffection += 0.5
 		}
 	}
 	else
@@ -1132,15 +1132,15 @@ Select.insult
 	{
 		if impostorrat == 1
 		{
-			whymustyoudothis += 0.3
+			whymustyoudothis += 0.5
 		}
 		elseif impostormode == 1
 		{
-			whymustyoudothis += 0.3
+			whymustyoudothis += 0.5
 		}
 		else
 		{
-			whymustyoudothis += 0.3
+			whymustyoudothis += 0.5
 		}
 	}
 	elseif whymustyoudothis >= 30
@@ -1299,15 +1299,15 @@ Select.taunt
 	{
 		if impostorrat == 1
 		{
-			whymustyoudothis += 1.5
+			whymustyoudothis += 1
 		}
 		elseif impostormode == 1
 		{
-			whymustyoudothis += 1.5
+			whymustyoudothis += 1
 		}
 		else
 		{
-			whymustyoudothis += 1.5
+			whymustyoudothis += 1
 		}
 	}
 	else
@@ -1368,12 +1368,12 @@ Select.givefood
 	}
 	elseif nbpunched <= 7
 	{
-		useraffection += 0.1
+		useraffection += 0.5
 		"\n(They take it carefully.)"
 	}
 	else
 	{
-		useraffection += 0.3
+		useraffection += 0.5
 		"\n(They take it relunctantly.)"
 	}
 	
@@ -1420,12 +1420,12 @@ Select.givedrink
 	}
 	elseif nbpunched <= 7
 	{
-		useraffection += 0.1
+		useraffection += 0.5
 		"\n(They take it carefully.)"
 	}
 	else
 	{
-		useraffection += 0.3
+		useraffection += 0.5
 		"\n(They take it relunctantly.)"
 	}
 	
@@ -1488,12 +1488,12 @@ Select.giveuseful
 	}
 	elseif nbpunched <= 7
 	{
-		useraffection += 0.1
+		useraffection += 0.5
 		"\n(They take it carefully.)"
 	}
 	else
 	{
-		useraffection += 0.3
+		useraffection += 0.5
 		"\n(They take it relunctantly.)"
 	}
 
