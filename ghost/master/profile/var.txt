@@ -5,5 +5,5 @@ surfacecount,28
 homeurl,https://azura-levidre.000webhostapp.com/azura-files/Azura/
 update_result,OK(0)
 firstboot,581461462
-commitmemorysize,1141244
-lastboot,672516361
+commitmemorysize,1007471
+lastboot,672571403

@@ -204,16 +204,10 @@ OnBoot
 	
  	"\0\s[0]\![set,otherghosttalk,true]\![set,otherghosttalk,before]"
 	--
-	OnGreetingDialogue
-}
-
-//Levidre : This function checks if it's the first time of the day the ghost is booted up. It's using the helloday variable that is storing the date and if the ghost has been booted up.
-OnGreetingDialogue
-{
 	if month > helloday[0]
 	{
 		helloday[2] = 0
-		--
+		bootingchangeshell = 1
 		ColorChoose
 		ImpostorChoose
 	}
@@ -222,11 +216,18 @@ OnGreetingDialogue
 		if day > helloday[1]
 		{
 			helloday[2] = 0
-			--
+			bootingchangeshell = 1
 			ColorChoose
 			ImpostorChoose
 		}
 	}
+	--
+	OnGreetingDialogue
+}
+
+//Levidre : This function checks if it's the first time of the day the ghost is booted up. It's using the helloday variable that is storing the date and if the ghost has been booted up.
+OnGreetingDialogue
+{
 	if dayslot != "10month 31day"
 	{
 		//Levidre : This is their normal pose
@@ -319,55 +320,55 @@ ColorChoose //Echo: Bean color choosing. Changes daily.
 	{
 		when "blue"
 		{
-			\![change,shell,Blue]
+			"\![change,shell,Blue]"
 		}
 		when "red"
 		{
-			\![change,shell,Red]
+			"\![change,shell,Red]"
 		}
 		when "green"
 		{
-			\![change,shell,Green]
+			"\![change,shell,Green]"
 		}
 		when "lime"
 		{
-			\![change,shell,Lime]
+			"\![change,shell,Lime]"
 		}
 		when "pink"
 		{
-			\![change,shell,Pink]
+			"\![change,shell,Pink]"
 		}
 		when "cyan"
 		{
-			\![change,shell,Cyan]
+			"\![change,shell,Cyan]"
 		}
 		when "black"
 		{
-			\![change,shell,Black]
+			"\![change,shell,Black]"
 		}
 		when "yellow"
 		{
-			\![change,shell,Yellow]
+			"\![change,shell,Yellow]"
 		}
 		when "purple"
 		{
-			\![change,shell,Purple]
+			"\![change,shell,Purple]"
 		}
 		when "orange"
 		{
-			\![change,shell,Orange]
+			"\![change,shell,Orange]"
 		}
 		when "white"
 		{
-			\![change,shell,White]
+			"\![change,shell,White]"
 		}
 		when "brown"
 		{
-			\![change,shell,Brown]
+			"\![change,shell,Brown]"
 		}
 		when "tan"
 		{
-			\![change,shell,Tan]
+			"\![change,shell,Tan]"
 		}
 	}
 }
@@ -376,11 +377,11 @@ ImpostorChoose //Echo: For choosing if the bean is impostor or not. There's only
 {
 	if RAND(100) <= 25
 	{
-		impostormode == 1
+		impostormode = 1
 	}
 	else
 	{
-		impostormode == 0
+		impostormode = 0
 	}
 }
 
@@ -503,6 +504,7 @@ OnGhostChanged
 OnShellChanging
  {
 	nowshell = reference0
+	bootingchangeshell = 0
  }
  
  //--OnShellChanged
@@ -510,6 +512,11 @@ OnShellChanging
 OnShellChanged
 {
 	nowshell = "%(reference0)"
+	if bootingchangeshell == 1
+	{
+		OnGreetingDialogue
+	}
+	bootingchangeshell = 0
 }
 
 
