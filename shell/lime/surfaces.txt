@@ -900,7 +900,7 @@ collision1,46,145,183,229,Face
 101interval,bind
 101pattern0,205,0,add,0,0
 102interval,bind
-102pattern0,305,0,add,0,0
+102pattern0,302,0,add,0,0
 
 //Skins
 //200interval,bind
