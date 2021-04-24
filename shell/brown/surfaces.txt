@@ -1,11 +1,15 @@
 
-//-- Brown's Surfaces --------------------------------------------------
+//-- Surfaces --------------------------------------------------
 
 //Default
 surface0
 {
 //Basic
 element0,overlay,surface0.png,0,0
+
+//Collisions
+collision0,0,0,0,0,Head
+collision1,0,0,0,0,Face
 
 //Typing
 10interval,talk,1
@@ -44,7 +48,12 @@ element0,overlay,surface0.png,0,0
 //Happy
 surface1
 {
+//Basic
 element0,overlay,surface1001.png,0,0
+
+//Collisions
+collision0,0,0,0,0,Head
+collision1,0,0,0,0,Face
 
 //Typing
 10interval,talk,1
@@ -59,7 +68,12 @@ element0,overlay,surface1001.png,0,0
 //Mad
 surface2
 {
+//Basic
 element0,overlay,surface1002.png,0,0
+
+//Collisions
+collision0,0,0,0,0,Head
+collision1,0,0,0,0,Face
 
 //Typing
 10interval,talk,1
@@ -74,7 +88,12 @@ element0,overlay,surface1002.png,0,0
 //Scared
 surface3
 {
+//Basic
 element0,overlay,surface1003.png,0,0
+
+//Collisions
+collision0,0,0,0,0,Head
+collision1,0,0,0,0,Face
 
 //Typing
 10interval,talk,1
@@ -89,7 +108,12 @@ element0,overlay,surface1003.png,0,0
 //Disappointed
 surface4
 {
+//Basic
 element0,overlay,surface1004.png,0,0
+
+//Collisions
+collision0,0,0,0,0,Head
+collision1,0,0,0,0,Face
 
 //Typing
 10interval,talk,1
@@ -104,7 +128,12 @@ element0,overlay,surface1004.png,0,0
 //Stunned
 surface5
 {
+//Basic
 element0,overlay,surface1005.png,0,0
+
+//Collisions
+collision0,0,0,0,0,Head
+collision1,0,0,0,0,Face
 
 //Typing
 10interval,talk,1
@@ -119,7 +148,12 @@ element0,overlay,surface1005.png,0,0
 //Blush
 surface6
 {
+//Basic
 element0,overlay,surface1006.png,0,0
+
+//Collisions
+collision0,0,0,0,0,Head
+collision1,0,0,0,0,Face
 
 //Typing
 10interval,talk,1
@@ -134,7 +168,12 @@ element0,overlay,surface1006.png,0,0
 //Confused
 surface7
 {
+//Basic
 element0,overlay,surface1007.png,0,0
+
+//Collisions
+collision0,0,0,0,0,Head
+collision1,0,0,0,0,Face
 
 //Typing
 10interval,talk,1
@@ -149,7 +188,12 @@ element0,overlay,surface1007.png,0,0
 //Thinking
 surface8
 {
+//Basic
 element0,overlay,surface1008.png,0,0
+
+//Collisions
+collision0,0,0,0,0,Head
+collision1,0,0,0,0,Face
 
 //Typing
 10interval,talk,1
@@ -165,7 +209,12 @@ element0,overlay,surface1008.png,0,0
 //Determined
 surface9
 {
+//Basic
 element0,overlay,surface1009.png,0,0
+
+//Collisions
+collision0,0,0,0,0,Head
+collision1,0,0,0,0,Face
 
 //Typing
 10interval,talk,1
@@ -180,19 +229,26 @@ element0,overlay,surface1009.png,0,0
 //Wonder
 surface11
 {
+//Basic
 element0,overlay,surface1011.png,0,0
 }
 
 //Mischief
 surface12
 {
+//Basic
 element0,overlay,surface1012.png,0,0
 }
 
 //Impostor-Happy
 surface13
 {
+//Basic
 element0,overlay,surface1013.png,0,0
+
+//Collisions
+collision0,0,0,0,0,Head
+collision1,0,0,0,0,Face
 
 //Typing
 10interval,talk,1
@@ -206,7 +262,12 @@ element0,overlay,surface1013.png,0,0
 //Impostor-Mad
 surface14
 {
+//Basic
 element0,overlay,surface1014.png,0,0
+
+//Collisions
+collision0,0,0,0,0,Head
+collision1,0,0,0,0,Face
 
 //Typing
 10interval,talk,1
@@ -220,7 +281,12 @@ element0,overlay,surface1014.png,0,0
 //Impostor-Scared
 surface15
 {
+//Basic
 element0,overlay,surface1015.png,0,0
+
+//Collisions
+collision0,0,0,0,0,Head
+collision1,0,0,0,0,Face
 
 //Typing
 10interval,talk,1
@@ -234,7 +300,12 @@ element0,overlay,surface1015.png,0,0
 //Impostor-Disappointed
 surface16
 {
+//Basic
 element0,overlay,surface1016.png,0,0
+
+//Collisions
+collision0,0,0,0,0,Head
+collision1,0,0,0,0,Face
 
 //Typing
 10interval,talk,1
@@ -248,7 +319,12 @@ element0,overlay,surface1016.png,0,0
 //Impostor-Stunned
 surface17
 {
+//Basic
 element0,overlay,surface1017.png,0,0
+
+//Collisions
+collision0,0,0,0,0,Head
+collision1,0,0,0,0,Face
 
 //Typing
 10interval,talk,1
@@ -262,7 +338,12 @@ element0,overlay,surface1017.png,0,0
 //Impostor-Blush
 surface18
 {
+//Basic
 element0,overlay,surface1018.png,0,0
+
+//Collisions
+collision0,0,0,0,0,Head
+collision1,0,0,0,0,Face
 
 //Typing
 10interval,talk,1
@@ -276,7 +357,12 @@ element0,overlay,surface1018.png,0,0
 //Impostor-Confused
 surface19
 {
+//Basic
 element0,overlay,surface1019.png,0,0
+
+//Collisions
+collision0,0,0,0,0,Head
+collision1,0,0,0,0,Face
 
 //Typing
 10interval,talk,1
@@ -290,7 +376,12 @@ element0,overlay,surface1019.png,0,0
 //Impostor-Thinking
 surface20
 {
+//Basic
 element0,overlay,surface1020.png,0,0
+
+//Collisions
+collision0,0,0,0,0,Head
+collision1,0,0,0,0,Face
 
 //Typing
 10interval,talk,1
@@ -304,7 +395,12 @@ element0,overlay,surface1020.png,0,0
 //Impostor-Determined
 surface21
 {
+//Basic
 element0,overlay,surface1021.png,0,0
+
+//Collisions
+collision0,0,0,0,0,Head
+collision1,0,0,0,0,Face
 
 //Typing
 10interval,talk,1
@@ -318,19 +414,26 @@ element0,overlay,surface1021.png,0,0
 //Impostor-Wonder
 surface22
 {
+//Basic
 element0,overlay,surface1022.png,0,0
 }
 
 //Impostor-Mischief
 surface23
 {
+//Basic
 element0,overlay,surface1023.png,0,0
 }
 
 //Impostor-Murdery
 surface24
 {
+//Basic
 element0,overlay,surface1024.png,0,0
+
+//Collisions
+collision0,0,0,0,0,Head
+collision1,0,0,0,0,Face
 
 //Typing
 10interval,talk,1
@@ -345,5 +448,6 @@ element0,overlay,surface1024.png,0,0
 //Empty
 surface10
 {
+//Basic
 element0,overlay,surface10.png,0,0
 }
