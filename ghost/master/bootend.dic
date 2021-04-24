@@ -55,6 +55,7 @@ OnFirstBoot
 	impostormode = 0
 	imposterrat = 0
 	whymustyoudothis = 0 //Echo: Negative counter. I'm not sure if you can use negative numbers so this variable exists now.
+	imppestered = 0
 	
 	//Levidre : reference0 indicates if the ghost has already been installed
 	if reference0 == 0
@@ -84,6 +85,7 @@ OnResetVariables
 	nbpets = 0	//Levidre : the number of pets done
 	nbpunched = 0 //Levidre : the number of punches taken
 	useraffection = 0 //Levidre : The affective feelings between the ghost and the user
+	whymustyoudothis = 0
 }
 
 //Levidre : those choices are the pronouns the ghost will use for you
@@ -201,6 +203,9 @@ OnBoot
 	nbconv = 0
 	dayslot = GetDaySlot
 	timeslot = GetTimeSlot
+	impostorrat = 0
+	impostormode = 0
+	imppestered = 0
 	
  	"\0\s[0]\![set,otherghosttalk,true]\![set,otherghosttalk,before]"
 	--

@@ -1058,7 +1058,7 @@ Select.asksthg
 
 //-- Act functions
 
-Select.flatter
+Select.flatter : nonoverlap
 {
 	if useraffection >= 70
 	{
@@ -1127,7 +1127,7 @@ Select.flatter
 	"\n\n[half]\![*]\q[Do something else,actmenu]\n\![*]\q[Nevermind,CANCEL]"
 }
 
-Select.insult
+Select.insult : nonoverlap
 {
 	if useraffection >= 70
 	{
@@ -1185,7 +1185,7 @@ Select.insult
 	"\n\n[half]\![*]\q[Do something else,actmenu]\n\![*]\q[Nevermind,CANCEL]"
 }
 
-Select.accuse
+Select.accuse : nonoverlap
 {
 	"(You accuse them of being an impostor.)"
 	"(You call them impostor.)"
@@ -1201,32 +1201,86 @@ Select.accuse
 		"\n\n[half]Don't tell the others."
 		"\n\n[half]I am and I'll try to kill you one day."
 	}
-	elseif impostormode == 1
-	{
-		"\n\n[half]!?\w7 No!"
-		"\n\n[half]!?\w7 Of course not!"
-		"\n\n[half]I'm totally innocent!"
-		"\n\n[half]Why are you accusing me!?!"
-		"\n\n[half]!?\w7 Whoa,\w5 what an unfair accusation!"
-		"\n\n[half]I'm not an impostor!"
-		"\n\n[half]I'm not!"
-	}
 	else
 	{
-		"\n\n[half]!?\w7 No!"
-		"\n\n[half]!?\w7 Of course not!"
-		"\n\n[half]I'm just an innocent crewmate."
-		"\n\n[half]You're wrong."
-		"\n\n[half]I'm safe."
-		"\n\n[half]I'm not an impostor."
-		"\n\n[half]I'm not though."
+		if imppestered <= 2
+		{
+			"\n\n[half]!?\w7 No!"
+			"\n\n[half]!?\w7 Of course not!"
+			"\n\n[half]I'm just an innocent crewmate."
+			"\n\n[half]You're wrong."
+			"\n\n[half]I'm safe."
+			"\n\n[half]I'm not an impostor."
+			"\n\n[half]I'm not though."
+		}
+		elseif imppestered <= 4
+		{
+			if impostormode == 1
+			{
+				"\n\n[half]!?\w7 No!"
+				"\n\n[half]!?\w7 Of course not!"
+				"\n\n[half]I'm totally innocent!"
+				"\n\n[half]Why are you accusing me!?!"
+				"\n\n[half]!?\w7 Whoa,\w5 what an unfair accusation!"
+				"\n\n[half]I'm not an impostor!"
+				"\n\n[half]I'm not!"
+			}
+			else
+			{
+				
+				"\n\n[half]!?\w7 No!"
+				"\n\n[half]!?\w7 Of course not!"
+				"\n\n[half]I'm just an innocent crewmate."
+				"\n\n[half]You're wrong."
+				"\n\n[half]I'm safe."
+				"\n\n[half]I'm not an impostor."
+				"\n\n[half]I'm not though."
+			}
+		}
+		else
+		{
+			if impostormode == 1
+			{
+				"\n\n[half]... know what?\w7I am."
+				"\n\n[half]... how did you know I was?"
+				"\n\n[half]... yeah,\w5 I am."
+				"\n\n[half]I am.\w7 But you just got lucky."
+				"\n\n[half]I was very careful about it though."
+				"\n\n[half]How did you discover it?"
+				"\n\n[half]How did you know?"
+				impostorrat = 1
+				useraffection += 1
+			}
+			else
+			{
+				
+				"\n\n[half]!?\w7 No!"
+				"\n\n[half]!?\w7 Of course not!"
+				"\n\n[half]I'm totally innocent!"
+				"\n\n[half]I'm not!"
+				if imppestered > 6
+				{
+					"\n\n[half]Stop accusing me when I'm clearly not impostor!"
+					"\n\n[half]This is becoming very annoying."
+					"\n\n[half]Stop this,\w5 it won't change the fact I'm not impostor."
+					"\n\n[half]Bothering me won't make me suddenly impostor."
+					useraffection -= 0.3
+				}
+				
+			}
+		
+		}
+	}
+	if imppestered < 9
+	{
+		imppestered++
 	}
 	
 	--
 	"\n\n[half]\![*]\q[Do something else,actmenu]\n\![*]\q[Nevermind,CANCEL]"
 }
 
-Select.hug
+Select.hug : nonoverlap
 {
 	if useraffection >= 70
 	{
@@ -1279,7 +1333,7 @@ Select.hug
 	"\n\n[half]\![*]\q[Do something else,actmenu]\n\![*]\q[Nevermind,CANCEL]"
 }
 
-Select.taunt
+Select.taunt : nonoverlap
 {	
 	if useraffection >= 70
 	{
@@ -1334,7 +1388,7 @@ Select.taunt
 
 //-- Give functions
 
-Select.givefood
+Select.givefood : nonoverlap
 {
 	"(You give them some %(food).)"
 	"(You hold %(food) out to them.)"
@@ -1388,7 +1442,7 @@ Select.givefood
 	"\n\n[half]\![*]\q[Give something else,itmenu]\n\![*]\q[Nevermind,CANCEL]"
 }
 
-Select.givedrink
+Select.givedrink : nonoverlap
 {
 
 	"(You give them some %(drink).)"
@@ -1439,7 +1493,7 @@ Select.givedrink
 	"\n\n[half]\![*]\q[Give something else,itmenu]\n\![*]\q[Nevermind,CANCEL]"
 }
 
-Select.giveuseful
+Select.giveuseful : nonoverlap
 {
 	
 	"(You give them %(present).)"	
@@ -1506,7 +1560,7 @@ Select.giveuseful
 
 //-- Ask functions
 
-Select.askthemself
+Select.askthemself : nonoverlap
 {
 	if nbpunched <= 3
 	{
@@ -1557,7 +1611,7 @@ Select.askthemself
 	"\n\n[half]\![*]\q[Ask something else,asksthg]\n\![*]\q[Nevermind,CANCEL]"
 }
 
-Select.askgame
+Select.askgame : nonoverlap
 {
 	if useraffection >= 70
 	{
@@ -1594,7 +1648,7 @@ Select.askgame
 	"\n\n[half]\![*]\q[Ask something else,asksthg]\n\![*]\q[Nevermind,CANCEL]"
 }
 
-Select.askcrewmates
+Select.askcrewmates : nonoverlap
 {	
 	if useraffection >= 70
 	{
@@ -1633,7 +1687,7 @@ Select.askcrewmates
 	"\n\n[half]\![*]\q[Ask something else,asksthg]\n\![*]\q[Nevermind,CANCEL]"
 }
 
-Select.askimpostors
+Select.askimpostors : nonoverlap
 {
 	if useraffection >= 70
 	{
@@ -1675,7 +1729,7 @@ Select.askimpostors
 	"\n\n[half]\![*]\q[Ask something else,asksthg]\n\![*]\q[Nevermind,CANCEL]"
 }
 
-Select.askmaps
+Select.askmaps : nonoverlap
 {
 	if whymustyoudothis >= 30
 	{

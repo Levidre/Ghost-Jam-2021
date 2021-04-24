@@ -275,7 +275,7 @@ thirdchain
 //Zarla : 
 //These are time-related bits of dialogue for your ghost to say. If you're uninterested, you can delete it all except for a line for MikireTalk. So it'd look something like
 //But I think these are kind of neat, so I'd leave them myself.
-/*
+
 OnMinuteChange
 {
 	timeslot = GetTimeSlot //Zarla : this tells the ghost what time it is so the time related conversations above will work.
@@ -285,17 +285,17 @@ OnMinuteChange
 	{
 		if hour == 12//Zarla : And the hour equals 12, ie it's noon. You can change this to some other hour if you want.
 		{
-			"\0It's noon!\w7 Time to eat...\e"
+			"\0It's noon.\e"
 			//Zarla : Replace with appropriate dialogue as you want.
 		}
 		elseif hour == 0 //Zarla : If the hour is zero, aka midnight. Again, you can change this to whatever hour you want to check for.
 		{
-			"\0"
+			"\0It's midnight.\e"
 			//Zarla : Then replace the dialogue with what's appropriate.
 		}
 		else
 		{
-			"\0It's %(hour12) o'clock!\e"
+			"\0It's %(hour12) o'clock.\e"
 		}
 	}
 	//Zarla : %(hour12) stores the time. This is a general top of the hour notification. I personally like this because it helps me keep track of time when I've been working on something, so when a ghost is all "Hey it's 3 o clock" I can be like woah really when did that happen. If you think this is annoying though, you can just delete this bit of dialogue to leave this else statement blank, or leave "" in here instead.
@@ -333,6 +333,10 @@ OnSecondChange
 		passhour = passhour + 1
 		passmin = 0
 		cumuhour = cumuhour + 1
+		if imppestered > 0
+		{
+			imppestered--
+		}
 	}
 	
 	//Levidre : This part is for when the ghost is back on the screen after having been off of it.
@@ -390,7 +394,7 @@ OnSurfaceRestore
  {
 	
  }
- */
+ 
 
  //--OnKeyPress
  //Zarla : This defines the hotkeys your ghost will use. You can change these to whatever you want, but I don't really know why you would. I'd just leave this alone. Advanced Users can add new hotkeys attached to whatever function if you want.
