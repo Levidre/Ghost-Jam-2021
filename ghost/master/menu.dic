@@ -1356,30 +1356,24 @@ Select.hug : nonoverlap
 	{
 		if impostorrat == 1
 		{
-			useraffection += 1
 		}
 		elseif impostormode == 1
 		{
-			useraffection += 1
 		}
 		else
 		{
-			useraffection += 1
 		}
 	}
 	elseif useraffection >= 30
 	{
 		if impostorrat == 1
 		{
-			useraffection += 0.5
 		}
 		elseif impostormode == 1
 		{
-			useraffection += 0.5
 		}
 		else
 		{
-			useraffection += 0.5
 		}
 	}
 	else 
@@ -1409,6 +1403,8 @@ Select.hug : nonoverlap
 	"\n(They seem surprised.)"
 	"\n(You startled them.)"
 	--
+	useraffection++
+	--
 	"\n\n[half]\![*]\q[Do something else,actmenu]\n\![*]\q[Nevermind,CANCEL]"
 }
 
@@ -1418,35 +1414,28 @@ Select.taunt : nonoverlap
 	{
 		if impostorrat == 1
 		{
-			whymustyoudothis += 1
 		}
 		elseif impostormode == 1
 		{
-			whymustyoudothis += 1
 		}
 		else
 		{
-			whymustyoudothis += 1
 		}
 	}
 	elseif useraffection >= 30
 	{
 		if impostorrat == 1
 		{
-			whymustyoudothis += 1
 		}
 		elseif impostormode == 1
 		{
-			whymustyoudothis += 1
 		}
 		else
 		{
-			whymustyoudothis += 1
 		}
 	}
 	else
 	{
-		whymustyoudothis += 2
 	}
 	
 	"\i[2001]"
@@ -1467,6 +1456,8 @@ Select.taunt : nonoverlap
 	"\n\n[half]%(scared)Why are you so mean?"
 	"\n%(disappoint)\i[2001](It make them unhappy.)"
 	--
+	whymustyoudothis++
+	--
 	"\n\n[half]\![*]\q[Do something else,actmenu]\n\![*]\q[Nevermind,CANCEL]"
 }
 
@@ -1482,14 +1473,12 @@ Select.givefood : nonoverlap
 	
 	if nbpunched <= 3
 	{
-		useraffection += 1
 		"(You treat them with %(treat).)"
 	}
 	
 	--
 	if useraffection >= 30
 	{
-		useraffection += 1
 		"%(happy)"
 		"%(determined)"
 		--
@@ -1518,12 +1507,10 @@ Select.givefood : nonoverlap
 	}
 	elseif nbpunched <= 7
 	{
-		useraffection += 0.5
 		"\n%(default)\i[2001](They take it carefully.)"
 	}
 	else
 	{
-		useraffection += 0.5
 		"\n%(default)\i[2001](They take it relunctantly.)"
 	}
 	
@@ -1538,6 +1525,8 @@ Select.givefood : nonoverlap
 	}
 	
 	--
+	useraffection++
+	--
 	"\n\n[half]\![*]\q[Give something else,itmenu]\n\![*]\q[Nevermind,CANCEL]"
 }
 
@@ -1549,14 +1538,12 @@ Select.givedrink : nonoverlap
 	"(You hold some %(drink) out to them.)"
 	if nbpunched <= 3
 	{
-		useraffection += 1
 		"(You think of their hydration with %(drink).)"
 	}
 	
 	--
 	if useraffection >= 30
 	{
-		useraffection += 1
 		"%(happy)"
 		"%(determined)"
 		--
@@ -1565,7 +1552,6 @@ Select.givedrink : nonoverlap
 	}
 	if nbpunched <= 0
 	{
-		useraffection += 0.5
 		"%(determined)"
 		--
 		"\n\n[half]Thanks."
@@ -1585,7 +1571,6 @@ Select.givedrink : nonoverlap
 	}
 	elseif nbpunched <= 7
 	{
-		useraffection += 0.5
 		"\n%(default)\i[2001](They take it carefully.)"
 	}
 	else
@@ -1603,6 +1588,8 @@ Select.givedrink : nonoverlap
 		"\n(They seem to have liked it.)"
 		"\n(They seem better hydrated.)"
 	}
+	--
+	useraffection++
 	--
 	"\n\n[half]\![*]\q[Give something else,itmenu]\n\![*]\q[Nevermind,CANCEL]"
 }
