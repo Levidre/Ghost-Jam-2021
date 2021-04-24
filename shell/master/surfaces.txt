@@ -25,9 +25,9 @@ collision1,46,144,180,227,Face
 100interval,bind
 100pattern0,100,0,add,0,0
 101interval,bind
-101pattern0,200,0,add,0,0
+101pattern0,106,0,add,0,0
 102interval,bind
-102pattern0,300,0,add,0,0
+102pattern0,112,0,add,0,0
 
 //Skins
 //200interval,bind
@@ -70,9 +70,9 @@ collision1,70,88,204,186,Face
 100interval,bind
 100pattern0,101,0,add,0,0
 101interval,bind
-101pattern0,201,0,add,0,0
+101pattern0,107,0,add,0,0
 102interval,bind
-102pattern0,301,0,add,0,0
+102pattern0,113,0,add,0,0
 
 //Skins
 //200interval,bind
@@ -115,9 +115,9 @@ collision1,46,145,183,229,Face
 100interval,bind
 100pattern0,102,0,add,0,0
 101interval,bind
-101pattern0,202,0,add,0,0
+101pattern0,108,0,add,0,0
 102interval,bind
-102pattern0,302,0,add,0,0
+102pattern0,114,0,add,0,0
 
 //Skins
 //200interval,bind
@@ -160,9 +160,9 @@ collision1,59,123,196,207,Face
 100interval,bind
 100pattern0,103,0,add,0,0
 101interval,bind
-101pattern0,203,0,add,0,0
+101pattern0,109,0,add,0,0
 102interval,bind
-102pattern0,303,0,add,0,0
+102pattern0,115,0,add,0,0
 
 //Skins
 //200interval,bind
@@ -205,9 +205,9 @@ collision1,39,151,179,245,Face
 100interval,bind
 100pattern0,104,0,add,0,0
 101interval,bind
-101pattern0,204,0,add,0,0
+101pattern0,110,0,add,0,0
 102interval,bind
-102pattern0,304,0,add,0,0
+102pattern0,116,0,add,0,0
 
 //Skins
 //200interval,bind
@@ -250,9 +250,9 @@ collision1,70,88,204,186,Face
 100interval,bind
 100pattern0,101,0,add,0,0
 101interval,bind
-101pattern0,201,0,add,0,0
+101pattern0,107,0,add,0,0
 102interval,bind
-102pattern0,301,0,add,0,0
+102pattern0,113,0,add,0,0
 
 //Skins
 //200interval,bind
@@ -295,9 +295,9 @@ collision1,59,123,196,207,Face
 100interval,bind
 100pattern0,103,0,add,0,0
 101interval,bind
-101pattern0,203,0,add,0,0
+101pattern0,109,0,add,0,0
 102interval,bind
-102pattern0,303,0,add,0,0
+102pattern0,115,0,add,0,0
 
 //Skins
 //200interval,bind
@@ -340,9 +340,9 @@ collision1,65,130,193,220,Face
 100interval,bind
 100pattern0,104,0,add,0,0
 101interval,bind
-101pattern0,204,0,add,0,0
+101pattern0,110,0,add,0,0
 102interval,bind
-102pattern0,304,0,add,0,0
+102pattern0,116,0,add,0,0
 
 //Skins
 //200interval,bind
@@ -385,9 +385,9 @@ collision1,39,151,179,245,Face
 100interval,bind
 100pattern0,104,0,add,0,0
 101interval,bind
-101pattern0,204,0,add,0,0
+101pattern0,110,0,add,0,0
 102interval,bind
-102pattern0,304,0,add,0,0
+102pattern0,116,0,add,0,0
 
 //Skins
 //200interval,bind
@@ -430,9 +430,9 @@ collision1,59,145,187,229,Face
 100interval,bind
 100pattern0,102,0,add,0,0
 101interval,bind
-101pattern0,202,0,add,0,0
+101pattern0,108,0,add,0,0
 102interval,bind
-102pattern0,302,0,add,0,0
+102pattern0,114,0,add,0,0
 
 //Skins
 //200interval,bind
@@ -488,10 +488,9 @@ collision1,70,88,204,186,Face
 100interval,bind
 100pattern0,101,0,add,0,0
 101interval,bind
-101pattern0,201,0,add,0,0
+101pattern0,107,0,add,0,0
 102interval,bind
-102pattern0,301,0,add,0,0
-
+102pattern0,113,0,add,0,0
 //Skins
 //200interval,bind
 //200pattern0,299,0,add,0,0
@@ -532,9 +531,9 @@ collision1,46,145,183,229,Face
 100interval,bind
 100pattern0,102,0,add,0,0
 101interval,bind
-101pattern0,202,0,add,0,0
+101pattern0,108,0,add,0,0
 102interval,bind
-102pattern0,302,0,add,0,0
+102pattern0,114,0,add,0,0
 
 //Skins
 //200interval,bind
@@ -576,9 +575,9 @@ collision1,59,123,196,207,Face
 100interval,bind
 100pattern0,103,0,add,0,0
 101interval,bind
-101pattern0,203,0,add,0,0
+101pattern0,109,0,add,0,0
 102interval,bind
-102pattern0,303,0,add,0,0
+102pattern0,115,0,add,0,0
 
 //Skins
 //200interval,bind
@@ -620,9 +619,9 @@ collision1,39,151,179,245,Face
 100interval,bind
 100pattern0,104,0,add,0,0
 101interval,bind
-101pattern0,204,0,add,0,0
+101pattern0,110,0,add,0,0
 102interval,bind
-102pattern0,304,0,add,0,0
+102pattern0,116,0,add,0,0
 
 //Skins
 //200interval,bind
@@ -664,9 +663,9 @@ collision1,70,88,204,186,Face
 100interval,bind
 100pattern0,101,0,add,0,0
 101interval,bind
-101pattern0,201,0,add,0,0
+101pattern0,107,0,add,0,0
 102interval,bind
-102pattern0,301,0,add,0,0
+102pattern0,113,0,add,0,0
 
 //Skins
 //200interval,bind
@@ -708,9 +707,9 @@ collision1,59,123,196,207,Face
 100interval,bind
 100pattern0,103,0,add,0,0
 101interval,bind
-101pattern0,203,0,add,0,0
+101pattern0,109,0,add,0,0
 102interval,bind
-102pattern0,303,0,add,0,0
+102pattern0,115,0,add,0,0
 
 //Skins
 //200interval,bind
@@ -752,9 +751,9 @@ collision1,65,130,193,220,Face
 100interval,bind
 100pattern0,104,0,add,0,0
 101interval,bind
-101pattern0,204,0,add,0,0
+101pattern0,110,0,add,0,0
 102interval,bind
-102pattern0,304,0,add,0,0
+102pattern0,116,0,add,0,0
 
 //Skins
 //200interval,bind
@@ -796,9 +795,9 @@ collision1,39,151,179,245,Face
 100interval,bind
 100pattern0,104,0,add,0,0
 101interval,bind
-101pattern0,204,0,add,0,0
+101pattern0,110,0,add,0,0
 102interval,bind
-102pattern0,304,0,add,0,0
+102pattern0,116,0,add,0,0
 
 //Skins
 //200interval,bind
@@ -840,9 +839,9 @@ collision1,59,145,187,229,Face
 100interval,bind
 100pattern0,102,0,add,0,0
 101interval,bind
-101pattern0,202,0,add,0,0
+101pattern0,108,0,add,0,0
 102interval,bind
-102pattern0,302,0,add,0,0
+102pattern0,114,0,add,0,0
 
 //Skins
 //200interval,bind
@@ -897,10 +896,12 @@ collision1,46,145,183,229,Face
 //Hats
 100interval,bind
 100pattern0,105,0,add,0,0
+
 101interval,bind
-101pattern0,205,0,add,0,0
+101pattern0,111,0,add,0,0
+
 102interval,bind
-102pattern0,302,0,add,0,0
+102pattern0,114,0,add,0,0
 
 //Skins
 //200interval,bind
@@ -930,7 +931,17 @@ element0,overlay,surface10.png,0,0
 //Append
 surface.append0-30
 {
+	300interval,bind
+	300pattern0,300,0,add,0,0
+	
+	301interval,bind
+	301pattern0,301,0,add,0,0
+	
+	302interval,bind
+	302pattern0,302,0,add,0,0
+	
 	2001interval,never
 	2001pattern0,0,0,stop,10
 	2001pattern1,-1,1,overlay,0,0
+	
 }

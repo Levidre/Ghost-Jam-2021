@@ -114,7 +114,7 @@ OnMouseDragEnd
 {
 	if reference3 == 0
 	{
-		"\0(Poof.)"
+		"\0\i[2001](Poof.)"
 	}
 }
 

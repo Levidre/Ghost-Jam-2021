@@ -204,8 +204,8 @@ MouseDoubleClickSakura
 		--
 		"\e"
 		nbpunched++
-		whymustyoudothis++
-			
+		whymustyoudothis+=6
+		useraffection -= 5
 		//Zarla : Replace this dialogue with appropriate dialogue as you need. You can add more or cut it down if you want, even down to nothing if you want no response from your ghost at all when those areas are double clicked.
  	}
 	else
