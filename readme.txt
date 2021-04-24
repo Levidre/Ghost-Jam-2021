@@ -1,11 +1,26 @@
---Readme--
+----------Among Us Crewmate-----------
 
-If you're using Mery and Lili as template, you will have to write your own readme here. It's basically just a description of your ghost, its features and how to use it.
+This ghost is a depiction of the crewmate (bean?) from Among Us, created during the Ghost Jam of April 2021 by Levidre, ScardyFluff, and EchoStarling!
 
-Mery and Lili and two androids talking about dev stuff. They wilk describe some ghost coding shenanigans, some tricks and some things ghost devs can do with their ghost.
-They would talk about anything and mostly about advanced stuff as, for example, some animations tricks, ghost communication and SAORI.
+- Levidre: Dialogue (and quite a bit of coding) ~ https://azura-levidre.tumblr.com/
+- ScardyFluff: Shell ~ https://the-multi-themed-scardyfluff.tumblr.com
+- EchoStarling: Coding ~ https://echostarling.tumblr.com
 
-They are having the usual ghosts features, so opening the calendar, checking the emails and emptying the recycle bin.
-They have useful functions in plus though. They have a synchronous talk function, a system to keep them to be interrupted by other ghost communications and a basic relationship system implemented but not really used. The bases of ghost communication are implemented.
+Crewmate can do most standard ghost functions such as emptying your recycling bin, checking the calendar, and checking your system status!
 
-They would talk by pressing t and repeat what they said with r.
+They also have a simple relationship system that will keep track of how you treat them, be it well or terribly. And, well, they might have some secrets of their own..?
+
+Move your mouse on the crewmate's head to pet them. Double-clicking on their head or face will punch them. Double-clicking on their body brings up their menu.
+
+'T' - Just talking.
+'R' - Repeating dialogue. 
+F1 - Brings up this readme.
+
+Did I forget to mention that the crewmate changes colors? Crewmate disco ball!
+
+Nah, I'm kidding on that one, but if you will, you can enable a setting so the crewmate changes colors daily.
+
+
+
+UKAGAKA DREAM TEAM TUMBLR: https://ukagakadreamteam.tumblr.com
+UKAGAKA DREAM TEAM DISCORD: http://discord.gg/uBPq8XF
