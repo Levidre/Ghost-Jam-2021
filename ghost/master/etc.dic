@@ -13,6 +13,8 @@
 
 OnFileDrop2
 {
+	"%(default)"
+	 --
 	foreach reference0 ; _ref0
 	{
 		_droppedfilepath = SPLITPATH(_ref0)
@@ -137,6 +139,8 @@ OnInstallBegin
  
 OnInstallComplete
  {
+	 "%(default)"
+	 --
 	//Zarla : this means your main character will be speaking first, therefore the \s[] at the beginning of each line will be defining your main character's pose.
 	if reference0 == "shell" //Zarla : This is checking to see if what you installed is classified as a shell in the install.txt. Remember the line in install.txt that said type,ghost or type,shell? This is why that line is important, that's what tells the program what it's installing like so.
  	{	
@@ -164,6 +168,8 @@ OnInstallComplete
 
 OnInstallFailure
  {
+	 "%(default)"
+	 --
 	"\0The installation has failed.\n\n[half]\w5" //Zarla : this first bit of dialogue begins the explanation of what happened. You can replace this with an appropriate intro statement.
 	--
 	if reference0 == "unsupported" //Zarla : These if statements determine how it happened to finish the piece of dialogue. This checks if the reason it failed is because it was unsupported.
@@ -183,6 +189,8 @@ OnInstallFailure
  
 OnInstallRefuse
  {
+	 "%(default)"
+	 --
 	"I can't install this. \w7It may be for %(reference0) instead."
 	--
 	if ASEARCH("%(reference0)",ghostexlist) != -1
@@ -205,6 +213,8 @@ OnInstallRefuse
 
 OnVanishSelecting
 {
+	"%(default)"
+	 --
 	"No more safe breaks for me?\e"
 }
 
@@ -213,6 +223,8 @@ OnVanishSelecting
 
 OnVanishSelected
 {
+	"%(default)"
+	 --
 	"I liked being safe here.\w7 Good bye though.\w9\w9\e"
 }
 
@@ -222,6 +234,8 @@ OnVanishSelected
 
 OnVanishCancel
 {
+	"%(default)"
+	 --
 	"You want me to stay? \w7Eh,\w5 at least I'm safe here.\e"
 }
 
@@ -230,6 +244,8 @@ OnVanishCancel
 
 TalkVanishButtonHold
 {
+	"%(confused)"
+	 --
 	"?\e"
 }
 
@@ -239,6 +255,8 @@ TalkVanishButtonHold
  
 OnVanished
  {
+	 "%(default)"
+	 --
 	"Good bye %(reference0).\e"
 	
 	//Zarla : reference0 here is the name of the other ghost.
@@ -264,6 +282,8 @@ OnVanished
  
 OnBIFFBegin
  {
+	 "%(confused)"
+	 --
 	"Checking email?\e"
 	
  }
@@ -274,6 +294,8 @@ OnBIFFBegin
  
 OnBIFFComplete
  {
+	 "%(default)"
+	 --
 	if reference0 == 0 //Zarla : If you have no new mail.
  	{
  		"There is no new mail.\e"
@@ -302,6 +324,8 @@ OnBIFFComplete
  
 OnBIFFFailure
  {
+	 "%(default)"
+	 --
 	if reference0 == "timeout" //Zarla : If the connection times out.
  	{
  		"The connection has timed out.\e"
@@ -335,6 +359,8 @@ OnBIFFFailure
  {
 	if STRLEN("%(reference1)") > 3
 	{
+		"%(default)"
+		--
 		"There is an update available.\e"
 	}
  }
@@ -343,6 +369,8 @@ OnBIFFFailure
  
 OnUpdateBegin
  {
+	 "%(default)"
+	 --
 	"I start the update process.\w8\e"
 	
  }
@@ -352,6 +380,8 @@ OnUpdateBegin
  
 OnUpdateReady
  {
+	 "%(default)"
+	 --
 	"There are %(reference0) new files.\w8\e"
 	
 	//Zarla : reference0 here storing the number of new files. You don't have to use it if you don't want to.
@@ -363,6 +393,8 @@ OnUpdateReady
 
 OnUpdateComplete
  {
+	 "%(default)"
+	 --
 	if reference0 == "none" //Zarla : if the ghost had nothing to update with
  	{
  		"There are no new files.\e"
@@ -380,6 +412,8 @@ OnUpdateComplete
  
 OnUpdateFailure
 {
+	"%(default)"
+	 --
 	if reference0 == "timeout" //Zarla : if the connection times out
  	{
  		"The update connection has timed out.\e"
@@ -402,6 +436,8 @@ OnUpdateFailure
  
 OnUpdate.OnDownloadBegin
  {
+	 "%(default)"
+	 --
  	if "aitalk" _in_ reference0 //Zarla : this is checking to see what kind of files are being downloaded. In this case, it's looking for files called aitalk in the download queue. If you want to have a specialized bit of dialogue for each type of file, you can expand this with elseifs and by replacing aitalk with whatever file you have in mind. Keep in mind my warning above though.
  	{
  		"New dialogues.\e"
@@ -458,6 +494,8 @@ OnUpdate.OnMD5CompareFailure
  
 OnHeadlinesenseBegin
  {
+	 "%(default)"
+	 --
 	"\0You've selected %(reference0).\e"
  }
 
@@ -466,6 +504,8 @@ OnHeadlinesenseBegin
  
 OnHeadlinesense.OnFind
 {
+	"%(default)"
+	 --
 	//Zarla : ----  What page You're on
  	if reference2 == "First" || reference2 == "First and Last"
 	{
@@ -503,6 +543,8 @@ OnHeadlinesense.OnFind
 
 Select.Headline_Cancel
 {
+	"%(default)"
+	 --
 	"\0Headline viewing complete.\e"
 	//Zarla : Actually I take that back, you can change this line of dialogue here for when you're done looking at a headline to something else if you want.
 }
@@ -512,6 +554,8 @@ Select.Headline_Cancel
  
 OnHeadlinesenseComplete
  {
+	 "%(default)"
+	 --
 	"\0No update. %(reference0).\e"
 	//Zarla : reference0 here supposedly always stores the value no update? Again this isn't hugely clear from what I can see. Anyway, this dialogue has never come up for me while using a ghost, so perhaps someone else who runs into it can offer more clarity. For now, you can leave it as is, or write up something else in here if you like.
  }
@@ -521,6 +565,8 @@ OnHeadlinesenseComplete
  
 OnHeadlinesenseFailure
   {
+	  "%(default)"
+	 --
 	"\0The feed can't updated.\w8Why not?\w8\n\n[half]" //This sets up an exchange between the two characters. The final part of the exchange continues below in the if statements.
  	--
 	if reference0 == "can't download" //Zarla : if they can't download the rss feed for some reason
@@ -551,6 +597,8 @@ OnHeadlinesenseFailure
  
 OnUpdatedataCreating
  {
+	 "%(default)"
+	 --
 	"Creating the updates2.dau file.\e"
  }
 
@@ -559,6 +607,8 @@ OnUpdatedataCreating
  
 OnUpdatedataCreated
  {
+	 "%(default)"
+	 --
 	"Successfully created updates2.dau.\e"
  }
 
@@ -567,6 +617,8 @@ OnUpdatedataCreated
  
 OnNarCreating
  {
+	 "%(default)"
+	 --
 	"Creating the .nar file.\e"
  }
 
@@ -575,6 +627,8 @@ OnNarCreating
  
 OnNarCreated
  {
+	 "%(default)"
+	 --
 	"Successfully created '%(reference0)'.\e"
 	//Zarla : reference0 here will be the filename of the nar you just created. It should drop the nar in the folder where all your ghosts are listed, ssp\ghost\.
  }
@@ -591,6 +645,8 @@ OnNarCreated
  
 OnSNTPBegin
  {
+	 "%(default)"
+	 --
 	"I am going to check the time.\w9I am connecting to %(reference0).\e"
 	//Zarla : %(reference0) here is the site they'll be using to check your clock. I wouldn't worry too much about what the site is or where it's defined, it should be accurate. Replace the dialogue with what you need, you don't have to use reference0 if you don't want to.
  }
@@ -601,6 +657,8 @@ OnSNTPBegin
  
 OnSNTPCompare
  {
+	 "%(default)"
+	 --
  	"Retrieved Time: %reference1[1]/%reference1[2]/%reference1[0] %reference1[3]:%reference1[4]:%reference1[5]\w2\n/
 	Your Time: %reference2[1]/%reference2[2]/%reference2[0] %reference2[3]:%reference2[4]:%reference2[5]\w2\n/
  	\n"
@@ -623,6 +681,8 @@ OnSNTPCompare
  
 OnSNTPEXECUTE
  {
+	 "%(default)"
+	 --
 	"The clock has been fixed.\6\e"
  }
 
@@ -631,6 +691,8 @@ OnSNTPEXECUTE
  
 OnSNTPCANCEL
  {
+	 "%(default)"
+	 --
 	"Fine.\e"
  }
 
@@ -639,6 +701,8 @@ OnSNTPCANCEL
  
 OnSNTPFailure
  {
+	 "%(default)"
+	 --
 	"I didn't success.\w8Something went wrong.\e"
  }
 
@@ -660,6 +724,8 @@ OnDisplayChange
  
 OnScreenSaverStart
  {
+	 "%(default)"
+	 --
 	"The screensaver is starting.\e"
  }
 
@@ -668,6 +734,8 @@ OnScreenSaverStart
  
 OnScreenSaverEnd
  {
+	 "%(default)"
+	 --
 	"The screensaver is gone.\e"
  }
 
@@ -677,6 +745,8 @@ OnScreenSaverEnd
  
 OnApplicationBoot
  {
+	 "%(default)"
+	 --
 	"%(reference0) just started.\e"
  }
 
@@ -685,6 +755,8 @@ OnApplicationBoot
  
 OnApplicationClose
  {
+	 "%(default)"
+	 --
 	"%(reference0) has closed.\e"
  }
 
@@ -693,6 +765,8 @@ OnApplicationClose
  
 OnApplicationFileOpen
  {
+	 "%(default)"
+	 --
 	"Opening %(reference1).\e"
  }
 
@@ -701,6 +775,8 @@ OnApplicationFileOpen
  
 OnBatteryLow
  {
+	 "%(default)"
+	 --
 	"The laptop's battery is low. \w8There is %(reference0) power left.\e"
 	//Zarla : reference0 here is the amount of battery power. Replace as you like.
  }
@@ -710,6 +786,8 @@ OnBatteryLow
  
 OnBatteryCritical
 {
+	"%(default)"
+	 --
 	"The laptop's battery is critically low.\e"
 }
  
@@ -738,6 +816,8 @@ OnBatteryNotify
  
 OnSysResourceLow
  {
+	 "%(default)"
+	 --
 	"The system resources are low.\e"
  }
 
@@ -747,6 +827,8 @@ OnSysResourceLow
  
 OnShellScaling
 {
+	"%(default)"
+	 --
 	currentscale = reference0
 	if reference0 >= 150 //Zarla : this number is the percentage that you're scaling the ghost up to. In this case, it's 150%.
 	{
