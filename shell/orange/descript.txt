@@ -55,13 +55,15 @@ menu.sidebar.bitmap.filename,menu_sidebar.png
 
 
 //Cosmetics
-//sakura.bindgroup100.name,Hat,Paper Hat
-//sakura.bindgroup100.default,0
+//Hats
+sakura.bindgroup100.name,Hat,Paper Hat
+sakura.bindgroup100.default,0
 //sakura.bindgroup101.name,Hat,Medical Mask
 //sakura.bindgroup101.default,0
 //sakura.bindgroup102.name,Hat,Plant Hat
 //sakura.bindgroup102.default,0
 
+//Skins
 //sakura.bindgroup200.name,Skin,Black Suit
 //sakura.bindgroup200.default,0
 //sakura.bindgroup201.name,Skin,Doctor Skin
@@ -69,6 +71,7 @@ menu.sidebar.bitmap.filename,menu_sidebar.png
 //sakura.bindgroup202.name,Skin,Prisoner Skin
 //sakura.bindgroup202.default,0
 
+//Pets
 //sakura.bindgroup300.name,Pet,UFO
 //sakura.bindgroup300.default,0
 //sakura.bindgroup301.name,Pet,Mini Crewmate
@@ -77,7 +80,7 @@ menu.sidebar.bitmap.filename,menu_sidebar.png
 //sakura.bindgroup302.default,0
 
 //Cosmetics Menu
-//sakura.menuitem0,100
+sakura.menuitem0,100
 //sakura.menuitem1,101
 //sakura.menuitem2,102
 //sakura.menuitem3,-
