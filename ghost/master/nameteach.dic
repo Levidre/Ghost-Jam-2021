@@ -16,7 +16,7 @@ OnTeachName
 {
 	if reference0 == "TEACHNAME" //ignore this
 	{
-		if useraffection >= 70
+		if useraffection >= 140
 		{
 			"%(lsto)* Huh, \w5so you didn't tell me the right name ?%(lsta)\![open,inputbox,OnNameTeach,-1]\e"
 		}
@@ -100,7 +100,7 @@ OnNameTeach
 	}
 	elseif TOLOWER(reference0) == "daddy" || TOLOWER(reference0) == "dad" || TOLOWER(reference0) == "mom" || TOLOWER(reference0) == "mama"
 	{
-		if useraffection >= 70
+		if useraffection >= 140
 		{
 			"\0Even though you are nice, \w8I'm going to have to ask you to choose another name.\![open,inputbox,OnNameTeach,-1]"
 		}
@@ -151,7 +151,7 @@ OnNameTeach
 
 NameDone
 {
-	if useraffection >= 70
+	if useraffection >= 140
 	{
 	}
 	elseif whymustyoudothis >= 30

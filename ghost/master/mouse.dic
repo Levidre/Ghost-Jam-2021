@@ -53,9 +53,9 @@ MouseMoveSakura
  			stroke = 0 //Zarla : resetting the stroke count
 			if reference4 == "Head" //Zarla : do you remember the names of the areas you set up for your collisions in surfaces.txt? This is where they come into play! This is where you'd put in the name of your collision, such as head, face, horns, tail, ears, whatever. As mentioned in surfaces.txt, you can add as many collisions to a pose as you want, as long as you make sure to add them all in here so they can actually be used.
  			{
-				if whymustyoudothis >= 30 || nbpunched >= 3
+				if whymustyoudothis >= 60 || nbpunched >= 3
 				{
-					useraffection += 0.3
+					useraffection += 1
 					"\0%(mad)"
 					--
 					"Don't touch me."
@@ -66,9 +66,9 @@ MouseMoveSakura
 					"Stop trying to pet me. \w8You made your choice a long time ago."
 
 				}
-				elseif useraffection >= 70
+				elseif useraffection >= 140
 				{
-					useraffection += 0.5
+					useraffection += 1
 					"%(blush)"
 					"%(happy)"
 					"%(determined)"
@@ -84,9 +84,9 @@ MouseMoveSakura
 					"..."
 					
 				}
-				elseif useraffection >= 30
+				elseif useraffection >= 60
 				{
-					useraffection += 0.5
+					useraffection += 1
 					"%(blush)"
 					"%(happy)"
 					"%(determined)"
@@ -101,7 +101,7 @@ MouseMoveSakura
 				}
 				else
 				{
-					useraffection += 0.5
+					useraffection += 1
 					"%(scared)"
 					"%(happy)"
 					"%(stunned)"
