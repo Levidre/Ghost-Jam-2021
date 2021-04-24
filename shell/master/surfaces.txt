@@ -482,6 +482,7 @@ collision1,70,88,204,186,Face
 11interval,never
 11pattern0,1102,3-7,overlay,0,0
 11pattern1,1103,3,overlay,0,0
+11pattern2,-1,50,overlay,0,0
 
 //-- Cosmetics -----------------------------------
 //Hats
@@ -525,6 +526,7 @@ collision1,46,145,183,229,Face
 11interval,never
 11pattern0,1100,3-7,overlay,0,0
 11pattern1,1101,3,overlay,0,0
+11pattern2,-1,50,overlay,0,0
 
 //-- Cosmetics -----------------------------------
 //Hats
@@ -569,6 +571,7 @@ collision1,59,123,196,207,Face
 11interval,never
 11pattern0,1100,3-7,overlay,0,0
 11pattern1,1101,3,overlay,0,0
+11pattern2,-1,50,overlay,0,0
 
 //-- Cosmetics -----------------------------------
 //Hats
@@ -613,6 +616,7 @@ collision1,39,151,179,245,Face
 11interval,never
 11pattern0,1100,3-7,overlay,0,0
 11pattern1,1101,3,overlay,0,0
+11pattern2,-1,50,overlay,0,0
 
 //-- Cosmetics -----------------------------------
 //Hats
@@ -657,6 +661,7 @@ collision1,70,88,204,186,Face
 11interval,never
 11pattern0,1102,3-7,overlay,0,0
 11pattern1,1103,3,overlay,0,0
+11pattern2,-1,50,overlay,0,0
 
 //-- Cosmetics -----------------------------------
 //Hats
@@ -701,6 +706,7 @@ collision1,59,123,196,207,Face
 11interval,never
 11pattern0,1100,3-7,overlay,0,0
 11pattern1,1101,3,overlay,0,0
+11pattern2,-1,50,overlay,0,0
 
 //-- Cosmetics -----------------------------------
 //Hats
@@ -745,6 +751,7 @@ collision1,65,130,193,220,Face
 11interval,never
 11pattern0,1100,3-7,overlay,0,0
 11pattern1,1101,3,overlay,0,0
+11pattern2,-1,50,overlay,0,0
 
 //-- Cosmetics -----------------------------------
 //Hats
@@ -789,6 +796,7 @@ collision1,39,151,179,245,Face
 11interval,never
 11pattern0,1100,3-7,overlay,0,0
 11pattern1,1101,3,overlay,0,0
+11pattern2,-1,50,overlay,0,0
 
 //-- Cosmetics -----------------------------------
 //Hats
@@ -833,6 +841,7 @@ collision1,59,145,187,229,Face
 11interval,never
 11pattern0,1100,3-7,overlay,0,0
 11pattern1,1101,3,overlay,0,0
+11pattern2,-1,50,overlay,0,0
 
 //-- Cosmetics -----------------------------------
 //Hats
@@ -891,6 +900,7 @@ collision1,46,145,183,229,Face
 11interval,never
 11pattern0,1100,3-7,overlay,0,0
 11pattern1,1101,3,overlay,0,0
+11pattern2,-1,50,overlay,0,0
 
 //-- Cosmetics -----------------------------------
 //Hats
@@ -939,6 +949,12 @@ surface.append0-30
 	
 	302interval,bind
 	302pattern0,302,0,add,0,0
+	
+	303interval,bind
+	303pattern0,303,0,add,0,0
+	
+	304interval,bind
+	304pattern0,304,0,add,0,0
 	
 	2001interval,never
 	2001pattern0,0,0,stop,10

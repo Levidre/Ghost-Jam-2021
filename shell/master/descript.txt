@@ -78,14 +78,16 @@ sakura.bindgroup301.name,Pet,UFO
 sakura.bindgroup301.default,0
 sakura.bindgroup302.name,Pet,Robot
 sakura.bindgroup302.default,0
-//sakura.bindgroup302.name,Pet,Robot
-//sakura.bindgroup302.default,0
+sakura.bindgroup303.name,Pet,Henry
+sakura.bindgroup303.default,0
+sakura.bindgroup304.name,Pet,Ellie
+sakura.bindgroup304.default,0
 
 //Cosmetics Menu
 sakura.menuitem0,100
 sakura.menuitem1,101
 sakura.menuitem2,102
-//sakura.menuitem3,-
+sakura.menuitem3,-
 //sakura.menuitem4,200
 //sakura.menuitem5,201
 //sakura.menuitem6,202
@@ -93,6 +95,8 @@ sakura.menuitem2,102
 sakura.menuitem8,300
 sakura.menuitem9,301
 sakura.menuitem10,302
+sakura.menuitem11,303
+sakura.menuitem12,304
 
 //Auto Alpha
 seriko.use_self_alpha,1
