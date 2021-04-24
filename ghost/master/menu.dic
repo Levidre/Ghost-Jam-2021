@@ -296,7 +296,19 @@ TalkConfig
 	"\![*]\q[Change your name,TEACHNAME] \n        \f[italic,true](currently %(username))\f[italic,false]\n/
 	\![*]\q[Change your pronouns,TEACHPRONOUN] \n        \f[italic,true](currently %(heshe)/%(himher)/%(hisher))\f[italic,false]\n/
 	\![*]\q[Change your birthday,TEACHBDAY] \n        \f[italic,true](currently %(birthdayprint))\f[italic,false]\n/
-	\![*]\q[Change the talk rate,talkinter] \n        \f[italic,true](currently %(talktime))\f[italic,false]\n"
+	\![*]\q[Change the talk rate,talkinter] \n        \f[italic,true](currently %(talktime))\f[italic,false]\n/
+	\![*]\q[Color randomly choosen,randomcolor] \n        \f[italic,true](currently "
+	--
+	if colorrandom == 0
+	{
+		"no"
+	}
+	else
+	{
+		"yes"
+	}
+	--
+	")\f[italic,false]\n"
 	--
 
 	"\![*]\q[Enable Uninstall,deleteonoff] \n        \f[italic,true](currently %(deleteshitai))\f[italic,false]\n/
@@ -308,6 +320,19 @@ TalkConfig
 	
 }
 
+Select.randomcolor
+{
+	if colorrandom == 0
+	{
+		colorrandom = 1
+		"(The color will be randomly choosen at boot up.)"
+	}
+	else
+	{
+		colorrandom = 0
+		"(The color won't be randomly choosen at boot up.)"
+	}
+}
 
 Select.emailsettings
 {

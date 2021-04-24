@@ -56,6 +56,7 @@ OnFirstBoot
 	imposterrat = 0
 	whymustyoudothis = 0 //Echo: Negative counter. I'm not sure if you can use negative numbers so this variable exists now.
 	imppestered = 0
+	colorrandom = 1
 	
 	//Levidre : reference0 indicates if the ghost has already been installed
 	if reference0 == 0
@@ -213,7 +214,10 @@ OnBoot
 	{
 		helloday[2] = 0
 		bootingchangeshell = 1
-		ColorChoose
+		if colorrandom != 0
+		{
+			ColorChoose
+		}
 		ImpostorChoose
 	}
 	elseif month == helloday[0]
@@ -222,7 +226,10 @@ OnBoot
 		{
 			helloday[2] = 0
 			bootingchangeshell = 1
-			ColorChoose
+			if colorrandom != 0
+			{
+				ColorChoose
+			}			
 			ImpostorChoose
 		}
 	}
@@ -421,13 +428,13 @@ OnClose
 	
 	else
 		{
-			"I hope not everybody got killed."
-			"I hope I'm not the last crewmate alive."
+			"%(default)I hope not everybody got killed."
+			"%(default)I hope I'm not the last crewmate alive."
 		}
  	}	
  	else //Zarla : This dialogue is for if they haven't been open for at least five minutes.
  	{
- 		"This short absence will sure make me sus."
+ 		"%(default)This short absence will sure make me sus."
  	}
 	SAVEVAR
 	--
@@ -463,11 +470,11 @@ OnGhostChanging
 	//Levidre : reference0 is the name of the ghost it's switching to.
 	if reference0 == "Crewmate"
 	{
-		"\0Fine."
+		"\0%(defult)Fine."
 	}
  	else
 	{
-		"It's %(reference0)'s turn to be safe here. I see.\w8\w8"
+		"%(default)It's %(reference0)'s turn to be safe here. I see.\w8\w8"
 	}
 }
 
@@ -480,9 +487,9 @@ OnGhostChanged
 {
 	"\0\s[0]"
 	--
-	if reference0 == "Mery"
+	if reference0 == "Among Us"
 	{
-		"\0Hi again!\e"
+		"\0%(default)Hi again.\e"
 	}
 	else
 	{
@@ -497,7 +504,7 @@ OnGhostChanged
 		timeslot = GetTimeSlot	
 		"\0\s[0]\![set,otherghosttalk,true]\![set,otherghosttalk,before]"
 		--
-		"Hi %(username).\e"
+		"%(default)Hi %(username).\e"
 	}
 }
 

@@ -191,6 +191,133 @@ bad
 	"horrible"
 }
 
+//Poses :
+
+
+pet
+{
+	blush
+	determined
+}
+
+default
+{
+	"\s[0]"
+}
+
+happy
+{
+	if impostormode
+	{
+		"\s[13]"
+	}
+	else
+	{
+		"\s[1]"
+	}
+}
+
+mad
+{
+	if impostormode
+	{
+		"\s[14]"
+	}
+	else
+	{
+		"\s[2]"
+	}
+}
+
+scared
+{
+	if impostormode
+	{
+		"\s[15]"
+	}
+	else
+	{
+		"\s[3]"
+	}
+}
+
+disappoint
+{
+	if impostormode
+	{
+		"\s[16]"
+	}
+	else
+	{
+		"\s[4]"
+	}
+}
+
+stunned
+{
+	if impostormode
+	{
+		"\s[17]"
+	}
+	else
+	{
+		"\s[5]"
+	}
+}
+
+blush
+{
+	if impostormode
+	{
+		"\s[18]"
+	}
+	else
+	{
+		"\s[6]"
+	}
+}
+
+confused
+{
+	if impostormode
+	{
+		"\s[19]"
+	}
+	else
+	{
+		"\s[7]"
+	}
+}
+
+think
+{
+	if impostormode
+	{
+		"\s[20]"
+	}
+	else
+	{
+		"\s[8]"
+	}
+}
+
+determined
+{
+	if impostormode
+	{
+		"\s[21]"
+	}
+	else
+	{
+		"\s[9]"
+	}
+}
+
+murder
+{
+	"\s[24]"
+}
+
 //Zarla : This envelope in particular I think is fun. You can use this in dialogue to pretend like your ghost is looking through your user's files!
 
 usersfolder
