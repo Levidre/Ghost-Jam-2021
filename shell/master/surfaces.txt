@@ -15,8 +15,8 @@ surface0
 element0,overlay,surface0.png,0,0
 
 //Collisions
-collision0,0,0,0,0,Head
-collision1,0,0,0,0,Face
+collision0,76,94,202,128,Head
+collision1,46,144,180,227,Face
 
 //Typing
 10interval,talk,1
@@ -59,8 +59,8 @@ surface1
 element0,overlay,surface1001.png,0,0
 
 //Collisions
-collision0,0,0,0,0,Head
-collision1,0,0,0,0,Face
+collision0,103,63,222,92,Head
+collision1,70,88,204,186,Face
 
 //Typing
 10interval,talk,1
@@ -79,8 +79,8 @@ surface2
 element0,overlay,surface1002.png,0,0
 
 //Collisions
-collision0,0,0,0,0,Head
-collision1,0,0,0,0,Face
+collision0,73,103,199,137,Head
+collision1,46,145,183,229,Face
 
 //Typing
 10interval,talk,1
@@ -99,8 +99,8 @@ surface3
 element0,overlay,surface1003.png,0,0
 
 //Collisions
-collision0,0,0,0,0,Head
-collision1,0,0,0,0,Face
+collision0,90,83,216,117,Head
+collision1,59,123,196,207,Face
 
 //Typing
 10interval,talk,1
@@ -119,8 +119,8 @@ surface4
 element0,overlay,surface1004.png,0,0
 
 //Collisions
-collision0,0,0,0,0,Head
-collision1,0,0,0,0,Face
+collision0,58,85,207,129,Head
+collision1,39,151,179,245,Face
 
 //Typing
 10interval,talk,1
@@ -139,8 +139,8 @@ surface5
 element0,overlay,surface1005.png,0,0
 
 //Collisions
-collision0,0,0,0,0,Head
-collision1,0,0,0,0,Face
+collision0,103,63,222,92,Head
+collision1,70,88,204,186,Face
 
 //Typing
 10interval,talk,1
@@ -159,8 +159,8 @@ surface6
 element0,overlay,surface1006.png,0,0
 
 //Collisions
-collision0,0,0,0,0,Head
-collision1,0,0,0,0,Face
+collision0,90,83,216,117,Head
+collision1,59,123,196,207,Face
 
 //Typing
 10interval,talk,1
@@ -179,8 +179,8 @@ surface7
 element0,overlay,surface1007.png,0,0
 
 //Collisions
-collision0,0,0,0,0,Head
-collision1,0,0,0,0,Face
+collision0,56,85,205,129,Head
+collision1,65,130,193,220,Face
 
 //Typing
 10interval,talk,1
@@ -199,8 +199,8 @@ surface8
 element0,overlay,surface1008.png,0,0
 
 //Collisions
-collision0,0,0,0,0,Head
-collision1,0,0,0,0,Face
+collision0,58,85,207,129,Head
+collision1,39,151,179,245,Face
 
 //Typing
 10interval,talk,1
@@ -220,8 +220,8 @@ surface9
 element0,overlay,surface1009.png,0,0
 
 //Collisions
-collision0,0,0,0,0,Head
-collision1,0,0,0,0,Face
+collision0,73,103,199,137,Head
+collision1,59,145,187,229,Face
 
 //Typing
 10interval,talk,1
@@ -254,8 +254,8 @@ surface13
 element0,overlay,surface1013.png,0,0
 
 //Collisions
-collision0,0,0,0,0,Head
-collision1,0,0,0,0,Face
+collision0,103,63,222,92,Head
+collision1,70,88,204,186,Face
 
 //Typing
 10interval,talk,1
@@ -273,8 +273,8 @@ surface14
 element0,overlay,surface1014.png,0,0
 
 //Collisions
-collision0,0,0,0,0,Head
-collision1,0,0,0,0,Face
+collision0,73,103,199,137,Head
+collision1,46,145,183,229,Face
 
 //Typing
 10interval,talk,1
@@ -292,8 +292,8 @@ surface15
 element0,overlay,surface1015.png,0,0
 
 //Collisions
-collision0,0,0,0,0,Head
-collision1,0,0,0,0,Face
+collision0,90,83,216,117,Head
+collision1,59,123,196,207,Face
 
 //Typing
 10interval,talk,1
@@ -311,8 +311,8 @@ surface16
 element0,overlay,surface1016.png,0,0
 
 //Collisions
-collision0,0,0,0,0,Head
-collision1,0,0,0,0,Face
+collision0,58,85,207,129,Head
+collision1,39,151,179,245,Face
 
 //Typing
 10interval,talk,1
@@ -330,8 +330,8 @@ surface17
 element0,overlay,surface1017.png,0,0
 
 //Collisions
-collision0,0,0,0,0,Head
-collision1,0,0,0,0,Face
+collision0,103,63,222,92,Head
+collision1,70,88,204,186,Face
 
 //Typing
 10interval,talk,1
@@ -349,8 +349,8 @@ surface18
 element0,overlay,surface1018.png,0,0
 
 //Collisions
-collision0,0,0,0,0,Head
-collision1,0,0,0,0,Face
+collision0,90,83,216,117,Head
+collision1,59,123,196,207,Face
 
 //Typing
 10interval,talk,1
@@ -368,8 +368,8 @@ surface19
 element0,overlay,surface1019.png,0,0
 
 //Collisions
-collision0,0,0,0,0,Head
-collision1,0,0,0,0,Face
+collision0,56,85,205,129,Head
+collision1,65,130,193,220,Face
 
 //Typing
 10interval,talk,1
@@ -387,8 +387,8 @@ surface20
 element0,overlay,surface1020.png,0,0
 
 //Collisions
-collision0,0,0,0,0,Head
-collision1,0,0,0,0,Face
+collision0,58,85,207,129,Head
+collision1,39,151,179,245,Face
 
 //Typing
 10interval,talk,1
@@ -406,8 +406,8 @@ surface21
 element0,overlay,surface1021.png,0,0
 
 //Collisions
-collision0,0,0,0,0,Head
-collision1,0,0,0,0,Face
+collision0,73,103,199,137,Head
+collision1,59,145,187,229,Face
 
 //Typing
 10interval,talk,1
@@ -439,8 +439,8 @@ surface24
 element0,overlay,surface1024.png,0,0
 
 //Collisions
-collision0,0,0,0,0,Head
-collision1,0,0,0,0,Face
+collision0,73,103,199,137,Head
+collision1,46,145,183,229,Face
 
 //Typing
 10interval,talk,1
