@@ -58,10 +58,10 @@ menu.sidebar.bitmap.filename,menu_sidebar.png
 //Hats
 sakura.bindgroup100.name,Hat,Paper Hat
 sakura.bindgroup100.default,0
-//sakura.bindgroup101.name,Hat,Medical Mask
-//sakura.bindgroup101.default,0
-//sakura.bindgroup102.name,Hat,Plant Hat
-//sakura.bindgroup102.default,0
+sakura.bindgroup101.name,Hat,Plant Hat
+sakura.bindgroup101.default,0
+sakura.bindgroup102.name,Hat,Crown
+sakura.bindgroup102.default,0
 
 //Skins
 //sakura.bindgroup200.name,Skin,Black Suit
@@ -81,8 +81,8 @@ sakura.bindgroup100.default,0
 
 //Cosmetics Menu
 sakura.menuitem0,100
-//sakura.menuitem1,101
-//sakura.menuitem2,102
+sakura.menuitem1,101
+sakura.menuitem2,102
 //sakura.menuitem3,-
 //sakura.menuitem4,200
 //sakura.menuitem5,201
