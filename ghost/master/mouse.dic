@@ -174,37 +174,33 @@ MouseDoubleClickSakura
 	{ 
 			if useraffection >= 10 && nbpunched >= 0
 			{
-				whymustyoudothis += 0.5
 			}
 			elseif nbpunched >= 30
 			{
-				whymustyoudothis += 1
 				"\0\i[13]\i[49]\i[36]\i[37]* Aye !!! \w6\i[18]\i[40]\i[91]Why ?\w7 Why did you do this ?"
 			}
 			elseif nbpunched >= 25
 			{
-				whymustyoudothis += 1
 				"\0%(azpose)\i[70]\i[13]\i[49]\i[36]\i[37]\i[179]* Eehhh ! \w6%(azpose)\i[90]\i[70]\i[40]I did nothing bad.\w7 Why are you mean with me ?"
 			}
 			elseif nbpunched >= 20
 			{
-				whymustyoudothis += 1
 				"\0\i[40]\i[187]\i[36]\i[37]* Humf !\w6 You really thought I wouldn't protect myself ?\w7 I did nothing wrong so stop punching me please."
 			}
 			elseif nbpunched >= 15
 			{
-				whymustyoudothis += 1
 				"\0\i[40]\i[187]\i[36]\i[37]* Huh !\w6 You punched me enough time, \w5stop that."
 			}
 			elseif nbpunched >= 10
 			{
-				whymustyoudothis += 1
 				"\0\i[40]\i[187]\i[36]\i[37]* I told you to stop punching me,\w5 my patience has limits."
 			}
 			elseif nbpunched >= 5
 			{
-				whymustyoudothis += 1
 				"\0\i[40]\i[187]\i[36]\i[37]* Do you really think you can punch me without any consequences ? \w7Do you think I can't escape ?\w7 Next time you punch me,\w5I'll go away.\w7 I'll go back in my world and you won't be able to bring me back here.\w7 You have been warned."
+			}
+			elseif nbpunched == 0
+			{
 			}
 			else
 			{
@@ -213,6 +209,7 @@ MouseDoubleClickSakura
 			--
 			"\e"
 		nbpunched++
+		whymustyoudothis++
 			
 		//Zarla : Replace this dialogue with appropriate dialogue as you need. You can add more or cut it down if you want, even down to nothing if you want no response from your ghost at all when those areas are double clicked.
  	}
