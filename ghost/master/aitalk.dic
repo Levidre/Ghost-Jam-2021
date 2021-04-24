@@ -174,17 +174,17 @@ NegativeTalk : nonoverlap
 	"%(disappoint)\i[2001](They're uncomfortable.)"
 	"%(disappoint)\i[2001](They just want to leave.)"
 	"%(mad)We're used to getting killed."
-	"At least impostors are hurful because they have to be to win."
-	"I don't even think you would be a good impostor."
-	"You're too mean to be a good impostor."
-	"Impostors aren't that mean,\w5 they don't torture their victims."
-	"When will you close me?"
-	"I would like to go back."
-	"I wanna go back with the other crewmates."
-	"What's next?\w7 Breaking my suit?"
-	"People like you are never allowed to go into space."
-	"You would be a good third impostor."
-	"Monsters like you just ruin everything."
+	"%(mad)At least impostors are hurful because they have to be to win."
+	"%(mad)I don't even think you would be a good impostor."
+	"%(mad)You're too mean to be a good impostor."
+	"%(think)Impostors aren't that mean,\w5 they don't torture their victims."
+	"%(default)When will you close me?"
+	"%(disappoint)I would like to go back."
+	"%(disappoint)I wanna go back with the other crewmates."
+	"%(mad)What's next?\w7 Breaking my suit?"
+	"%(default)People like you are never allowed to go into space."
+	"%(mad)You would be a good third impostor."
+	"%(mad)Monsters like you just ruin everything."
 	--
 	"\e"
 }
@@ -194,31 +194,31 @@ GlobalTalk : nonoverlap
 	
 	if cumuhour < 10
 	{
-		"(They seem unsure about this place.)"
-		"(They seem curious.)"
+		"%(confused)\i[2001](They seem unsure about this place.)"
+		"%(think)\i[2001](They seem curious.)"
 	}
 	else
 	{
 		if cumuhour > 300
 		{
-			"(They spent a lot of time here.)"
+			"%(default)\i[2001](They spent a lot of time here.)"
 		}
-		"(They seem to be used to this place.)"
-		"(They're used to your desktop.)"
+		"%(default)\i[2001](They seem to be used to this place.)"
+		"%(default)\i[2001](They're used to your desktop.)"
 	}
-	"(They're looking around.)"
-	"(They observe you.)"
-	"(They're watching around.)"
-	"(They take a peek into your files.)"
-	"(It smells like stars.)"
-	"(It smells like space suits.)"
-	"Don't you need to clean those ones?\n\n[half](They point out a stack of files.)"
-	"Wouldn't this need to go in your archives or library?\n\n[half](They point out a file.)"
-	"Does it bother you if I clean some folders?"
-	"Did you ever think of going into space?"
-	"Are you doing tasks?"
-	"Do you have tasks to do?"
-	"Do you all have imposters among you?"
+	"%(confused)\i[2001](They're looking around.)"
+	"%(default)\i[2001](They observe you.)"
+	"%(confused)\i[2001](They're watching around.)"
+	"%(think)\i[2001](They take a peek into your files.)"
+	"%(default)\i[2001](It smells like stars.)"
+	"%(default)\i[2001](It smells like space suits.)"
+	"%(think)Don't you need to clean those ones?\n\n[half](They point out a stack of files.)"
+	"%(think)Wouldn't this need to go in your archives or library?\n\n[half](They point out a file.)"
+	"%(confused)Does it bother you if I clean some folders?"
+	"%(confused)Did you ever think of going into space?"
+	"%(confused)Are you doing tasks?"
+	"%(confused)Do you have tasks to do?"
+	"%(confused)Do you all have imposters among you?"
 	--
 	"\e"
 }
@@ -233,11 +233,11 @@ OnStartCommunication
 	//Levidre : You can check to what ghost you will talk
 	if ghostexlist[index] == "AGhost"
 	{
-		"\0Hello special unknown ghost.\e"
+		"\0%(default)Hello special unknown ghost.\e"
 	}
 	else
 	{
-		"\0Hello you there!\e"
+		"\0%(default)Hello you there!\e"
 	}
 }
 
@@ -285,17 +285,17 @@ OnMinuteChange
 	{
 		if hour == 12//Zarla : And the hour equals 12, ie it's noon. You can change this to some other hour if you want.
 		{
-			"\0It's noon.\e"
+			"\0%(default)It's noon.\e"
 			//Zarla : Replace with appropriate dialogue as you want.
 		}
 		elseif hour == 0 //Zarla : If the hour is zero, aka midnight. Again, you can change this to whatever hour you want to check for.
 		{
-			"\0It's midnight.\e"
+			"\0%(default)It's midnight.\e"
 			//Zarla : Then replace the dialogue with what's appropriate.
 		}
 		else
 		{
-			"\0It's %(hour12) o'clock.\e"
+			"\0I%(default)t's %(hour12) o'clock.\e"
 		}
 	}
 	//Zarla : %(hour12) stores the time. This is a general top of the hour notification. I personally like this because it helps me keep track of time when I've been working on something, so when a ghost is all "Hey it's 3 o clock" I can be like woah really when did that happen. If you think this is annoying though, you can just delete this bit of dialogue to leave this else statement blank, or leave "" in here instead.
@@ -373,7 +373,7 @@ MikireTalk
  
 EndMikireTalk
  {
-	"\0'm no longer off the screen.\e"
+	"\0%(default)I'm no longer off the screen.\e"
  }
 
 

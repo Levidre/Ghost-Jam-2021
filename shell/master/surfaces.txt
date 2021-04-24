@@ -1,14 +1,6 @@
 
 //-- Surfaces ----------------------------------------------------------------
 
-//Append
-surface.append0-30
-{
-	2001interval,never
-	2001pattern0,0,0,stop,11
-	2001pattern1,-1,1,overlay,0,0
-}
-
 //Default
 surface0
 {
@@ -459,4 +451,12 @@ surface10
 {
 //Basic
 element0,overlay,surface10.png,0,0
+}
+
+//Append
+surface.append0-30
+{
+	2001interval,never
+	2001pattern0,0,0,stop,10
+	2001pattern1,-1,1,overlay,0,0
 }

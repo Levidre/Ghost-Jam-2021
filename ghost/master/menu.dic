@@ -17,6 +17,9 @@
 
 OpenSakuraMenu
 {
+	"%(confused)"
+	"%(default)"
+	--
 	"Yes?"
 	"What is it?"
 	--
@@ -34,7 +37,7 @@ MenuRun
  	nowhour = Getnowhour
 	//Zarla : These four statements basically get the day of the week, whether it's AM or PM, the hour, and the time. It's putting together the information to display the time at the bottom of the balloon. Pay it no mind.
 	--
-	"\n\n\_q\b2" //Zarla : The \n\n means two new lines as detailed in the walkthrough, and \_q means quick session, meaning all the text from this point on will display instantly instead of a few letters at a time like normal ghost dialogue.
+	"\n\n\_q\b2\i[2001]" //Zarla : The \n\n means two new lines as detailed in the walkthrough, and \_q means quick session, meaning all the text from this point on will display instantly instead of a few letters at a time like normal ghost dialogue.
 	--
 	"(Talking)\n\n[half]"
 	--
@@ -291,7 +294,7 @@ Select.configmenu
 
 TalkConfig
 {
-	"\0\b[2]\_q(Settings)\n\n[half]"
+	"\0\b[2]\_q\i[2001](Settings)\n\n[half]"
 	--
 	"\![*]\q[Change your name,TEACHNAME] \n        \f[italic,true](currently %(username))\f[italic,false]\n/
 	\![*]\q[Change your pronouns,TEACHPRONOUN] \n        \f[italic,true](currently %(heshe)/%(himher)/%(hisher))\f[italic,false]\n/
@@ -325,12 +328,12 @@ Select.randomcolor
 	if colorrandom == 0
 	{
 		colorrandom = 1
-		"(The color will be randomly choosen at boot up.)"
+		"\i[2001](The color will be randomly choosen at boot up.)"
 	}
 	else
 	{
 		colorrandom = 0
-		"(The color won't be randomly choosen at boot up.)"
+		"\i[2001](The color won't be randomly choosen at boot up.)"
 	}
 }
 
@@ -344,13 +347,13 @@ Select.enabletest
 {
 	if displaytest == 1
 	{
-		"\0The tests won't show up."
+		"\0\i[10]The tests won't show up."
 		--
 		displaytest = 0
 	}
 	else
 	{
-		"\0%(lsto)* The tests will be displayed."
+		"\0\i[10]The tests will be displayed."
 		--
 		displaytest = 1
 	}
@@ -362,7 +365,7 @@ Select.enabletest
 
 Select.TEACHPRONOUN
 {
-	"\0What pronouns do you want?\w5\n\n[half]\_q/
+	"\0\i[10]What pronouns do you want?\w5\n\n[half]\_q/
 	\![*]\q[He-His-Him,choicemasc]\n/
 	\![*]\q[She-Her-Her,choicefem]\n/	
 	\![*]\q[They-Their-Them,choiceneither]\e"
@@ -446,13 +449,13 @@ OnUserBornMonth
 		bornmonth = _tempmonth
 		bornmonthprint = Printmonth
 		
-		"So you were born in %(bornmonthprint).\n\w8* What day was it?\![open,inputbox,OnUserBornDay,-1]\e"
+		"\i[10]So you were born in %(bornmonthprint).\n\w8* What day was it?\![open,inputbox,OnUserBornDay,-1]\e"
 		
 		//Zarla : Here you can see the use of a bornmonthprint envelope to show the user what month they put in. Notice that it opens an inputbox at the end the same way the one above did. You can replace the dialogue up to the input box just as with above.
 	}
 	else //Zarla : if the month isn't a valid month, like 32 or something.
 	{
-		"\0I may not keep track of time well, \w9but I'm pretty sure that's not a month. \w9Try again.\![open,inputbox,OnUserBornMonth,-1]\e"
+		"\0\i[10]I may not keep track of time well, \w9but I'm pretty sure that's not a month. \w9Try again.\![open,inputbox,OnUserBornMonth,-1]\e"
 		
 		//Zarla : You can replace this dialogue as well up to the \! tag, as mentioned. You need to leave the tag for the input box so they can put in a correct month.
 	}
@@ -554,7 +557,7 @@ OnUserBornDay
 		}
 		else //Zarla : if the day isn't valid, like the 10046th or something.
 		{
-			"\0Seriously? \w9Try again.\![open,inputbox,OnUserBornDay,-1]\e"
+			"\0%(disappoint)Seriously? \w9Try again.\![open,inputbox,OnUserBornDay,-1]\e"
 				
 			//Zarla : Similar as you can see to the month check above. You can replace the dialogue here up to the tag as you just did, but make sure to leave the input box tag so the user can put in a correct day.
 		}
@@ -573,7 +576,7 @@ OnUserBornDay
 		}
 		else
 		{
-			"\0That's not a valid day. Try again.\![open,inputbox,OnUserBornDay,-1]\e"
+			"\0%(disappoint)That's not a valid day. Try again.\![open,inputbox,OnUserBornDay,-1]\e"
 					
 			//Zarla : And the same as above again! You see the pattern here?
 		}
@@ -591,7 +594,7 @@ OnUserBornDay
 		}
 		else
 		{
-			"\0That's not a valid day. Try again.\![open,inputbox,OnUserBornDay,-1]\e"
+			"\0%(disappoint)That's not a valid day. Try again.\![open,inputbox,OnUserBornDay,-1]\e"
 		}
 	}		
 }
@@ -605,15 +608,15 @@ birthchecked
 	{
 		if useraffection <= 70
 		{
-			"\0Great. \w7Never really celebrated birthdays much, \w5but I suppose you still do.\e"
+			"\0%(default)Great. \w7Never really celebrated birthdays much, \w5but I suppose you still do.\e"
 		}
 		if whymustyoudothis <= 30
 		{
-			"\0What day is it again? \w7I don't really remember.\e"
+			"\0%(default)What day is it again? \w7I don't really remember.\e"
 		}
 		else
 		{
-			"\0Oh. \w7Okay.\e"
+			"\0%(default)Oh. \w7Okay.\e"
 		}
 		//Zarla : replace this dialogue with whatever you like
 	}
@@ -621,17 +624,17 @@ birthchecked
 	{
 		if whymustyoudothis >= 10
 		{
-			"\0Err,\w5 you don't deserve to have your birthday in a such nice day.\e"
+			"\0%(default)Err,\w5 you don't deserve to have your birthday in a such nice day.\e"
 		}
 		else
 		{
-			"\0Happy spooky birthday!\e"
+			"\0%(happy)Happy spooky birthday!\e"
 		}
 		//Zarla : As you can see, you can set up an elseif statement to check if the user's birthday is any day you want! More on elseif statements in bootend.dic. In this case, there's specialized dialogue if the user was born on Christmas. You can replace this with whatever you like, or change the date you're checking as well, like to one of your character's birthdays if you want. You can also delete this elseif if you don't care.
 	}
 	else //Zarla : if the birthday is not listed above.
 	{
-		"\0Your birthday is %(bornmonthprint) %(borndayprint).\w7 I'll remember.\e"
+		"\0%(default)Your birthday is %(bornmonthprint) %(borndayprint).\w7 I'll remember.\e"
 		//Zarla : note the use of envelopes to display the newly set birthday properly. You can replace this dialogue as well, and you can use %(bornmonthprint) and %(borndayprint) to display the month and day in the new dialogue, if you want.
 	}
 }
@@ -641,7 +644,7 @@ birthchecked
 
 Select.talkinter
 {
-	"\0\b2How often do you want me to speak?\w7 For now I speak every %(talktime).\n\n[half]/
+	"\0\b2%(default)How often do you want me to speak?\w7 For now I speak every %(talktime).\n\n[half]/
 	//Zarla : note the new envelope here for %(talktime). You'll see it again in a second. You can replace the dialogue above with whatever you like, just make sure it ends with ./ and not \e.
 	\![*]\q[Every 30 seconds,TALKMAX]\n/
 	\![*]\q[Every minute,TALKHIGH]\n/
@@ -660,23 +663,25 @@ Select.TalksTill
 	{
 		if impostorrat == 1
 		{
-			"\0First you force me to tell you things, \w8now you're playing around with my menu?\e"
+			"\0%(mad)First you force me to tell you things, \w8now you're playing around with my menu?\e"
 		}
 		elseif impostormode == 1
 		{
-			"\0Kay. \w7I really would've preferred it better had I been able to choose how much I talk.\e"
-			"\0You like being rude to people at your own expense, \w8don't you?\e"
-			"\0Fine. \w8Like I care about this.\e"
+			"\0%(default)Kay. \w7I really would've preferred it better had I been able to choose how much I talk.\e"
+			"\0%(default)You like being rude to people at your own expense, \w8don't you?\e"
+			"\0%(default)Fine. \w8Like I care about this.\e"
 		}
 		else
 		{
-			"\0Fine. \w8You didn't have to do that.\e"
-			"\0Took you long enough.\e"
-			"\0At least I'm better off this way.\e"
+			"\0%(default)Fine. \w8You didn't have to do that.\e"
+			"\0%(default)Took you long enough.\e"
+			"\0%(default)At least I'm better off this way.\e"
 		}
 	}
 	else 
 	{
+		"%(default)"
+		--
 		"Ok.\e"
 		"\0Okay.\e"
 		"\0Alright.\e"
@@ -693,10 +698,12 @@ Select.TALKMAX
 	
 	if whymustyoudothis >= 30 //Echo: The only negative counter here.
 	{
-		"\0Forcing me to talk non-stop?\e"
+		"\0%(default)Forcing me to talk non-stop?\e"
 	}
 	else 
 	{
+		"%(default)"
+		--
 		"Ok."
 		"\0Okay."
 		"\0Alright."
@@ -712,7 +719,8 @@ Select.TALKHIGH
 {
 	talktime = "minute"
 	aitalkinterval = 90
-	
+	"%(default)"
+	--
 	if whymustyoudothis >= 30 //Echo: The only negative counter here.
 	{
 		"\0Forcing me to talk often?\e"
@@ -735,7 +743,8 @@ Select.TALKNORMAL
 {
 	talktime = "3 minutes"
 	aitalkinterval = 270
-
+	"%(default)"
+	--
 	if whymustyoudothis >= 30 //Echo: The only negative counter here.
 	{
 		"\0... fine.\e"
@@ -757,7 +766,8 @@ Select.TALKPOOR
 {
 	talktime = "5 minutes"
 	aitalkinterval = 400
-	
+	"%(default)"
+	--
 	if whymustyoudothis >= 30 //Echo: The only negative counter here.
 	{
 		"\0At least it's not often.\e"
@@ -780,6 +790,8 @@ Select.TALKNONE
 	talktime = "...actually they don't talk at all"
 	aitalkinterval = 0
 	
+	"%(default)"
+	--
 	if whymustyoudothis >= 30 //Echo: The only negative counter here.
 	{
 		"\0At least I can stay silent.\e"
@@ -810,7 +822,7 @@ Select.CANCEL
 {
 	if whymustyoudothis >= 30 //Echo: Would be ruder than usual, which is saying a lot. Don't see the need for useraffection values here.
 	{
-		"\0Why did you bother me?"
+		"\0%(mad)Why did you bother me?"
 	}
 	else
 	{
@@ -823,7 +835,7 @@ Select.CANCEL
 Select.dosomething
 {
 	
-	"\0\b2Do you want something?\n\n[half]"
+	"\0\b%(default)2Do you want something?\n\n[half]"
 	//}
 	//Zarla : 
 	//I mentioned this above in MenuRun, but you can have a set of multiple different responses that may randomly appear when the menu is opened if you offset them from the rest with the -- dashes below this note. Try opening this menu yourself with the template to see how it works. The character will randomly choose one line as the intro. 
@@ -843,8 +855,11 @@ Select.dosomething
 //Zarla : When the user clicks Open Calender. This will open the calender function of SSP, an in-built feature that you don't have to worry about in the least.
 Select.CALENDAR
 {
-	if useraffection <= 70 //Echo: Friends. By the way, these variables increase & decrease by one. Petting should increase by 0.5? I'm not sure yet.
+	"%(default)"
+	--
+	if useraffection >= 70 //Echo: Friends. By the way, these variables increase & decrease by one. Petting should increase by 0.5? I'm not sure yet.
 	{
+		
 		if impostorrat == 1
 		{
 			"\0Oh, \w7okay. \w9Glad no one else can see me here.\![open,calender]\e"
@@ -864,7 +879,7 @@ Select.CALENDAR
 			"\0Sure. \w9I can do that. \w8...Though, \w7it's strange knowing that no one is in grave danger here.\![open,calender]\e"
 		}
 	}
-	elseif whymustyoudothis <= 30 //Echo: Negative counter
+	elseif whymustyoudothis >= 30 //Echo: Negative counter
 	{
 		if impostorrat == 1
 		{
@@ -903,7 +918,8 @@ Select.CALENDAR
 Select.ChoiceGarbagecan
 {
 	_gomicheck = FUNCTIONEX("gomi.dll", "-n");	//Zarla : Don't touch this line. for those curious, it's referencing a SAORI, which are optional user-made plug-in dlls you can download to enable different functions on your ghost. gomi.dll is one included with this template. All SAORI are in Japanese (maybe Korean or Chinese as well idk) and many have disappeared by now, so don't concern yourself very much with SAORI. It's just some ghost trivia, basically.
-	
+	"%(default)"
+	--
 	if _gomicheck == 0 //Zarla : If the recycle bin is empty.
 	{
 		if whymustyoudothis >= 30
@@ -960,7 +976,7 @@ Select.MailCheck
 //Zarla : This is when the user ends their headline session. Headlines are detailed more in etc.dic. Replace dialogue with what strikes you.
 Select.HEADLINECANCEL
  {
- 	"\0Finished with headlines.\e"
+ 	"\0%(default)Finished with headlines.\e"
 }
 
 	
@@ -971,7 +987,7 @@ OnChoiceTimeout
 {
 	if whymustyoudothis >= 30 //Echo: Would be ruder than usual, which is saying a lot. Don't see the need for useraffection values here.
 	{
-		"\0Why did you bother me?"
+		"\0%(mad)Why did you bother me?"
 	}
 	else
 	{
@@ -1013,7 +1029,7 @@ IncreaseAffection
 
 Select.UserDescript
 {
-	"\n\n- Your name : %(username)\n- Your birthday : "
+	"\n\n\i[2001]- Your name : %(username)\n- Your birthday : "
 	--
 	if bornmonthprint == "" || borndayprint == ""
 	{
@@ -1033,7 +1049,7 @@ Select.UserDescript
 
 Select.actmenu
 {
-	"\0(What do you want to do?)\n\n[half]\_q\f[italic,false]"
+	"\0\i[2001](What do you want to do?)\n\n[half]\_q\f[italic,false]"
 	--
 	"\![*]\q[Flatter them,flatter]\n\![*]\q[Insult them,insult]\n"
 	--
@@ -1054,7 +1070,7 @@ Select.actmenu
 
 Select.itmenu
 {
-	"\0(You want to give them...)\_q\n\n[half]"
+	"\0\i[2001](You want to give them...)\_q\n\n[half]"
 	--
 	"\![*]\q[Some food,givefood]\n"
 	--
@@ -1067,7 +1083,7 @@ Select.itmenu
 
 Select.asksthg
 {
-	"\0(Ask about...)\w5\n\n[half]\_q"
+	"\0\i[2001](Ask about...)\w5\n\n[half]\_q"
 	--
 	"\![*]\q[Themselves,askthemself]     \![*]\q[The game,askgame]\n"
 	--
@@ -1119,7 +1135,8 @@ Select.flatter : nonoverlap
 	{
 		
 	}
-	
+	"\i[2001]"
+	--
 	"(You flatter them.)"
 	"(You compliment their color.)"
 	"(You tell them they're smart.)"
@@ -1134,17 +1151,17 @@ Select.flatter : nonoverlap
 	--
 	if whymustyoudothis >= 30
 	{
-		"\n\n[half]Why would I listen to you?"
-		"\n\n[half]Why would I trust you?"
-		"\n(They didn't listen.)"
+		"\n\n[half]%(determined)Why would I listen to you?"
+		"\n\n[half%(determined)]Why would I trust you?"
+		"\n\i(They didn't listen.)"
 		"\n(They didn't react.)"
 	}
 	else
 	{
-		"\n\n[half]Thanks."
-		"\n(They seem happy.)"
-		"\n(It pleased them.)"
-		"\n(They blush under the compliment.)"
+		"\n\n[half]%(happy)Thanks."
+		"\n%(happy)\i[2001](They seem happy.)"
+		"\n%(blush)\i[2001](It pleased them.)"
+		"\n%(blush)\i[2001](They blush under the compliment.)"
 	}
 	
 	--
@@ -1188,7 +1205,8 @@ Select.insult : nonoverlap
 	{
 		whymustyoudothis += 1
 	}
-	
+	"\i[2001]"
+	--
 	if impostorrat == 1
 	{
 		"(You tell them they're an %(bad) impostor.)"
@@ -1199,19 +1217,21 @@ Select.insult : nonoverlap
 	--
 	if nbpunched <= 3
 	{
-		"\n\n[half]That's hurtful."
+		"\n\n[half]%(stunned)That's hurtful."
 	}
-	"\n\n[half]That's mean."
-	"\n\n[half]... mean."
-	"\n\n[half]... rude."
-	"\n(It made them sad.)"
-	"\n(They look unhappy.)"
+	"\n\n[half]%(stunned)That's mean."
+	"\n\n[half]%(scared)... mean."
+	"\n\n[half]%(mad)... rude."
+	"\n%(scared)\i[2001](It made them sad.)"
+	"\n%(mad)\i[2001](They look unhappy.)"
 	--
 	"\n\n[half]\![*]\q[Do something else,actmenu]\n\![*]\q[Nevermind,CANCEL]"
 }
 
 Select.accuse : nonoverlap
 {
+	"\i[2001]"
+	--
 	"(You accuse them of being an impostor.)"
 	"(You call them impostor.)"
 	"(You ask them if they're impostor.)"
@@ -1220,6 +1240,10 @@ Select.accuse : nonoverlap
 	--
 	if impostorrat == 1
 	{
+		"%(murder)"
+		"%(happy)"
+		"%(mad)"
+		--
 		"\n\n[half]Yes,\w5 and I'll kill them all!"
 		"\n\n[half]I am."
 		"\n\n[half]I'm impostor."
@@ -1230,6 +1254,10 @@ Select.accuse : nonoverlap
 	{
 		if imppestered <= 2
 		{
+			"%(scared)"
+			"%(think)"
+			"%(determined)"
+			--
 			"\n\n[half]!?\w7 No!"
 			"\n\n[half]!?\w7 Of course not!"
 			"\n\n[half]I'm just an innocent crewmate."
@@ -1242,6 +1270,11 @@ Select.accuse : nonoverlap
 		{
 			if impostormode == 1
 			{
+				"%(scared)"
+				"%(stunned)"
+				"%(determined)"
+				"%(murder)"
+				--
 				"\n\n[half]!?\w7 No!"
 				"\n\n[half]!?\w7 Of course not!"
 				"\n\n[half]I'm totally innocent!"
@@ -1252,7 +1285,10 @@ Select.accuse : nonoverlap
 			}
 			else
 			{
-				
+				"%(scared)"
+				"%(think)"
+				"%(determined)"
+				--
 				"\n\n[half]!?\w7 No!"
 				"\n\n[half]!?\w7 Of course not!"
 				"\n\n[half]I'm just an innocent crewmate."
@@ -1266,6 +1302,11 @@ Select.accuse : nonoverlap
 		{
 			if impostormode == 1
 			{
+				"%(scared)"
+				"%(stunned)"
+				"%(mad)"
+				"%(murder)"
+				--
 				"\n\n[half]... know what?\w7I am."
 				"\n\n[half]... how did you know I was?"
 				"\n\n[half]... yeah,\w5 I am."
@@ -1278,7 +1319,11 @@ Select.accuse : nonoverlap
 			}
 			else
 			{
-				
+				"%(scared)"
+				"%(stunned)"
+				"%(mad)"
+				"%(disappoint)"
+				--
 				"\n\n[half]!?\w7 No!"
 				"\n\n[half]!?\w7 Of course not!"
 				"\n\n[half]I'm totally innocent!"
@@ -1341,6 +1386,15 @@ Select.hug : nonoverlap
 	{
 		
 	}
+	
+	"%(scared)"
+	"%(stunned)"
+	"%(blush)"
+	"%(determined)"
+	"%(happy)"
+	--
+	"\i[2001]"
+	--
 	"(You give them a big hug.)"
 	"(You hug them.)"
 	"(You reach to them to hug.)"
@@ -1395,6 +1449,8 @@ Select.taunt : nonoverlap
 		whymustyoudothis += 2
 	}
 	
+	"\i[2001]"
+	--
 	if impostorrat == 0
 	{
 		"(You tell them impostors will have pity for them.)"
@@ -1404,9 +1460,12 @@ Select.taunt : nonoverlap
 	"(You tell them they can't do anything against you.)"
 	"(You tell them they're at your mercy.)"
 	--
-	""
-	"\n\n[half]..."
-	"\n\n[half]Why this?"
+	"\n\n[half]%(disappoint)..."
+	"\n\n[half]%(disappoint)Why this?"
+	"\n\n[half]%(disappoint)That's mean."
+	"\n\n[half]%(scared)Why are you so cruel?"
+	"\n\n[half]%(scared)Why are you so mean?"
+	"\n%(disappoint)\i[2001](It make them unhappy.)"
 	--
 	"\n\n[half]\![*]\q[Do something else,actmenu]\n\![*]\q[Nevermind,CANCEL]"
 }
@@ -1415,6 +1474,8 @@ Select.taunt : nonoverlap
 
 Select.givefood : nonoverlap
 {
+	"\i[2001]"
+	--
 	"(You give them some %(food).)"
 	"(You hold %(food) out to them.)"
 	"(You give them %(food) to eat.)"
@@ -1429,19 +1490,28 @@ Select.givefood : nonoverlap
 	if useraffection >= 30
 	{
 		useraffection += 1
+		"%(happy)"
+		"%(determined)"
+		--
 		"\n\n[half]What a tasty food."
 		"\n\n[half]What a pleasant meal."
 		"\n\n[half]Thanks for the good snack."
 	}
 	if nbpunched <= 0
 	{
-		
+		"%(determined)"
+		--
 		"\n\n[half]Thanks."
 		"\n\n[half]Thank you."
 	}
 	
 	if nbpunched <= 3
 	{
+		"%(determined)"
+		"%(blush)"
+		--
+		"\i[2001]"
+		--
 		"\n(They appreciated.)"
 		"\n(They enjoyed it.)"
 		"\n(They seem to have enjoyed it.)"
@@ -1449,15 +1519,19 @@ Select.givefood : nonoverlap
 	elseif nbpunched <= 7
 	{
 		useraffection += 0.5
-		"\n(They take it carefully.)"
+		"\n%(default)\i[2001](They take it carefully.)"
 	}
 	else
 	{
 		useraffection += 0.5
-		"\n(They take it relunctantly.)"
+		"\n%(default)\i[2001](They take it relunctantly.)"
 	}
 	
 	{
+		"%(default)\i[2001]"
+		"%(determined)\i[2001]"
+		"%(blush)\i[2001]"
+		--
 		"\n(They ate it all.)"
 		"\n(They seem to have liked it.)"
 		"\n(They seem stuffed.)"
@@ -1469,7 +1543,8 @@ Select.givefood : nonoverlap
 
 Select.givedrink : nonoverlap
 {
-
+	"\i[2001]"
+	--
 	"(You give them some %(drink).)"
 	"(You hold some %(drink) out to them.)"
 	if nbpunched <= 3
@@ -1482,18 +1557,28 @@ Select.givedrink : nonoverlap
 	if useraffection >= 30
 	{
 		useraffection += 1
+		"%(happy)"
+		"%(determined)"
+		--
 		"\n\n[half]What a tasty drink."
 		"\n\n[half]What a pleasant drink."
 	}
 	if nbpunched <= 0
 	{
 		useraffection += 0.5
+		"%(determined)"
+		--
 		"\n\n[half]Thanks."
 		"\n\n[half]Thank you."
 	}
 	
 	if nbpunched <= 3
 	{
+		"%(determined)"
+		"%(blush)"
+		--
+		"\i[2001]"
+		--
 		"\n(They appreciated.)"
 		"\n(They enjoyed it.)"
 		"\n(They seem to have enjoyed it.)"
@@ -1501,15 +1586,19 @@ Select.givedrink : nonoverlap
 	elseif nbpunched <= 7
 	{
 		useraffection += 0.5
-		"\n(They take it carefully.)"
+		"\n%(default)\i[2001](They take it carefully.)"
 	}
 	else
 	{
 		useraffection += 0.5
-		"\n(They take it relunctantly.)"
+		"\n%(default)\i[2001](They take it relunctantly.)"
 	}
 	
 	{
+		"%(default)\i[2001]"
+		"%(determined)\i[2001]"
+		"%(blush)\i[2001]"
+		--
 		"\n(They drank it all.)"
 		"\n(They seem to have liked it.)"
 		"\n(They seem better hydrated.)"
@@ -1520,7 +1609,8 @@ Select.givedrink : nonoverlap
 
 Select.giveuseful : nonoverlap
 {
-	
+	"\i[2001]"
+	--
 	"(You give them %(present).)"	
 	"(You hold %(present) out to them.)"
 	if useraffection >= 30
@@ -1539,12 +1629,19 @@ Select.giveuseful : nonoverlap
 	if useraffection >= 30
 	{
 		useraffection += 1
+		"%(determined)"
+		"%(blush)"
+		--
 		"\n\n[half]It's pretty useful,\w5 thanks."
 		"\n\n[half]It's pretty useful,\w5 thank you."
 	}
 	
 	if useraffection >= 30 && nbpunched <= 0 
 	{
+		"%(determined)"
+		"%(blush)"
+		"%(happy)"
+		--
 		"\n\n[half]This is %(nice), \w5thanks."
 		"\n\n[half]This is %(nice), \w5thank you."
 	}
@@ -1552,6 +1649,8 @@ Select.giveuseful : nonoverlap
 	if nbpunched <= 0
 	{
 		useraffection += 0.5
+		"%(determined)"
+		--
 		"\n\n[half]Thanks."
 		"\n\n[half]Thank you."
 		"\n\n[half]This will be useful."
@@ -1561,6 +1660,11 @@ Select.giveuseful : nonoverlap
 	
 	if nbpunched <= 3
 	{
+		"%(determined)"
+		"%(blush)"
+		--
+		"\i[2001]"
+		--
 		"\n\n[half]This is %(nice)."
 		"\n(It pleased them.)"
 		"\n(They seem pleased.)"
@@ -1569,12 +1673,12 @@ Select.giveuseful : nonoverlap
 	elseif nbpunched <= 7
 	{
 		useraffection += 0.5
-		"\n(They take it carefully.)"
+		"\n%(default)\i[2001](They take it carefully.)"
 	}
 	else
 	{
 		useraffection += 0.5
-		"\n(They take it relunctantly.)"
+		"\n%(default)\i[2001](They take it relunctantly.)"
 	}
 
 	
@@ -1589,49 +1693,54 @@ Select.askthemself : nonoverlap
 {
 	if nbpunched <= 3
 	{
-		"(They just look like a cute bean.)"
-		"(Are all crewmates beans?)"
-		"I'm just a normal crewmate."
+		"%(default)\i[2001](They just look like a cute bean.)"
+		"%(default)\i[2001](Are all crewmates beans?)"
+		"%(default)I'm just a normal crewmate."
 		if impostorrat != 1
 		{
+			"%(determinated)"
+			"%(default)"
+			--
 			"My job is to do tasks to win."
 			"I need to investigate to find the impostors in plus of tasks."
 		}
 		else
 		{
-			"I just have to kill everybody."
+			"%(murder)I just have to kill everybody."
 		}
 	}
 	else
 	{
-		"(They don't seem comfortable.)"
+		"%(disappoint)\i[2001](They don't seem comfortable.)"
 		
 		
 	}
 	
 	if nbpunched > 3
 	{
+		"%(mad)"
+		--
 		"Someone you hurt."
 		"I don't have to answer you."
 	}
 	
 	if impostorrat == 0 && impostormode == 1
 	{
-		"I'm a totally normal crewmate."
+		"%(default)I'm a totally normal crewmate."
 	}
 	
 	if impostorrat == 1
 	{
+		"%(happy)"
+		"%(murder)"
+		--
 		"I'm an impostor this time."
 	}
 	else
 	{
-		"I'm an innocent crewmate."
+		"%(default)I'm an innocent crewmate."
+		"%(default)There are other crewmates like me,\w5 %(mad)and impostors among us."
 	}
-	
-	"There are other crewmates like me,\w5 and impostors among us."
-	
-	
 	--
 	"\n\n[half]\![*]\q[Ask something else,asksthg]\n\![*]\q[Nevermind,CANCEL]"
 }
@@ -1663,6 +1772,10 @@ Select.askgame : nonoverlap
 		{
 		}
 	}
+	"%(default)"
+	"%(determined)"
+	"%(scared)"
+	--
 	"We,\w5 crewmates,\w5 must do tasks to win or to get rid of all the impostors before they kill us."
 	"We're often on a planet,\w5 in a ship or in a station.\w7 We always need to complete our tasks."
 	"We must find all the impostors or finish our mission before they kill us."
@@ -1701,13 +1814,13 @@ Select.askcrewmates : nonoverlap
 	}
 	if nbpunched > 3
 	{
-		"They aren't there for you to torture them."
+		"%(mad)They aren't there for you to torture them."
 	}
-	"Crewmates are normal people."
-	"They must do their tasks, \w5even when they're dead."
-	"They can win by finishing their tasks."
-	"They can win by eliminating all impostors."
-	"They have tasks to do."
+	"%(default)Crewmates are normal people."
+	"%(default)They must do their tasks, \w5even when they're dead."
+	"%(default)They can win by finishing their tasks."
+	"%(default)They can win by eliminating all impostors."
+	"%(default)They have tasks to do."
 	--
 	"\n\n[half]\![*]\q[Ask something else,asksthg]\n\![*]\q[Nevermind,CANCEL]"
 }
@@ -1739,6 +1852,10 @@ Select.askimpostors : nonoverlap
 		{
 		}
 	}
+	"%(default)"
+	"%(determined)"
+	"%(scared)"
+	--
 	"They have to kill everybody to win."
 	"If a vital sabotage as reactor or O2 isn't fixed, \w5they win."
 	"They must stay discreet."
@@ -1758,21 +1875,21 @@ Select.askmaps : nonoverlap
 {
 	if whymustyoudothis >= 30
 	{
-		"You can jump anytime in Polus lava."
+		"%(mad)You can jump anytime in Polus lava."
 	}
-	"We're sometimes on a ship,\w5 on a planet or on a station."
-	"The maps are The Skeld, The Aircraft, Polus and Mira HQ."
-	"The Aircraft is,\w5 well,\w5 an aicraft."
-	"Polus is a planet.\w7 A planet with lava."
-	"The ship is the Skeld but we now have an aircraft."
-	"The Aircraft is huge."
-	"We even have to do the laundry in the Aircraft,\w5 and to unstuck toilets..."
-	"Security has the cameras, \w5you can spy people on them."
-	"Medbay generally has vitals,\w5 you can check who is dead on it."
-	"Maps are divided into places."
-	"Meetings happen in Admin."
-	"Vents are ventilation corridors that go from one place to an other."
-	"Electrical is where you can put lights back on when impostors sabotage it."
+	"%(default)We're sometimes on a ship,\w5 on a planet or on a station."
+	"%(default)The maps are The Skeld, The Aircraft, Polus and Mira HQ."
+	"%(determined)The Aircraft is,\w5 %(think)well,\w5 an aicraft."
+	"%(default)Polus is a planet.\w7 A planet with lava."
+	"%(default)The ship is the Skeld but we now have an aircraft."
+	"%(scared)The Aircraft is huge."
+	"%(stunned)We even have to do the laundry in the Aircraft,\w5 and to unstuck toilets..."
+	"%(mad)Security has the cameras, \w5you can spy people on them."
+	"%(default)Medbay generally has vitals,\w5 you can check who is dead on it."
+	"%(default)Maps are divided into places."
+	"%(default)Meetings happen in Admin."
+	"%(default)Vents are ventilation corridors that go from one place to an other."
+	"%(default)Electrical is where you can put lights back on when impostors sabotage it."
 	--
 	"\n\n[half]\![*]\q[Ask something else,asksthg]\n\![*]\q[Nevermind,CANCEL]"
 }
