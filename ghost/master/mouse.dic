@@ -53,12 +53,7 @@ MouseMoveSakura
  			stroke = 0 //Zarla : resetting the stroke count
 			if reference4 == "Head" //Zarla : do you remember the names of the areas you set up for your collisions in surfaces.txt? This is where they come into play! This is where you'd put in the name of your collision, such as head, face, horns, tail, ears, whatever. As mentioned in surfaces.txt, you can add as many collisions to a pose as you want, as long as you make sure to add them all in here so they can actually be used.
  			{
-				
-				//Zarla : Replace these with whatever petting responses you like. You can also add more dialogue here if you want, or cut them down. Though removing them entirely seems a bit counter-intuitive to all that work we've been doing.
- 			}
- 			elseif reference4 == "Face" //Zarla : Another area set up by the collisions in surfaces.txt. You can expand this list with as many elseifs as you need depending on how many collisions you've set up.
- 			{
- 				if useraffection >= 130
+				if useraffection >= 130
 				{
 					useraffection += 1
 					"\0\i[15]%(lsto)* Huh,\w5 \i[11]sigh...\e"
@@ -107,6 +102,11 @@ MouseMoveSakura
 				else
 				{
 				}
+				
+				//Zarla : Replace these with whatever petting responses you like. You can also add more dialogue here if you want, or cut them down. Though removing them entirely seems a bit counter-intuitive to all that work we've been doing.
+ 			}
+ 			elseif reference4 == "Face" //Zarla : Another area set up by the collisions in surfaces.txt. You can expand this list with as many elseifs as you need depending on how many collisions you've set up.
+ 			{
 				
  			}
 			elseif reference4 == "Obsidian"
