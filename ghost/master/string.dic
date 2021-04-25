@@ -28,7 +28,8 @@ On_username
 
 On_homeurl
 {
-	"https://levidre.github.io/among_us-files/among_us"
+	//"https://levidre.github.io/among_us-files/among_us"
+	"https://raw.githubusercontent.com/levidre/Ghost-Jam-2021/master"
 }
 
 
