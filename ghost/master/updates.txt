@@ -1,4 +1,3 @@
-file,.gitignoreb1a93a6f424e4d7ea0fd678e1db084desize=51
 file,among_us.zip2c2dcbad66889a8c50355d94776fbaeesize=237203
 file,delete.txt1e01469b5d2a56a8ee75da65d5d919a7size=3383
 file,ghost/master/aitalk.dic21db89427e83dfc06f24e9e0f03080fcsize=17565

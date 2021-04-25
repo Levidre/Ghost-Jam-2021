@@ -1,9 +1,9 @@
 Charset,UTF-8
 install,581461198
 homeurl_found,1
-surfacecount,48
-homeurl,https://azura-levidre.000webhostapp.com/azura-files/Azura/
+surfacecount,63
+homeurl,https://raw.githubusercontent.com/levidre/Ghost-Jam-2021/master/
 update_result,OK(0)
 firstboot,581461462
-commitmemorysize,1432981
-lastboot,672618894
+commitmemorysize,1641081
+lastboot,672628118
