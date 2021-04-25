@@ -62,6 +62,10 @@ sakura.bindgroup101.name,Hat,Plant Hat
 sakura.bindgroup101.default,0
 sakura.bindgroup102.name,Hat,Crown
 sakura.bindgroup102.default,0
+sakura.bindgroup103.name,Hat,Devil Horns
+sakura.bindgroup103.default,0
+sakura.bindgroup104.name,Hat,Top Hat
+sakura.bindgroup104.default,0
 
 //Skins
 //sakura.bindgroup200.name,Skin,Black Suit
@@ -87,7 +91,9 @@ sakura.bindgroup304.default,0
 sakura.menuitem0,100
 sakura.menuitem1,101
 sakura.menuitem2,102
-sakura.menuitem3,-
+sakura.menuitem3,103
+sakura.menuitem4,104
+sakura.menuitem5,-
 //sakura.menuitem4,200
 //sakura.menuitem5,201
 //sakura.menuitem6,202
