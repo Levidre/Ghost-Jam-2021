@@ -62,7 +62,7 @@ OnFirstBoot
 	if reference0 == 0
 	{
 		//Levidre : This is the dialogue the ghost will have when it boots for the first time. The "\![enter,passivemode]" put the ghost in passive mode to keep the user to interrupt it by double clicking on it for example
-		"\![enter,passivemode]\1\s[10]\0\s[0]Hi.\w7 This is new. \w7Is this a new map? Btw,\w5 how should we refer to you?\n\n[half]/
+		"\![enter,passivemode]\1\s[10]\0\s[0]Hi.\w7 This is new. \w7Is this a new map? Btw,\w5 how should I refer to you?\n\n[half]/
 		\w5\_q\![*]\q[He/Him/His,choicefirsthehim]\n/
 		\![*]\q[She/Her/Hers,choicefirstsheher]\n/
 		\![*]\q[They/Them/Their,choicefirsttheythem]"

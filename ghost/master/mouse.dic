@@ -113,6 +113,7 @@ MouseMoveSakura
 					"Why are you doing this?"
 					"Gh.. What the hell?"
 				}
+				nbpets++
 				
 				//Zarla : Replace these with whatever petting responses you like. You can also add more dialogue here if you want, or cut them down. Though removing them entirely seems a bit counter-intuitive to all that work we've been doing.
  			}

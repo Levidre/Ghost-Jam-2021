@@ -85,7 +85,7 @@ Select.GhostDescript
 //Levidre : When an update ends, initializing the new variables and little message of the dev.
 Select.AfterUpdate
 {
-	//"Some update notice."
+	"Initial release."
 	--
 	InitializeNewVariables
 	

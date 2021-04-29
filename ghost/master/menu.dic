@@ -835,7 +835,7 @@ Select.CANCEL
 Select.dosomething
 {
 	
-	"\0\b%(default)2Do you want something?\n\n[half]"
+	"\0\b2%(default)Do you want something?\n\n[half]"
 	//}
 	//Zarla : 
 	//I mentioned this above in MenuRun, but you can have a set of multiple different responses that may randomly appear when the menu is opened if you offset them from the rest with the -- dashes below this note. Try opening this menu yourself with the template to see how it works. The character will randomly choose one line as the intro. 
@@ -1029,7 +1029,7 @@ IncreaseAffection
 
 Select.UserDescript
 {
-	"\n\n\i[2001]- Your name : %(username)\n- Your birthday : "
+	"\i[2001]- Your name : %(username)\n- Your birthday : "
 	--
 	if bornmonthprint == "" || borndayprint == ""
 	{
@@ -1410,7 +1410,7 @@ Select.givefood : nonoverlap
 {
 	"\i[2001]"
 	--
-	"(You give them some %(food).)"
+	"(You give them %(food).)"
 	"(You hold %(food) out to them.)"
 	"(You give them %(food) to eat.)"
 	
