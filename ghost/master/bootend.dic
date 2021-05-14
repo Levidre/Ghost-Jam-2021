@@ -89,7 +89,7 @@ OnResetVariables
 	useraffection = 0 //Levidre : The affective feelings between the ghost and the user
 	whymustyoudothis = 0
 	--
-	"The relationship has now been reset. \w9Good luck, \w7user.\e"
+	"The relationship has now been reset. \w9Good luck, \w7%(username).\e"
 }
 
 //Levidre : those choices are the pronouns the ghost will use for you
