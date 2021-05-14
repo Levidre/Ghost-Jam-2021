@@ -315,7 +315,7 @@ TalkConfig
 	--
 
 	"\![*]\q[Enable Uninstall,deleteonoff] \n        \f[italic,true](currently %(deleteshitai))\f[italic,false]\n/
-	\![*]\q[Reset the relationship,ResetRelation]\n        \f[italic,true](WARNING: cannot be undone)\f[italic,false]\n/
+	\![*]\q[Reset the relationship,OnResetRelation]\n        \f[italic,true](WARNING: cannot be undone)\f[italic,false]\n/
 	\![*]\q[Enable the tests,enabletest]\n\n[half]/
 	\![*]\q[Back to the menu,BACKTOMENU]"
 	--
@@ -1063,6 +1063,11 @@ Select.actmenu
 		"\![*]\q[Taunt them,taunt]\n"
 	}
 	--
+	if nbpunched >= 1
+	{
+		"\![*]\q[Apologize,apologize]\n"
+	}
+	--
 	"\![*]\q[Accuse them,accuse]\n\n[half]"
 	--
 	"\![*]\q[Nothing,BACKTOMENU]"
@@ -1152,7 +1157,7 @@ Select.flatter : nonoverlap
 	if whymustyoudothis >= 30
 	{
 		"\n\n[half]%(determined)Why would I listen to you?"
-		"\n\n[half%(determined)]Why would I trust you?"
+		"\n\n[half]%(determined)Why would I trust you?"
 		"\n\i(They didn't listen.)"
 		"\n(They didn't react.)"
 	}
@@ -1224,6 +1229,47 @@ Select.insult : nonoverlap
 	"\n\n[half]%(mad)... rude."
 	"\n%(scared)\i[2001](It made them sad.)"
 	"\n%(mad)\i[2001](They look unhappy.)"
+	--
+	"\n\n[half]\![*]\q[Do something else,actmenu]\n\![*]\q[Nevermind,CANCEL]"
+}
+
+Select.apologize : nonoverlap
+{
+	if nbpunched >= 30
+	{
+		"(Don't bother. \w9It's useless enough as it is.)"
+		"(It doesn't seem to hear you.)"
+		"(It doesn't deserve any apologies.)"
+		"%(determined)(... It doesn't say anything.)"
+		"(It's already too late for such a thing.)"
+		"%(determined)(Why would you care? \w8It's just another toy, \w5after all.)"
+	}
+	elseif nbpunched >= 10
+	{
+		"%(mad)Why would I listen to you of all people? \w8I don't care."
+		"(They don't seem to be listening. \w9Or maybe they are. \w9You'll never know.)"
+		"%(mad)Don't try. \w9You could've stopped, \w6yet you didn't."
+		"%(mad)(... They look mad.)"
+	}
+	elseif nbpunched >= 5
+	{
+		"%(determined)(They stare at you. \w7You feel slightly guilty.)"
+		"%(mad)... There's no way you could 'accidentally' hit me %(nbpunched) times in a row."
+		"%(determined)(They don't seem to care.)"
+	}
+	else
+	{
+		"%(think)"
+		"%(mad)"
+		--
+		"Fine.. \w7just this time."
+		"Okay.. \w8hopefully that was an accident."
+		"Apology accepted."
+		"(They seem to have forgiven you for such an ungracious action.)"
+		"(What a pity, \w8accidentally hitting them. \w9Luckily, \w6they seem satisfied with your apology.)"
+		--
+		nbpunched -= 1
+	}
 	--
 	"\n\n[half]\![*]\q[Do something else,actmenu]\n\![*]\q[Nevermind,CANCEL]"
 }
