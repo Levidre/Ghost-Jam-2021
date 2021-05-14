@@ -3,7 +3,7 @@ install,581461198
 homeurl_found,1
 surfacecount,63
 homeurl,https://raw.githubusercontent.com/levidre/Ghost-Jam-2021/master/
-update_result,OK(0)
+update_result,NG(404:among_us.zip)
 firstboot,581461462
-commitmemorysize,1662493
-lastboot,673041956
+commitmemorysize,1671991
+lastboot,674334726
