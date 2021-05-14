@@ -315,7 +315,7 @@ TalkConfig
 	--
 
 	"\![*]\q[Enable Uninstall,deleteonoff] \n        \f[italic,true](currently %(deleteshitai))\f[italic,false]\n/
-	\![*]\q[Reset the relationship,OnResetRelation]\n        \f[italic,true](WARNING: cannot be undone)\f[italic,false]\n/
+	\![*]\q[Reset the relationship,OnResetVariables]\n        \f[italic,true](WARNING: cannot be undone)\f[italic,false]\n/
 	\![*]\q[Enable the tests,enabletest]\n\n[half]/
 	\![*]\q[Back to the menu,BACKTOMENU]"
 	--
